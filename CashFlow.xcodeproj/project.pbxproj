@@ -9,7 +9,11 @@
 /* Begin PBXBuildFile section */
 		1B14B9A22B1A784F005BA20E /* ApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14B9A12B1A784F005BA20E /* ApplePay.swift */; };
 		1B14B9A42B1A7970005BA20E /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */; };
-		1B40255C2B8E4D5D0071E89D /* CashFlow.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B40255A2B8E4D5D0071E89D /* CashFlow.xcdatamodeld */; };
+		1B643AD12B8F908700014153 /* ExpenseModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B643ACF2B8F908700014153 /* ExpenseModel.xcdatamodeld */; };
+		1B643AD32B8F915C00014153 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643AD22B8F915C00014153 /* DataController.swift */; };
+		1B643AD72B8F971F00014153 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643AD62B8F971F00014153 /* AddExpenseView.swift */; };
+		1B643AD92B8F9FB500014153 /* TimeFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643AD82B8F9FB500014153 /* TimeFormatting.swift */; };
+		1B643ADB2B8FB1E500014153 /* EditExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643ADA2B8FB1E500014153 /* EditExpenseView.swift */; };
 		1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */; };
 		1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */; };
 		1BDFE6E42B0E32B2003E45E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E32B0E32B2003E45E1 /* Assets.xcassets */; };
@@ -45,7 +49,11 @@
 /* Begin PBXFileReference section */
 		1B14B9A12B1A784F005BA20E /* ApplePay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePay.swift; sourceTree = "<group>"; };
 		1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
-		1B40255B2B8E4D5D0071E89D /* CashFlow.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CashFlow.xcdatamodel; sourceTree = "<group>"; };
+		1B643AD02B8F908700014153 /* ExpenseModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExpenseModel.xcdatamodel; sourceTree = "<group>"; };
+		1B643AD22B8F915C00014153 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		1B643AD62B8F971F00014153 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
+		1B643AD82B8F9FB500014153 /* TimeFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatting.swift; sourceTree = "<group>"; };
+		1B643ADA2B8FB1E500014153 /* EditExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseView.swift; sourceTree = "<group>"; };
 		1BDFE6DC2B0E32B0003E45E1 /* CashFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowApp.swift; sourceTree = "<group>"; };
 		1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -89,10 +97,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B643ACE2B8F906000014153 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				1B643ACF2B8F908700014153 /* ExpenseModel.xcdatamodeld */,
+				1B643AD22B8F915C00014153 /* DataController.swift */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		1B643AD42B8F96C900014153 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */,
+				1B643AD62B8F971F00014153 /* AddExpenseView.swift */,
+				1B643ADA2B8FB1E500014153 /* EditExpenseView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1B643AD52B8F96E300014153 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1B643AD82B8F9FB500014153 /* TimeFormatting.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		1BDFE6D32B0E32B0003E45E1 = {
 			isa = PBXGroup;
 			children = (
-				1B40255A2B8E4D5D0071E89D /* CashFlow.xcdatamodeld */,
 				1BDFE6DE2B0E32B0003E45E1 /* CashFlow */,
 				1BDFE6EF2B0E32B2003E45E1 /* CashFlowTests */,
 				1BDFE6F92B0E32B2003E45E1 /* CashFlowUITests */,
@@ -113,14 +147,16 @@
 		1BDFE6DE2B0E32B0003E45E1 /* CashFlow */ = {
 			isa = PBXGroup;
 			children = (
-				1BDFE7092B0E6D91003E45E1 /* Main.swift */,
 				1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */,
-				1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */,
+				1B643AD52B8F96E300014153 /* Helpers */,
+				1B643AD42B8F96C900014153 /* Views */,
+				1BDFE7092B0E6D91003E45E1 /* Main.swift */,
 				1BDFE70B2B0F5567003E45E1 /* ListOfExpenses.swift */,
 				1BDFE70D2B0F572D003E45E1 /* AddExpense.swift */,
 				1BDFE70F2B0F671C003E45E1 /* AddCategory.swift */,
 				1BDFE7112B0F9AD8003E45E1 /* Settings.swift */,
 				1BDFE7132B10A4F2003E45E1 /* Registration.swift */,
+				1B643ACE2B8F906000014153 /* DataModel */,
 				1BDFE6E32B0E32B2003E45E1 /* Assets.xcassets */,
 				1BDFE6E52B0E32B2003E45E1 /* Preview Content */,
 				1B14B9A12B1A784F005BA20E /* ApplePay.swift */,
@@ -284,16 +320,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B643AD72B8F971F00014153 /* AddExpenseView.swift in Sources */,
+				1B643AD92B8F9FB500014153 /* TimeFormatting.swift in Sources */,
 				1BDFE7142B10A4F2003E45E1 /* Registration.swift in Sources */,
 				1B14B9A42B1A7970005BA20E /* PaymentViewModel.swift in Sources */,
 				1B14B9A22B1A784F005BA20E /* ApplePay.swift in Sources */,
-				1B40255C2B8E4D5D0071E89D /* CashFlow.xcdatamodeld in Sources */,
 				1BDFE70E2B0F572D003E45E1 /* AddExpense.swift in Sources */,
 				1BDFE70C2B0F5567003E45E1 /* ListOfExpenses.swift in Sources */,
 				1BDFE70A2B0E6D91003E45E1 /* Main.swift in Sources */,
 				1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */,
 				1BDFE7122B0F9AD8003E45E1 /* Settings.swift in Sources */,
 				1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */,
+				1B643ADB2B8FB1E500014153 /* EditExpenseView.swift in Sources */,
+				1B643AD12B8F908700014153 /* ExpenseModel.xcdatamodeld in Sources */,
+				1B643AD32B8F915C00014153 /* DataController.swift in Sources */,
 				1BDFE7102B0F671C003E45E1 /* AddCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -632,13 +672,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		1B40255A2B8E4D5D0071E89D /* CashFlow.xcdatamodeld */ = {
+		1B643ACF2B8F908700014153 /* ExpenseModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				1B40255B2B8E4D5D0071E89D /* CashFlow.xcdatamodel */,
+				1B643AD02B8F908700014153 /* ExpenseModel.xcdatamodel */,
 			);
-			currentVersion = 1B40255B2B8E4D5D0071E89D /* CashFlow.xcdatamodel */;
-			path = CashFlow.xcdatamodeld;
+			currentVersion = 1B643AD02B8F908700014153 /* ExpenseModel.xcdatamodel */;
+			path = ExpenseModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

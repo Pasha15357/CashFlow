@@ -14,7 +14,6 @@ struct CashFlowApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(CreatureZoo())
                 .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }

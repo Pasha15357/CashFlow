@@ -104,11 +104,9 @@ struct SectionView: View {
                     .frame(width: 160, alignment: .leading)
                     .foregroundColor(.white)
                 Spacer()
-                Image(section.logo)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 40, height: 40)
+                
             }
+            Spacer()
             Text(section.text.uppercased())
                 .frame(maxWidth: .infinity, alignment: .leading)
             section.image
@@ -116,6 +114,7 @@ struct SectionView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100)
                 .padding()
+            
         }
         .padding(.top, 20)
         .padding(.horizontal, 20)
@@ -130,13 +129,12 @@ struct Section1 : Identifiable {
     var id = UUID()
     var title: String
     var text: String
-    var logo: String
     var image: Image
     var color: Color
 }
 
 let sectionData = [
-    Section1(title: "Как правильно экономить", text: "10 советов", logo: "swift-logo", image: Image("Coin"), color: Color(.green)),
-    Section1(title: "Где и как лучше хранить деньги", text: "5 рекомендаций", logo: "swift-logo", image: Image("PiggyBank"), color: Color(.red)),
-    Section1(title: "Наличные или банковский счет?", text: "Где лучше хранить сбережения", logo: "swift-logo", image: Image("CashCoin"), color: Color(.blue))
+    Section1(title: "Как правильно экономить", text: "10 советов", image: Image("Coin"), color: Color(.green)),
+    Section1(title: "Где и как лучше хранить деньги", text: "5 рекомендаций", image: Image("PiggyBank"), color: Color(.red)),
+    Section1(title: "Наличные или банковский счет?", text: "Где лучше хранить сбережения", image: Image("CashCoin"), color: Color(.blue))
 ]
