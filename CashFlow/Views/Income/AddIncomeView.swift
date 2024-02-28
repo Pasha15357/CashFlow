@@ -8,8 +8,41 @@
 import SwiftUI
 
 struct AddIncomeView: View {
+    @Environment(\.managedObjectContext) var managedObjContext
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var name = ""
+    @State private var amount: Double = 0
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            Section {
+                TextField("Название", text: $name)
+//                Picker("Тип", selection: $type) {
+//                    ForEach(Self.types, id: \.self) {
+//                        Text($0)
+//                    }
+//                }
+//                Picker("Категория", selection: $selectedCategory) {
+//                    ForEach(categories, id: \.name) { category in
+//                        Text(category.name).tag(category.name)
+//                    }
+//                }
+                TextField("Стоимость", value: $amount, formatter: NumberFormatter())
+                    .keyboardType(.numberPad)
+                
+                HStack {
+                    Spacer()
+                    Button ("Сохранить"){
+                        DataController().addIncome(name: name, amount: amount, context: managedObjContext)
+                        dismiss()
+                    }
+                    
+                    Spacer()
+                }
+            }
+        }
     }
 }
 

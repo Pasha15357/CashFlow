@@ -14,19 +14,17 @@
 		1B643AD72B8F971F00014153 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643AD62B8F971F00014153 /* AddExpenseView.swift */; };
 		1B643AD92B8F9FB500014153 /* TimeFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643AD82B8F9FB500014153 /* TimeFormatting.swift */; };
 		1B643ADB2B8FB1E500014153 /* EditExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643ADA2B8FB1E500014153 /* EditExpenseView.swift */; };
+		1B643AE02B8FDA8F00014153 /* ListOfIncomes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643ADF2B8FDA8F00014153 /* ListOfIncomes.swift */; };
 		1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */; };
 		1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */; };
 		1BDFE6E42B0E32B2003E45E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E32B0E32B2003E45E1 /* Assets.xcassets */; };
-		1BDFE6E72B0E32B2003E45E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E62B0E32B2003E45E1 /* Preview Assets.xcassets */; };
-		1BDFE6F12B0E32B2003E45E1 /* CashFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6F02B0E32B2003E45E1 /* CashFlowTests.swift */; };
-		1BDFE6FB2B0E32B2003E45E1 /* CashFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6FA2B0E32B2003E45E1 /* CashFlowUITests.swift */; };
-		1BDFE6FD2B0E32B2003E45E1 /* CashFlowUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6FC2B0E32B2003E45E1 /* CashFlowUITestsLaunchTests.swift */; };
 		1BDFE70A2B0E6D91003E45E1 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE7092B0E6D91003E45E1 /* Main.swift */; };
 		1BDFE70C2B0F5567003E45E1 /* ListOfExpenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE70B2B0F5567003E45E1 /* ListOfExpenses.swift */; };
-		1BDFE70E2B0F572D003E45E1 /* AddExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE70D2B0F572D003E45E1 /* AddExpense.swift */; };
 		1BDFE7102B0F671C003E45E1 /* AddCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE70F2B0F671C003E45E1 /* AddCategory.swift */; };
 		1BDFE7122B0F9AD8003E45E1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE7112B0F9AD8003E45E1 /* Settings.swift */; };
 		1BDFE7142B10A4F2003E45E1 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE7132B10A4F2003E45E1 /* Registration.swift */; };
+		1BF032D12B8FEA4700B869B9 /* EditIncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF032D02B8FEA4700B869B9 /* EditIncomeView.swift */; };
+		1BF032D52B8FEC0900B869B9 /* AddIncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF032D42B8FEC0900B869B9 /* AddIncomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,22 +52,20 @@
 		1B643AD62B8F971F00014153 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 		1B643AD82B8F9FB500014153 /* TimeFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatting.swift; sourceTree = "<group>"; };
 		1B643ADA2B8FB1E500014153 /* EditExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseView.swift; sourceTree = "<group>"; };
+		1B643ADF2B8FDA8F00014153 /* ListOfIncomes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfIncomes.swift; sourceTree = "<group>"; };
 		1BDFE6DC2B0E32B0003E45E1 /* CashFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowApp.swift; sourceTree = "<group>"; };
 		1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1BDFE6E32B0E32B2003E45E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1BDFE6E62B0E32B2003E45E1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1BDFE6EC2B0E32B2003E45E1 /* CashFlowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CashFlowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1BDFE6F02B0E32B2003E45E1 /* CashFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowTests.swift; sourceTree = "<group>"; };
 		1BDFE6F62B0E32B2003E45E1 /* CashFlowUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CashFlowUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1BDFE6FA2B0E32B2003E45E1 /* CashFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowUITests.swift; sourceTree = "<group>"; };
-		1BDFE6FC2B0E32B2003E45E1 /* CashFlowUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1BDFE7092B0E6D91003E45E1 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		1BDFE70B2B0F5567003E45E1 /* ListOfExpenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfExpenses.swift; sourceTree = "<group>"; };
-		1BDFE70D2B0F572D003E45E1 /* AddExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpense.swift; sourceTree = "<group>"; };
 		1BDFE70F2B0F671C003E45E1 /* AddCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategory.swift; sourceTree = "<group>"; };
 		1BDFE7112B0F9AD8003E45E1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		1BDFE7132B10A4F2003E45E1 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
+		1BF032D02B8FEA4700B869B9 /* EditIncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIncomeView.swift; sourceTree = "<group>"; };
+		1BF032D42B8FEC0900B869B9 /* AddIncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIncomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,9 +105,15 @@
 		1B643AD42B8F96C900014153 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1BF032D32B8FEBDF00B869B9 /* Expense */,
+				1BF032D22B8FEBCE00B869B9 /* Income */,
 				1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */,
-				1B643AD62B8F971F00014153 /* AddExpenseView.swift */,
-				1B643ADA2B8FB1E500014153 /* EditExpenseView.swift */,
+				1BDFE7092B0E6D91003E45E1 /* Main.swift */,
+				1BDFE70F2B0F671C003E45E1 /* AddCategory.swift */,
+				1BDFE7112B0F9AD8003E45E1 /* Settings.swift */,
+				1BDFE7132B10A4F2003E45E1 /* Registration.swift */,
+				1B14B9A12B1A784F005BA20E /* ApplePay.swift */,
+				1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -128,8 +130,6 @@
 			isa = PBXGroup;
 			children = (
 				1BDFE6DE2B0E32B0003E45E1 /* CashFlow */,
-				1BDFE6EF2B0E32B2003E45E1 /* CashFlowTests */,
-				1BDFE6F92B0E32B2003E45E1 /* CashFlowUITests */,
 				1BDFE6DD2B0E32B0003E45E1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -150,44 +150,38 @@
 				1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */,
 				1B643AD52B8F96E300014153 /* Helpers */,
 				1B643AD42B8F96C900014153 /* Views */,
-				1BDFE7092B0E6D91003E45E1 /* Main.swift */,
-				1BDFE70B2B0F5567003E45E1 /* ListOfExpenses.swift */,
-				1BDFE70D2B0F572D003E45E1 /* AddExpense.swift */,
-				1BDFE70F2B0F671C003E45E1 /* AddCategory.swift */,
-				1BDFE7112B0F9AD8003E45E1 /* Settings.swift */,
-				1BDFE7132B10A4F2003E45E1 /* Registration.swift */,
 				1B643ACE2B8F906000014153 /* DataModel */,
 				1BDFE6E32B0E32B2003E45E1 /* Assets.xcassets */,
-				1BDFE6E52B0E32B2003E45E1 /* Preview Content */,
-				1B14B9A12B1A784F005BA20E /* ApplePay.swift */,
-				1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */,
+				1BF032CF2B8FE6A300B869B9 /* Preview Content */,
 			);
 			path = CashFlow;
 			sourceTree = "<group>";
 		};
-		1BDFE6E52B0E32B2003E45E1 /* Preview Content */ = {
+		1BF032CF2B8FE6A300B869B9 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				1BDFE6E62B0E32B2003E45E1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		1BDFE6EF2B0E32B2003E45E1 /* CashFlowTests */ = {
+		1BF032D22B8FEBCE00B869B9 /* Income */ = {
 			isa = PBXGroup;
 			children = (
-				1BDFE6F02B0E32B2003E45E1 /* CashFlowTests.swift */,
+				1B643ADF2B8FDA8F00014153 /* ListOfIncomes.swift */,
+				1BF032D02B8FEA4700B869B9 /* EditIncomeView.swift */,
+				1BF032D42B8FEC0900B869B9 /* AddIncomeView.swift */,
 			);
-			path = CashFlowTests;
+			path = Income;
 			sourceTree = "<group>";
 		};
-		1BDFE6F92B0E32B2003E45E1 /* CashFlowUITests */ = {
+		1BF032D32B8FEBDF00B869B9 /* Expense */ = {
 			isa = PBXGroup;
 			children = (
-				1BDFE6FA2B0E32B2003E45E1 /* CashFlowUITests.swift */,
-				1BDFE6FC2B0E32B2003E45E1 /* CashFlowUITestsLaunchTests.swift */,
+				1BDFE70B2B0F5567003E45E1 /* ListOfExpenses.swift */,
+				1B643ADA2B8FB1E500014153 /* EditExpenseView.swift */,
+				1B643AD62B8F971F00014153 /* AddExpenseView.swift */,
 			);
-			path = CashFlowUITests;
+			path = Expense;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,7 +288,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BDFE6E72B0E32B2003E45E1 /* Preview Assets.xcassets in Resources */,
 				1BDFE6E42B0E32B2003E45E1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,16 +318,18 @@
 				1BDFE7142B10A4F2003E45E1 /* Registration.swift in Sources */,
 				1B14B9A42B1A7970005BA20E /* PaymentViewModel.swift in Sources */,
 				1B14B9A22B1A784F005BA20E /* ApplePay.swift in Sources */,
-				1BDFE70E2B0F572D003E45E1 /* AddExpense.swift in Sources */,
 				1BDFE70C2B0F5567003E45E1 /* ListOfExpenses.swift in Sources */,
 				1BDFE70A2B0E6D91003E45E1 /* Main.swift in Sources */,
 				1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */,
 				1BDFE7122B0F9AD8003E45E1 /* Settings.swift in Sources */,
 				1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */,
 				1B643ADB2B8FB1E500014153 /* EditExpenseView.swift in Sources */,
+				1BF032D12B8FEA4700B869B9 /* EditIncomeView.swift in Sources */,
 				1B643AD12B8F908700014153 /* ExpenseModel.xcdatamodeld in Sources */,
+				1B643AE02B8FDA8F00014153 /* ListOfIncomes.swift in Sources */,
 				1B643AD32B8F915C00014153 /* DataController.swift in Sources */,
 				1BDFE7102B0F671C003E45E1 /* AddCategory.swift in Sources */,
+				1BF032D52B8FEC0900B869B9 /* AddIncomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,7 +337,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BDFE6F12B0E32B2003E45E1 /* CashFlowTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,8 +344,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BDFE6FD2B0E32B2003E45E1 /* CashFlowUITestsLaunchTests.swift in Sources */,
-				1BDFE6FB2B0E32B2003E45E1 /* CashFlowUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

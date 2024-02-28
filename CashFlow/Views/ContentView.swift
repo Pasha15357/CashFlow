@@ -23,16 +23,22 @@ struct ContentView: View {
                     .tag(1)
                 ListOfExpenses()
                     .tabItem {
-                        Image(systemName: (self.selectedView == 2 ? "list.bullet" : "list.bullet"))
-                        Text("Список")
+                        Image(systemName: (self.selectedView == 2 ? "minus.rectangle" : "minus.rectangle"))
+                        Text("Расходы")
                     }
                     .tag(2)
-                Settings()
+                ListOfIncomes()
                     .tabItem {
-                        Image(systemName: (self.selectedView == 3 ? "gearshape" : "gearshape.fill"))
-                        Text("Настройки")
+                        Image(systemName: (self.selectedView == 3 ? "plus.rectangle" : "plus.rectangle"))
+                        Text("Доходы")
                     }
                     .tag(3)
+                Settings()
+                    .tabItem {
+                        Image(systemName: (self.selectedView == 4 ? "gearshape" : "gearshape.fill"))
+                        Text("Настройки")
+                    }
+                    .tag(4)
                 
             }
         }

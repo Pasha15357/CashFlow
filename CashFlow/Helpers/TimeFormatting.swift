@@ -12,9 +12,9 @@ func calcTimeSince(date: Date) -> String {
     let hours = minutes/60
     let days = hours/24
     
-    if minutes < 120 {
+    if minutes < 60 {
         return "\(minutes) мин назад"
-    } else if minutes >= 120 && hours < 48 {
+    } else if minutes >= 60 && hours < 48 {
         return "\(hours) часов назад"
     } else {
         return "\(days) дней назад"

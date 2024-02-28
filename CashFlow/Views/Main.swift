@@ -7,42 +7,16 @@
 
 import SwiftUI
 
-struct Category: Identifiable{
-    var id = UUID()
-    var name: String
-    var image: String
-}
 
-struct CategoryRow : View {
-    var category : Category
-    var body: some View {
-        HStack (spacing: 15) {
-            Image(systemName: "\(category.image)")
-            Text("\(category.name)")
-        }
-    }
-}
-
-struct CategoryView : View {
-    var category : Category
-    var body: some View {
-        Text("Come and choose a \(category.name)")
-            .font(.largeTitle)
-    }
-}
 
 struct Main: View {
-    @State var categories: [Category] = [
-            Category(name: "Бензин", image: "drop.fill"),
-            Category(name: "Еда", image: "fork.knife"),
-            Category(name: "Спорт", image: "figure.run.circle.fill")
-        ]
+    
 
     
     var body: some View {
         
         NavigationStack {
-            Form {
+            VStack {
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack (spacing: 20) {
@@ -57,36 +31,30 @@ struct Main: View {
                     .padding(30)
                     .padding(.bottom, 30)
                 }
-                
                 .padding(.top, 0)
-                Section(header: Text("Категории")){
-                    ForEach (categories) { category in
-                        NavigationLink(destination: CategoryView(category: category)) {
-                            CategoryRow(category: category)
-                        }
-                        
-                    }
-                    .onMove(perform: move)
-                    .onDelete(perform: delete)
-                    NavigationLink(destination: AddCategory()) {
-                        Text("Добавить категорию..")
-                    }
-                }
+                Spacer()
+//                Section(header: Text("Категории")){
+//                    ForEach (categories) { category in
+//                        NavigationLink(destination: CategoryView(category: category)) {
+//                            CategoryRow(category: category)
+//                        }
+//
+//                    }
+//                    .onMove(perform: move)
+//                    .onDelete(perform: delete)
+//                    NavigationLink(destination: AddCategory()) {
+//                        Text("Добавить категорию..")
+//                    }
+//                }
                 
             }
-            .navigationBarTitle("Главная")
+            .navigationTitle("Главная")
             
         }
         
     }
     
-    func delete(at offsets: IndexSet) {
-        categories.remove(atOffsets: offsets)
-    }
     
-    func move(from source: IndexSet, to destination: Int) {
-        categories.move(fromOffsets: source, toOffset: destination)
-    }
     
 }
 
@@ -116,6 +84,7 @@ struct SectionView: View {
                 .padding()
             
         }
+        
         .padding(.top, 20)
         .padding(.horizontal, 20)
         .frame(width: 275, height: 275)
