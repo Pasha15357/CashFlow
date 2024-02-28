@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct CashFlowApp: App {
+    @StateObject private var dataController = DataController()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(CreatureZoo())
+                .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }

@@ -7,12 +7,68 @@
 
 import SwiftUI
 
+
+
+
 struct AddCategory: View {
+    @State var newCreature : Creature = Creature(name: "", emoji: "")
+    @EnvironmentObject var data : CreatureZoo
+ 
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack(alignment: .leading) {
+            Form {
+                Section("Name") {
+                    TextField("Name", text: $newCreature.name)
+                    
+                }
+                
+                Section("Emoji") {
+                    TextField("Emoji", text: $newCreature.emoji)
+                    
+                }
+                
+                Section("Creature Preview") {
+                    CreatureRow(creature: newCreature)
+                }
+            }
+            .toolbar {
+                ToolbarItem {
+                    Button("Add") {
+                        data.creatures.append(newCreature)
+                        dismiss()
+                        
+                    }
+                }
+            }
+            
+        }
     }
 }
 
 #Preview {
-    AddCategory()
+    NavigationView {
+            AddCategory()
+                .environmentObject(CreatureZoo())
+        }
+}
+
+struct CreatureRow: View {
+    var creature : Creature
+    
+    var body: some View {
+        HStack {
+            Text(creature.name)
+                .font(.title)
+            
+            Spacer()
+            
+            Text(creature.emoji)
+                .frame(minWidth: 125)
+        }
+        
+        
+    }
 }

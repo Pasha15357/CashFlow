@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B14B9A22B1A784F005BA20E /* ApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14B9A12B1A784F005BA20E /* ApplePay.swift */; };
+		1B14B9A42B1A7970005BA20E /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */; };
+		1B40255C2B8E4D5D0071E89D /* CashFlow.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B40255A2B8E4D5D0071E89D /* CashFlow.xcdatamodeld */; };
 		1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */; };
 		1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */; };
 		1BDFE6E42B0E32B2003E45E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E32B0E32B2003E45E1 /* Assets.xcassets */; };
@@ -14,6 +17,12 @@
 		1BDFE6F12B0E32B2003E45E1 /* CashFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6F02B0E32B2003E45E1 /* CashFlowTests.swift */; };
 		1BDFE6FB2B0E32B2003E45E1 /* CashFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6FA2B0E32B2003E45E1 /* CashFlowUITests.swift */; };
 		1BDFE6FD2B0E32B2003E45E1 /* CashFlowUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6FC2B0E32B2003E45E1 /* CashFlowUITestsLaunchTests.swift */; };
+		1BDFE70A2B0E6D91003E45E1 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE7092B0E6D91003E45E1 /* Main.swift */; };
+		1BDFE70C2B0F5567003E45E1 /* ListOfExpenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE70B2B0F5567003E45E1 /* ListOfExpenses.swift */; };
+		1BDFE70E2B0F572D003E45E1 /* AddExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE70D2B0F572D003E45E1 /* AddExpense.swift */; };
+		1BDFE7102B0F671C003E45E1 /* AddCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE70F2B0F671C003E45E1 /* AddCategory.swift */; };
+		1BDFE7122B0F9AD8003E45E1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE7112B0F9AD8003E45E1 /* Settings.swift */; };
+		1BDFE7142B10A4F2003E45E1 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE7132B10A4F2003E45E1 /* Registration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B14B9A12B1A784F005BA20E /* ApplePay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePay.swift; sourceTree = "<group>"; };
+		1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
+		1B40255B2B8E4D5D0071E89D /* CashFlow.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CashFlow.xcdatamodel; sourceTree = "<group>"; };
 		1BDFE6DC2B0E32B0003E45E1 /* CashFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowApp.swift; sourceTree = "<group>"; };
 		1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +56,12 @@
 		1BDFE6F62B0E32B2003E45E1 /* CashFlowUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CashFlowUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BDFE6FA2B0E32B2003E45E1 /* CashFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowUITests.swift; sourceTree = "<group>"; };
 		1BDFE6FC2B0E32B2003E45E1 /* CashFlowUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1BDFE7092B0E6D91003E45E1 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		1BDFE70B2B0F5567003E45E1 /* ListOfExpenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfExpenses.swift; sourceTree = "<group>"; };
+		1BDFE70D2B0F572D003E45E1 /* AddExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpense.swift; sourceTree = "<group>"; };
+		1BDFE70F2B0F671C003E45E1 /* AddCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategory.swift; sourceTree = "<group>"; };
+		1BDFE7112B0F9AD8003E45E1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		1BDFE7132B10A4F2003E45E1 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +92,7 @@
 		1BDFE6D32B0E32B0003E45E1 = {
 			isa = PBXGroup;
 			children = (
+				1B40255A2B8E4D5D0071E89D /* CashFlow.xcdatamodeld */,
 				1BDFE6DE2B0E32B0003E45E1 /* CashFlow */,
 				1BDFE6EF2B0E32B2003E45E1 /* CashFlowTests */,
 				1BDFE6F92B0E32B2003E45E1 /* CashFlowUITests */,
@@ -94,10 +113,18 @@
 		1BDFE6DE2B0E32B0003E45E1 /* CashFlow */ = {
 			isa = PBXGroup;
 			children = (
+				1BDFE7092B0E6D91003E45E1 /* Main.swift */,
 				1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */,
 				1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */,
+				1BDFE70B2B0F5567003E45E1 /* ListOfExpenses.swift */,
+				1BDFE70D2B0F572D003E45E1 /* AddExpense.swift */,
+				1BDFE70F2B0F671C003E45E1 /* AddCategory.swift */,
+				1BDFE7112B0F9AD8003E45E1 /* Settings.swift */,
+				1BDFE7132B10A4F2003E45E1 /* Registration.swift */,
 				1BDFE6E32B0E32B2003E45E1 /* Assets.xcassets */,
 				1BDFE6E52B0E32B2003E45E1 /* Preview Content */,
+				1B14B9A12B1A784F005BA20E /* ApplePay.swift */,
+				1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */,
 			);
 			path = CashFlow;
 			sourceTree = "<group>";
@@ -257,8 +284,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BDFE7142B10A4F2003E45E1 /* Registration.swift in Sources */,
+				1B14B9A42B1A7970005BA20E /* PaymentViewModel.swift in Sources */,
+				1B14B9A22B1A784F005BA20E /* ApplePay.swift in Sources */,
+				1B40255C2B8E4D5D0071E89D /* CashFlow.xcdatamodeld in Sources */,
+				1BDFE70E2B0F572D003E45E1 /* AddExpense.swift in Sources */,
+				1BDFE70C2B0F5567003E45E1 /* ListOfExpenses.swift in Sources */,
+				1BDFE70A2B0E6D91003E45E1 /* Main.swift in Sources */,
 				1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */,
+				1BDFE7122B0F9AD8003E45E1 /* Settings.swift in Sources */,
 				1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */,
+				1BDFE7102B0F671C003E45E1 /* AddCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,11 +461,14 @@
 				DEVELOPMENT_TEAM = 92MJ8LTTDF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -454,11 +493,14 @@
 				DEVELOPMENT_TEAM = 92MJ8LTTDF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -588,6 +630,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1B40255A2B8E4D5D0071E89D /* CashFlow.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1B40255B2B8E4D5D0071E89D /* CashFlow.xcdatamodel */,
+			);
+			currentVersion = 1B40255B2B8E4D5D0071E89D /* CashFlow.xcdatamodel */;
+			path = CashFlow.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1BDFE6D42B0E32B0003E45E1 /* Project object */;
 }
