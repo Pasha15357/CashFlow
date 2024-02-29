@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             TabView(selection: $selectedView){
-                Main()
+                Main(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
                     .tabItem {
                         Image(systemName: (self.selectedView == 1 ? "house" : "house.fill"))
                         Text("Главная")

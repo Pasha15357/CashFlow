@@ -8,11 +8,38 @@
 import SwiftUI
 
 struct EditCategoryView: View {
+    
+    @Environment(\.managedObjectContext) var managedObjContext
+    @Environment(\.dismiss) var dismiss
+    
+    var category : FetchedResults<Category>.Element
+    
+    @State private var name = ""
+    @State private var image = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            Section {
+                TextField("Название", text: $name)
+//                Picker("Категория", selection: $selectedCategory) {
+//                    ForEach(categories, id: \.name) { category in
+//                        Text(category.name).tag(category.name)
+//                    }
+//                }
+                TextField("Картинка", text: $image)
+                
+                HStack {
+                    Spacer()
+                    Button ("Сохранить"){
+                        DataController().editCategory(category: category, name: name, image: image, context: managedObjContext)
+                        dismiss()
+                    }
+                    
+                    Spacer()
+                }
+            }
+        }
     }
 }
 
-#Preview {
-    EditCategoryView()
-}
+

@@ -6,20 +6,23 @@
 //
 
 import SwiftUI
+import Foundation
+import CoreData
 
 
 
 struct Main: View {
+    @Environment(\.managedObjectContext) var managedObjContext
+    @FetchRequest var category: FetchedResults<Category>
     
+    @State private var showingAddView = false
 
     
     var body: some View {
-        
-        NavigationStack {
-            VStack {
-                
+        NavigationView {
+            List {
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack (spacing: 20) {
+                    HStack(spacing: 20) {
                         ForEach(sectionData) { item in
                             GeometryReader { geometry in
                                 SectionView(section: item)
@@ -32,35 +35,52 @@ struct Main: View {
                     .padding(.bottom, 30)
                 }
                 .padding(.top, 0)
-                Spacer()
-//                Section(header: Text("Категории")){
-//                    ForEach (categories) { category in
-//                        NavigationLink(destination: CategoryView(category: category)) {
-//                            CategoryRow(category: category)
-//                        }
-//
-//                    }
-//                    .onMove(perform: move)
-//                    .onDelete(perform: delete)
-//                    NavigationLink(destination: AddCategory()) {
-//                        Text("Добавить категорию..")
-//                    }
-//                }
                 
+                ForEach(category) { category in
+                    NavigationLink(destination: EditCategoryView(category: category)) {
+                        HStack {
+                            HStack(spacing: 6) {
+                                Image(systemName: "\(category.image!)")
+                                Text(category.name!)
+                                    .bold()
+                            }
+                        }
+                    }
+                }
+                .onDelete(perform: deleteCategory)
+                HStack {
+                    Spacer()
+                    Button {
+                        showingAddView.toggle()
+                    } label: {
+                        Label("Добавить категорию", systemImage: "plus.circle")
+                    }
+                    Spacer()
+                }
+            }
+            .listStyle(.plain)
+            .sheet(isPresented: $showingAddView) {
+                AddCategory()
             }
             .navigationTitle("Главная")
-            
         }
-        
+
     }
-    
+    private func deleteCategory(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { category[$0] }.forEach(managedObjContext.delete)
+            
+            DataController().save(context: managedObjContext)
+        }
+    }
     
     
 }
 
 #Preview {
-    Main()
+    Main(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
 }
+
 
 struct SectionView: View {
     var section: Section1
@@ -71,12 +91,14 @@ struct SectionView: View {
                     .font(.system(size: 20, weight: .bold))
                     .frame(width: 160, alignment: .leading)
                     .foregroundColor(.white)
+                    .bold()
                 Spacer()
                 
             }
             Spacer()
             Text(section.text.uppercased())
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundColor(.white)
             section.image
                 .resizable()
                 .aspectRatio(contentMode: .fit)

@@ -27,7 +27,7 @@ struct ListOfIncomes: View {
                                     Text(income.name!)
                                         .bold()
                                     
-                                    Text("\(Int(income.amount))") + Text(" рублей").foregroundColor(.red)
+                                    Text("\(Int(income.amount)) рублей").foregroundColor(.green)
                                     
                                 }
                                 Spacer()

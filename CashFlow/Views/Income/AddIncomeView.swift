@@ -19,11 +19,6 @@ struct AddIncomeView: View {
         Form {
             Section {
                 TextField("Название", text: $name)
-//                Picker("Тип", selection: $type) {
-//                    ForEach(Self.types, id: \.self) {
-//                        Text($0)
-//                    }
-//                }
 //                Picker("Категория", selection: $selectedCategory) {
 //                    ForEach(categories, id: \.name) { category in
 //                        Text(category.name).tag(category.name)

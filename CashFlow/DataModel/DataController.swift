@@ -63,4 +63,20 @@ class DataController : ObservableObject {
         
         save(context: context)
     }
+    
+    func addCategory (name:String, image: String, context: NSManagedObjectContext) {
+        let category = Category(context: context)
+        category.id = UUID()
+        category.name = name
+        category.image = image
+        
+        save(context: context)
+    }
+    
+    func editCategory(category: Category, name : String, image : String, context: NSManagedObjectContext) {
+        category.name = name
+        category.image = image
+        
+        save(context: context)
+    }
 }
