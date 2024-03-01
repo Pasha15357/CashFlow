@@ -26,6 +26,11 @@
 		1BF032D12B8FEA4700B869B9 /* EditIncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF032D02B8FEA4700B869B9 /* EditIncomeView.swift */; };
 		1BF032D52B8FEC0900B869B9 /* AddIncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF032D42B8FEC0900B869B9 /* AddIncomeView.swift */; };
 		1BF032D82B8FF04100B869B9 /* EditCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF032D72B8FF04100B869B9 /* EditCategoryView.swift */; };
+		1BF032DA2B907A8D00B869B9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BF032D92B907A8D00B869B9 /* GoogleService-Info.plist */; };
+		1BF032DD2B907C9600B869B9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1BF032DC2B907C9600B869B9 /* FirebaseAnalytics */; };
+		1BF032DF2B907D7000B869B9 /* Registration1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF032DE2B907D7000B869B9 /* Registration1.swift */; };
+		1BF033172B90845000B869B9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1BF033162B90845000B869B9 /* FirebaseAuth */; };
+		1BF033192B90907000B869B9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1BF033182B90907000B869B9 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +73,8 @@
 		1BF032D02B8FEA4700B869B9 /* EditIncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIncomeView.swift; sourceTree = "<group>"; };
 		1BF032D42B8FEC0900B869B9 /* AddIncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIncomeView.swift; sourceTree = "<group>"; };
 		1BF032D72B8FF04100B869B9 /* EditCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryView.swift; sourceTree = "<group>"; };
+		1BF032D92B907A8D00B869B9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1BF032DE2B907D7000B869B9 /* Registration1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration1.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +82,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BF032DD2B907C9600B869B9 /* FirebaseAnalytics in Frameworks */,
+				1BF033172B90845000B869B9 /* FirebaseAuth in Frameworks */,
+				1BF033192B90907000B869B9 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +126,7 @@
 				1BDFE7132B10A4F2003E45E1 /* Registration.swift */,
 				1B14B9A12B1A784F005BA20E /* ApplePay.swift */,
 				1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */,
+				1BF032DE2B907D7000B869B9 /* Registration1.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,6 +165,7 @@
 				1B643AD42B8F96C900014153 /* Views */,
 				1B643ACE2B8F906000014153 /* DataModel */,
 				1BDFE6E32B0E32B2003E45E1 /* Assets.xcassets */,
+				1BF032D92B907A8D00B869B9 /* GoogleService-Info.plist */,
 				1BF032CF2B8FE6A300B869B9 /* Preview Content */,
 			);
 			path = CashFlow;
@@ -211,6 +223,11 @@
 			dependencies = (
 			);
 			name = CashFlow;
+			packageProductDependencies = (
+				1BF032DC2B907C9600B869B9 /* FirebaseAnalytics */,
+				1BF033162B90845000B869B9 /* FirebaseAuth */,
+				1BF033182B90907000B869B9 /* FirebaseFirestore */,
+			);
 			productName = CashFlow;
 			productReference = 1BDFE6DC2B0E32B0003E45E1 /* CashFlow.app */;
 			productType = "com.apple.product-type.application";
@@ -283,6 +300,9 @@
 				Base,
 			);
 			mainGroup = 1BDFE6D32B0E32B0003E45E1;
+			packageReferences = (
+				1BF032DB2B907C9500B869B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 1BDFE6DD2B0E32B0003E45E1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -300,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BDFE6E42B0E32B2003E45E1 /* Assets.xcassets in Resources */,
+				1BF032DA2B907A8D00B869B9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +355,7 @@
 				1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */,
 				1BDFE7122B0F9AD8003E45E1 /* Settings.swift in Sources */,
 				1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */,
+				1BF032DF2B907D7000B869B9 /* Registration1.swift in Sources */,
 				1BF032D82B8FF04100B869B9 /* EditCategoryView.swift in Sources */,
 				1B643ADB2B8FB1E500014153 /* EditExpenseView.swift in Sources */,
 				1BF032D12B8FEA4700B869B9 /* EditIncomeView.swift in Sources */,
@@ -674,6 +696,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1BF032DB2B907C9500B869B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.21.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1BF032DC2B907C9600B869B9 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BF032DB2B907C9500B869B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		1BF033162B90845000B869B9 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BF032DB2B907C9500B869B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		1BF033182B90907000B869B9 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BF032DB2B907C9500B869B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		1B643ACF2B8F908700014153 /* ExpenseModel.xcdatamodeld */ = {

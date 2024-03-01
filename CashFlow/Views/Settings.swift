@@ -11,6 +11,7 @@ struct Settings: View {
     
     @State private var showingAddExpense = false
     
+    @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     
     @AppStorage("isDarkModeOn") private var isDarkModeOn: Bool = false
     
@@ -18,7 +19,7 @@ struct Settings: View {
     static let languages = ["Русский", "English"]
     
     @State private var currency = "Доллар"
-    static let currencies = ["Доллар", "Рубль"]
+    static let currencies = ["Доллар", "Рубль", "Евро"]
     
     var body: some View {
         NavigationView {
@@ -33,8 +34,15 @@ struct Settings: View {
                                 .aspectRatio(contentMode: .fit)
                                 .clipShape(Circle())
                                 .frame(width: 100, height: 100)
-                            Text("Вход")
-                                .font(.largeTitle)
+                            if status{
+                                
+                                Text("Паша")
+                                    .font(.largeTitle)
+                            }
+                            else{
+                                Text("Вход")
+                                    .font(.largeTitle)
+                            }
                         }
                     }
                 }
@@ -71,7 +79,7 @@ struct Settings: View {
             }
             .navigationBarTitle("Настройки")
             .sheet(isPresented: $showingAddExpense) {
-                Registration()
+                Registration1()
             }
         }
         

@@ -34,7 +34,10 @@ struct ListOfExpenses: View {
                                         .bold()
                                     
                                     Text("\(Int(expense.amount))") + Text(" рублей").foregroundColor(.red)
-                                    
+                                    if let category = expense.category {
+                                        Text(expense.category!)
+                                                            .bold()
+                                                    }
                                 }
                                 Spacer()
                                 Text(calcTimeSince(date: expense.date!))

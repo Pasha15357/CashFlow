@@ -28,12 +28,13 @@ class DataController : ObservableObject {
         }
     }
     
-    func addExpense (name:String, amount: Double, context: NSManagedObjectContext) {
+    func addExpense (name:String, category:String, amount: Double, context: NSManagedObjectContext) {
         let expense = Expense(context: context)
         expense.id = UUID()
         expense.date = Date()
         expense.name = name
         expense.amount = amount
+        expense.category = category
         
         save(context: context)
     }

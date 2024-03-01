@@ -14,39 +14,47 @@ struct AddExpenseView: View {
     @State private var name = ""
     @State private var amount: Double = 0
     
+    @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
+    @State private var categoryNames: [String] = [] // Массив имен категорий
+    @State private var selectedCategory: String = ""
+    
+    init() {
+        // Заполнение массива имен категорий из FetchedResults<Category>
+        _categoryNames = State(initialValue: categories.map { $0.name ?? "" })
+        
+        // Печать массива имен категорий для отладки
+        print("Category names:", categoryNames)
+    }
+
     
     var body: some View {
         Form {
             Section {
-                
-                
                 TextField("Название", text: $name)
-//                Picker("Тип", selection: $type) {
-//                    ForEach(Self.types, id: \.self) {
-//                        Text($0)
-//                    }
-//                }
-//                Picker("Категория", selection: $selectedCategory) {
-//                    ForEach(categories, id: \.name) { category in
-//                        Text(category.name).tag(category.name)
-//                    }
-//                }
+                Picker("Выберите категорию", selection: $selectedCategory) {
+                    ForEach(categoryNames, id: \.self) { categoryName in
+                        Text(categoryName)
+                    }
+                }
+                
                 TextField("Стоимость", value: $amount, formatter: NumberFormatter())
                     .keyboardType(.numberPad)
                 
-                HStack {
-                    Spacer()
-                    Button ("Сохранить"){
-                        DataController().addExpense(name: name, amount: amount, context: managedObjContext)
-                        dismiss()
-                    }
-                    
-                    Spacer()
+                Button("Сохранить") {
+                    // Ваш код сохранения
                 }
             }
         }
     }
 }
+
+
+
+
+
+
+
+
 
 #Preview {
     AddExpenseView()
