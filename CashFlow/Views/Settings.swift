@@ -68,11 +68,12 @@ struct Settings: View {
                 }
                 
                 Section {
-                    NavigationLink(destination: ApplePay()) {
-                                        Text("Перейти на другой экран")
-                                            .foregroundColor(.blue)
-                                            .frame(maxWidth: .infinity, alignment: .center)
-                                    }
+                    Button (action : {
+                        
+                    }) {
+                        Text("Выйти").foregroundColor(.red)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center) // Центрируем кнопку
                 }
                 
                 

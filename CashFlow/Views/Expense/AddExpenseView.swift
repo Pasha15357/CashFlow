@@ -10,52 +10,73 @@ import SwiftUI
 struct AddExpenseView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.dismiss) var dismiss
+    @FetchRequest var category: FetchedResults<Category>
     
     @State private var name = ""
     @State private var amount: Double = 0
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
-    @State private var categoryNames: [String] = [] // Массив имен категорий
-    @State private var selectedCategory: String = ""
-    
-    init() {
-        // Заполнение массива имен категорий из FetchedResults<Category>
-        _categoryNames = State(initialValue: categories.map { $0.name ?? "" })
-        
-        // Печать массива имен категорий для отладки
-        print("Category names:", categoryNames)
-    }
+    @State private var selectedCategory: Category?
 
-    
     var body: some View {
-        Form {
-            Section {
-                TextField("Название", text: $name)
-                Picker("Выберите категорию", selection: $selectedCategory) {
-                    ForEach(categoryNames, id: \.self) { categoryName in
-                        Text(categoryName)
+        NavigationView {
+            Form {
+                Section(header: Text("Название расхода")) {
+                    TextField("Леденец", text: $name)
+                }
+                Section(header: Text("Категория расхода"))  {
+                    Menu {
+                        ForEach(category, id: \.self) { cat in
+                            Button(action: {
+                                selectedCategory = cat
+                            }) {
+                                Image(systemName: "\(cat.image!)")
+                                Text(cat.name ?? "")
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "\(selectedCategory?.image ?? "")")
+                        Text(selectedCategory?.name ?? "Выберите категорию")
                     }
                 }
                 
-                TextField("Стоимость", value: $amount, formatter: NumberFormatter())
-                    .keyboardType(.numberPad)
+                Section(header: Text("Сумма расхода")) {
+                    TextField("Стоимость", value: $amount, formatter: NumberFormatter())
+                        .keyboardType(.numberPad)
+                }
                 
                 Button("Сохранить") {
-                    // Ваш код сохранения
+                    if let selectedCategory = selectedCategory {
+                        DataController().addExpense(name: name, category: selectedCategory.name ?? "", amount: amount, context: managedObjContext)
+                        dismiss()
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .center) // Центрируем кнопку
+                
+            }
+            .navigationTitle("Добавить расход")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button (action: {
+                        dismiss()
+                    }) {
+                        Text("Отменить")
+                    }
+                }
+            }
+            .onAppear {
+                // Убеждаемся, что есть хотя бы одна категория в списке, прежде чем выбрать первую
+                if let firstCategory = category.first {
+                    selectedCategory = firstCategory
                 }
             }
         }
+        
     }
 }
 
 
 
-
-
-
-
-
-
 #Preview {
-    AddExpenseView()
+    AddExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
 }

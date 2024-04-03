@@ -15,6 +15,9 @@
 		1B643AD92B8F9FB500014153 /* TimeFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643AD82B8F9FB500014153 /* TimeFormatting.swift */; };
 		1B643ADB2B8FB1E500014153 /* EditExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643ADA2B8FB1E500014153 /* EditExpenseView.swift */; };
 		1B643AE02B8FDA8F00014153 /* ListOfIncomes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643ADF2B8FDA8F00014153 /* ListOfIncomes.swift */; };
+		1B67E4792BBC7F0F00D88D8F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1B67E4782BBC7F0F00D88D8F /* FirebaseAuth */; };
+		1B67E47B2BBC7F0F00D88D8F /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1B67E47A2BBC7F0F00D88D8F /* FirebaseDatabase */; };
+		1B67E47D2BBC7F0F00D88D8F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1B67E47C2BBC7F0F00D88D8F /* FirebaseFirestore */; };
 		1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */; };
 		1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */; };
 		1BDFE6E42B0E32B2003E45E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E32B0E32B2003E45E1 /* Assets.xcassets */; };
@@ -27,28 +30,8 @@
 		1BF032D52B8FEC0900B869B9 /* AddIncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF032D42B8FEC0900B869B9 /* AddIncomeView.swift */; };
 		1BF032D82B8FF04100B869B9 /* EditCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF032D72B8FF04100B869B9 /* EditCategoryView.swift */; };
 		1BF032DA2B907A8D00B869B9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BF032D92B907A8D00B869B9 /* GoogleService-Info.plist */; };
-		1BF032DD2B907C9600B869B9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1BF032DC2B907C9600B869B9 /* FirebaseAnalytics */; };
 		1BF032DF2B907D7000B869B9 /* Registration1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF032DE2B907D7000B869B9 /* Registration1.swift */; };
-		1BF033172B90845000B869B9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1BF033162B90845000B869B9 /* FirebaseAuth */; };
-		1BF033192B90907000B869B9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1BF033182B90907000B869B9 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		1BDFE6ED2B0E32B2003E45E1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1BDFE6D42B0E32B0003E45E1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1BDFE6DB2B0E32B0003E45E1;
-			remoteInfo = CashFlow;
-		};
-		1BDFE6F72B0E32B2003E45E1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1BDFE6D42B0E32B0003E45E1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1BDFE6DB2B0E32B0003E45E1;
-			remoteInfo = CashFlow;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1B14B9A12B1A784F005BA20E /* ApplePay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePay.swift; sourceTree = "<group>"; };
@@ -63,8 +46,6 @@
 		1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowApp.swift; sourceTree = "<group>"; };
 		1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1BDFE6E32B0E32B2003E45E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1BDFE6EC2B0E32B2003E45E1 /* CashFlowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CashFlowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1BDFE6F62B0E32B2003E45E1 /* CashFlowUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CashFlowUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BDFE7092B0E6D91003E45E1 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		1BDFE70B2B0F5567003E45E1 /* ListOfExpenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfExpenses.swift; sourceTree = "<group>"; };
 		1BDFE70F2B0F671C003E45E1 /* AddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
@@ -75,6 +56,7 @@
 		1BF032D72B8FF04100B869B9 /* EditCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryView.swift; sourceTree = "<group>"; };
 		1BF032D92B907A8D00B869B9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1BF032DE2B907D7000B869B9 /* Registration1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration1.swift; sourceTree = "<group>"; };
+		1BF0331C2B94F46E00B869B9 /* ExpenseModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ExpenseModel 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,23 +64,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BF032DD2B907C9600B869B9 /* FirebaseAnalytics in Frameworks */,
-				1BF033172B90845000B869B9 /* FirebaseAuth in Frameworks */,
-				1BF033192B90907000B869B9 /* FirebaseFirestore in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1BDFE6E92B0E32B2003E45E1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1BDFE6F32B0E32B2003E45E1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				1B67E47B2BBC7F0F00D88D8F /* FirebaseDatabase in Frameworks */,
+				1B67E4792BBC7F0F00D88D8F /* FirebaseAuth in Frameworks */,
+				1B67E47D2BBC7F0F00D88D8F /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,8 +119,6 @@
 			isa = PBXGroup;
 			children = (
 				1BDFE6DC2B0E32B0003E45E1 /* CashFlow.app */,
-				1BDFE6EC2B0E32B2003E45E1 /* CashFlowTests.xctest */,
-				1BDFE6F62B0E32B2003E45E1 /* CashFlowUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -224,49 +190,13 @@
 			);
 			name = CashFlow;
 			packageProductDependencies = (
-				1BF032DC2B907C9600B869B9 /* FirebaseAnalytics */,
-				1BF033162B90845000B869B9 /* FirebaseAuth */,
-				1BF033182B90907000B869B9 /* FirebaseFirestore */,
+				1B67E4782BBC7F0F00D88D8F /* FirebaseAuth */,
+				1B67E47A2BBC7F0F00D88D8F /* FirebaseDatabase */,
+				1B67E47C2BBC7F0F00D88D8F /* FirebaseFirestore */,
 			);
 			productName = CashFlow;
 			productReference = 1BDFE6DC2B0E32B0003E45E1 /* CashFlow.app */;
 			productType = "com.apple.product-type.application";
-		};
-		1BDFE6EB2B0E32B2003E45E1 /* CashFlowTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1BDFE7032B0E32B2003E45E1 /* Build configuration list for PBXNativeTarget "CashFlowTests" */;
-			buildPhases = (
-				1BDFE6E82B0E32B2003E45E1 /* Sources */,
-				1BDFE6E92B0E32B2003E45E1 /* Frameworks */,
-				1BDFE6EA2B0E32B2003E45E1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1BDFE6EE2B0E32B2003E45E1 /* PBXTargetDependency */,
-			);
-			name = CashFlowTests;
-			productName = CashFlowTests;
-			productReference = 1BDFE6EC2B0E32B2003E45E1 /* CashFlowTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		1BDFE6F52B0E32B2003E45E1 /* CashFlowUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1BDFE7062B0E32B2003E45E1 /* Build configuration list for PBXNativeTarget "CashFlowUITests" */;
-			buildPhases = (
-				1BDFE6F22B0E32B2003E45E1 /* Sources */,
-				1BDFE6F32B0E32B2003E45E1 /* Frameworks */,
-				1BDFE6F42B0E32B2003E45E1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1BDFE6F82B0E32B2003E45E1 /* PBXTargetDependency */,
-			);
-			name = CashFlowUITests;
-			productName = CashFlowUITests;
-			productReference = 1BDFE6F62B0E32B2003E45E1 /* CashFlowUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -281,14 +211,6 @@
 					1BDFE6DB2B0E32B0003E45E1 = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
-					1BDFE6EB2B0E32B2003E45E1 = {
-						CreatedOnToolsVersion = 15.0.1;
-						TestTargetID = 1BDFE6DB2B0E32B0003E45E1;
-					};
-					1BDFE6F52B0E32B2003E45E1 = {
-						CreatedOnToolsVersion = 15.0.1;
-						TestTargetID = 1BDFE6DB2B0E32B0003E45E1;
-					};
 				};
 			};
 			buildConfigurationList = 1BDFE6D72B0E32B0003E45E1 /* Build configuration list for PBXProject "CashFlow" */;
@@ -301,15 +223,13 @@
 			);
 			mainGroup = 1BDFE6D32B0E32B0003E45E1;
 			packageReferences = (
-				1BF032DB2B907C9500B869B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1B67E4772BBC7F0F00D88D8F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 1BDFE6DD2B0E32B0003E45E1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				1BDFE6DB2B0E32B0003E45E1 /* CashFlow */,
-				1BDFE6EB2B0E32B2003E45E1 /* CashFlowTests */,
-				1BDFE6F52B0E32B2003E45E1 /* CashFlowUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -321,20 +241,6 @@
 			files = (
 				1BDFE6E42B0E32B2003E45E1 /* Assets.xcassets in Resources */,
 				1BF032DA2B907A8D00B869B9 /* GoogleService-Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1BDFE6EA2B0E32B2003E45E1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1BDFE6F42B0E32B2003E45E1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,34 +273,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1BDFE6E82B0E32B2003E45E1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1BDFE6F22B0E32B2003E45E1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		1BDFE6EE2B0E32B2003E45E1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1BDFE6DB2B0E32B0003E45E1 /* CashFlow */;
-			targetProxy = 1BDFE6ED2B0E32B2003E45E1 /* PBXContainerItemProxy */;
-		};
-		1BDFE6F82B0E32B2003E45E1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1BDFE6DB2B0E32B0003E45E1 /* CashFlow */;
-			targetProxy = 1BDFE6F72B0E32B2003E45E1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1BDFE6FE2B0E32B2003E45E1 /* Debug */ = {
@@ -449,7 +328,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -506,7 +385,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -580,82 +459,6 @@
 			};
 			name = Release;
 		};
-		1BDFE7042B0E32B2003E45E1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 92MJ8LTTDF;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pashagavrilov.CashFlowTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CashFlow.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CashFlow";
-			};
-			name = Debug;
-		};
-		1BDFE7052B0E32B2003E45E1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 92MJ8LTTDF;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pashagavrilov.CashFlowTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CashFlow.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CashFlow";
-			};
-			name = Release;
-		};
-		1BDFE7072B0E32B2003E45E1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 92MJ8LTTDF;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pashagavrilov.CashFlowUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = CashFlow;
-			};
-			name = Debug;
-		};
-		1BDFE7082B0E32B2003E45E1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 92MJ8LTTDF;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pashagavrilov.CashFlowUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = CashFlow;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -677,51 +480,33 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1BDFE7032B0E32B2003E45E1 /* Build configuration list for PBXNativeTarget "CashFlowTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1BDFE7042B0E32B2003E45E1 /* Debug */,
-				1BDFE7052B0E32B2003E45E1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1BDFE7062B0E32B2003E45E1 /* Build configuration list for PBXNativeTarget "CashFlowUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1BDFE7072B0E32B2003E45E1 /* Debug */,
-				1BDFE7082B0E32B2003E45E1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1BF032DB2B907C9500B869B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		1B67E4772BBC7F0F00D88D8F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.21.0;
+				minimumVersion = 10.23.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1BF032DC2B907C9600B869B9 /* FirebaseAnalytics */ = {
+		1B67E4782BBC7F0F00D88D8F /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1BF032DB2B907C9500B869B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		1BF033162B90845000B869B9 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1BF032DB2B907C9500B869B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 1B67E4772BBC7F0F00D88D8F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		1BF033182B90907000B869B9 /* FirebaseFirestore */ = {
+		1B67E47A2BBC7F0F00D88D8F /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1BF032DB2B907C9500B869B9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 1B67E4772BBC7F0F00D88D8F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		1B67E47C2BBC7F0F00D88D8F /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1B67E4772BBC7F0F00D88D8F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
@@ -730,6 +515,7 @@
 		1B643ACF2B8F908700014153 /* ExpenseModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				1BF0331C2B94F46E00B869B9 /* ExpenseModel 2.xcdatamodel */,
 				1B643AD02B8F908700014153 /* ExpenseModel.xcdatamodel */,
 			);
 			currentVersion = 1B643AD02B8F908700014153 /* ExpenseModel.xcdatamodel */;

@@ -15,7 +15,14 @@ struct Main: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest var category: FetchedResults<Category>
     
-    @State private var showingAddView = false
+    @State private var showingAddView = false   
+    
+    @State private var name = ""
+    @State private var amount: Double = 0
+    
+    @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
+    @State private var categoryNames: [String] = [] // Массив имен категорий
+    @State private var selectedCategory: String = ""
 
     
     var body: some View {
@@ -57,6 +64,7 @@ struct Main: View {
                     }
                     Spacer()
                 }
+                
             }
             .listStyle(.plain)
             .sheet(isPresented: $showingAddView) {

@@ -11,8 +11,6 @@ import CoreData
 
 
 struct ListOfExpenses: View {
-    
-    
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var expense: FetchedResults<Expense>
     
@@ -27,17 +25,16 @@ struct ListOfExpenses: View {
                     .padding(.horizontal)
                 List {
                     ForEach(expense) { expense in
-                        NavigationLink(destination: EditExpenseView(expense: expense)) {
+                        NavigationLink(destination: EditExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), expense: expense)) {
                             HStack {
                                 VStack (alignment: .leading, spacing: 6) {
                                     Text(expense.name!)
                                         .bold()
                                     
-                                    Text("\(Int(expense.amount))") + Text(" рублей").foregroundColor(.red)
-                                    if let category = expense.category {
-                                        Text(expense.category!)
-                                                            .bold()
-                                                    }
+                                    Text("\(Int(expense.amount))  рублей").foregroundColor(.red)
+                                    Text(expense.category!)
+                                        .bold()
+                                                    
                                 }
                                 Spacer()
                                 Text(calcTimeSince(date: expense.date!))
@@ -66,7 +63,7 @@ struct ListOfExpenses: View {
                 }
             }
             .sheet(isPresented: $showingAddView) {
-                AddExpenseView()
+                AddExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
             }
         }
         .navigationViewStyle(.stack)

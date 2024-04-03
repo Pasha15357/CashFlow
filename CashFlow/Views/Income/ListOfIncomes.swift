@@ -21,14 +21,14 @@ struct ListOfIncomes: View {
                     .padding(.horizontal)
                 List {
                     ForEach(income) { income in
-                        NavigationLink(destination: EditIncomeView(income: income)) {
+                        NavigationLink(destination: EditIncomeView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), income: income)) {
                             HStack {
                                 VStack (alignment: .leading, spacing: 6) {
                                     Text(income.name!)
                                         .bold()
-                                    
                                     Text("\(Int(income.amount)) рублей").foregroundColor(.green)
-                                    
+                                    Text(income.category ?? "")
+                                        .bold()
                                 }
                                 Spacer()
                                 Text(calcTimeSince(date: income.date!))
@@ -57,7 +57,7 @@ struct ListOfIncomes: View {
                 }
             }
             .sheet(isPresented: $showingAddView) {
-                AddIncomeView()
+                AddIncomeView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
             }
         }
         .navigationViewStyle(.stack)

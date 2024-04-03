@@ -10,37 +10,65 @@ import SwiftUI
 struct AddIncomeView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.dismiss) var dismiss
+    @FetchRequest var category: FetchedResults<Category>
     
     @State private var name = ""
     @State private var amount: Double = 0
     
+    @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
+    @State private var selectedCategory: Category?
     
     var body: some View {
-        Form {
-            Section {
-                TextField("Название", text: $name)
-//                Picker("Категория", selection: $selectedCategory) {
-//                    ForEach(categories, id: \.name) { category in
-//                        Text(category.name).tag(category.name)
-//                    }
-//                }
-                TextField("Стоимость", value: $amount, formatter: NumberFormatter())
-                    .keyboardType(.numberPad)
+        NavigationView {
+            Form {
+                Section(header: Text("Название дохода")) {
+                    TextField("Зарплата", text: $name)
+                }
+                Section(header: Text("Категория дохода"))  {
+                    Menu {
+                        ForEach(category, id: \.self) { cat in
+                            Button(action: {
+                                selectedCategory = cat
+                            }) {
+                                Image(systemName: "\(cat.image!)")
+                                Text(cat.name ?? "")
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "\(selectedCategory?.image ?? "")")
+                        Text(selectedCategory?.name ?? "Выберите категорию")
+                    }
+                }
                 
-                HStack {
-                    Spacer()
-                    Button ("Сохранить"){
-                        DataController().addIncome(name: name, amount: amount, context: managedObjContext)
+                Section(header: Text("Сумма дохода")) {
+                    TextField("Стоимость", value: $amount, formatter: NumberFormatter())
+                        .keyboardType(.numberPad)
+                }
+                
+                Button("Сохранить") {
+                    if let selectedCategory = selectedCategory {
+                        DataController().addIncome(name: name, category: selectedCategory.name ?? "", amount: amount, context: managedObjContext)
                         dismiss()
                     }
-                    
-                    Spacer()
+                }
+                .frame(maxWidth: .infinity, alignment: .center) // Центрируем кнопку
+                
+            }
+            .navigationTitle("Добавить доход")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button (action: {
+                        dismiss()
+                    }) {
+                        Text("Отменить")
+                    }
                 }
             }
+            
         }
     }
 }
 
 #Preview {
-    AddIncomeView()
+    AddIncomeView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
 }

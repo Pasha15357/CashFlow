@@ -39,28 +39,31 @@ class DataController : ObservableObject {
         save(context: context)
     }
     
-    func editExpense(expense: Expense, name : String, amount : Double, context: NSManagedObjectContext) {
+    func editExpense(expense: Expense, category:String, name : String, amount : Double, context: NSManagedObjectContext) {
         expense.date = Date()
         expense.name = name
         expense.amount = amount
+        expense.category = category
         
         save(context: context)
     }
     
-    func addIncome (name:String, amount: Double, context: NSManagedObjectContext) {
+    func addIncome (name:String, category:String, amount: Double, context: NSManagedObjectContext) {
         let income = Income(context: context)
         income.id = UUID()
         income.date = Date()
         income.name = name
         income.amount = amount
+        income.category = category
         
         save(context: context)
     }
     
-    func editIncome(income: Income, name : String, amount : Double, context: NSManagedObjectContext) {
+    func editIncome(income: Income, category:String, name:String, amount : Double, context: NSManagedObjectContext) {
         income.date = Date()
         income.name = name
         income.amount = amount
+        income.category = category
         
         save(context: context)
     }
