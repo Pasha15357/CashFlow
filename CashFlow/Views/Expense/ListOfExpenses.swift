@@ -31,7 +31,7 @@ struct ListOfExpenses: View {
                                     Text(expense.name!)
                                         .bold()
                                     
-                                    Text("\(Int(expense.amount))  рублей").foregroundColor(.red)
+                                    Text("\(Int(expense.amount)) рублей").foregroundColor(.red)
                                     Text(expense.category!)
                                         .bold()
                                                     

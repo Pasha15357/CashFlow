@@ -18,6 +18,7 @@
 		1B67E4792BBC7F0F00D88D8F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1B67E4782BBC7F0F00D88D8F /* FirebaseAuth */; };
 		1B67E47B2BBC7F0F00D88D8F /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1B67E47A2BBC7F0F00D88D8F /* FirebaseDatabase */; };
 		1B67E47D2BBC7F0F00D88D8F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1B67E47C2BBC7F0F00D88D8F /* FirebaseFirestore */; };
+		1BC3BADC2BBF26C300F1B3D9 /* Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */; };
 		1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */; };
 		1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */; };
 		1BDFE6E42B0E32B2003E45E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E32B0E32B2003E45E1 /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		1B643AD82B8F9FB500014153 /* TimeFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatting.swift; sourceTree = "<group>"; };
 		1B643ADA2B8FB1E500014153 /* EditExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseView.swift; sourceTree = "<group>"; };
 		1B643ADF2B8FDA8F00014153 /* ListOfIncomes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfIncomes.swift; sourceTree = "<group>"; };
+		1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagram.swift; sourceTree = "<group>"; };
 		1BDFE6DC2B0E32B0003E45E1 /* CashFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowApp.swift; sourceTree = "<group>"; };
 		1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				1B14B9A12B1A784F005BA20E /* ApplePay.swift */,
 				1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */,
 				1BF032DE2B907D7000B869B9 /* Registration1.swift */,
+				1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				1BF032DF2B907D7000B869B9 /* Registration1.swift in Sources */,
 				1BF032D82B8FF04100B869B9 /* EditCategoryView.swift in Sources */,
 				1B643ADB2B8FB1E500014153 /* EditExpenseView.swift in Sources */,
+				1BC3BADC2BBF26C300F1B3D9 /* Diagram.swift in Sources */,
 				1BF032D12B8FEA4700B869B9 /* EditIncomeView.swift in Sources */,
 				1B643AD12B8F908700014153 /* ExpenseModel.xcdatamodeld in Sources */,
 				1B643AE02B8FDA8F00014153 /* ListOfIncomes.swift in Sources */,

@@ -33,12 +33,18 @@ struct ContentView: View {
                         Text("Доходы")
                     }
                     .tag(3)
+                Diagram()
+                    .tabItem {
+                        Image(systemName: (self.selectedView == 4 ? "chart.bar.xaxis.ascending" : "chart.bar.xaxis.ascending"))
+                        Text("Статистика")
+                    }
+                    .tag(4)
                 Settings()
                     .tabItem {
                         Image(systemName: (self.selectedView == 4 ? "gearshape" : "gearshape.fill"))
                         Text("Настройки")
                     }
-                    .tag(4)
+                    .tag(5)
                 
             }
         }

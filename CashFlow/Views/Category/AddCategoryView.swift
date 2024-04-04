@@ -1,4 +1,4 @@
-//
+
 //  AddCategory.swift
 //  CashFlow
 //
@@ -23,36 +23,82 @@ struct AddCategory: View {
         ("antenna.radiowaves.left.and.right", "Связь"),
         ("figure.run", "Игры"),
         ("gift", "Подарки"),
+        ("film", "Кино"),
     ] // Массив кортежей с пользовательскими иконками и их названиями
     
-    var body: some View {
-        Form {
-            Section {
-                TextField("Название", text: $name)
-                
-                VStack {
-                    HStack {
-                        Text("Иконка")
-                        Spacer()
-                    }
-                    Picker("Иконка", selection: $selectedIcon) {
-                        ForEach(customIcons, id: \.0) { icon, iconName in
-                            HStack {
-                                
-                                Image(systemName: icon)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 24, height: 24)
-    //                            Text(iconName)
-    //                                .font(.caption)
-                            }
-                            .tag(icon) // Используем иконку в качестве тега
-                        }
-                    }
-                    .pickerStyle(SegmentedPickerStyle()) // Используем сегментированный стиль для Picker
-                }
-                
+    let customIcons1 = [
+        ("heart.fill", "Любовь"),
+        ("book.fill", "Чтение"),
+        ("music.note", "Музыка"),
+        ("film", "Кино"),
+        ("globe", "Путешествия"),
+        ("camera.fill", "Фотография"),
+        ("paintbrush.fill", "Живопись"),
+        ("banknote", "Деньги"),
+    ]
+    
+    let customIcons2 = [
+        ("house.fill", "Дом"),
+        ("car.fill", "Автомобиль"),
+        ("briefcase.fill", "Работа"),
+        ("gamecontroller.fill", "Игры"),
+        ("graduationcap.fill", "Образование"),
+        ("airplane", "Путешествия"),
+        ("cart.fill", "Покупки"),
+        ("gift.fill", "Подарки"),
+    ]
 
+
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Название категории"))  {
+                    TextField("Еда", text: $name)
+                }
+                Section(header: Text("Выберите иконку")) {
+                    VStack {
+                        Picker("Иконка", selection: $selectedIcon) {
+                            ForEach(customIcons, id: \.0) { icon, iconName in
+                                HStack {
+                                    
+                                    Image(systemName: icon)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 24, height: 24)
+                                }
+                                .tag(icon) // Используем иконку в качестве тега
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle()) // Используем сегментированный стиль для Picker
+                        Picker("Иконка", selection: $selectedIcon) {
+                            ForEach(customIcons1, id: \.0) { icon, iconName in
+                                HStack {
+                                    
+                                    Image(systemName: icon)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 24, height: 24)
+                                }
+                                .tag(icon) // Используем иконку в качестве тега
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle()) // Используем сегментированный стиль для Picker
+                        Picker("Иконка", selection: $selectedIcon) {
+                            ForEach(customIcons2, id: \.0) { icon, iconName in
+                                HStack {
+                                    
+                                    Image(systemName: icon)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 24, height: 24)
+                                }
+                                .tag(icon) // Используем иконку в качестве тега
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle()) // Используем сегментированный стиль для Picker
+                    }
+                }
                 Section {
                     HStack {
                         Spacer()
@@ -61,6 +107,16 @@ struct AddCategory: View {
                             dismiss()
                         }
                         Spacer()
+                    }
+                }
+            }
+            .navigationTitle("Добавить категорию")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button (action: {
+                        dismiss()
+                    }) {
+                        Text("Отменить")
                     }
                 }
             }
@@ -73,4 +129,3 @@ struct AddCategory: View {
             AddCategory()
         }
 }
-

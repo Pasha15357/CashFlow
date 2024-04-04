@@ -46,12 +46,12 @@ struct Main: View {
                 ForEach(category) { category in
                     NavigationLink(destination: EditCategoryView(category: category)) {
                         HStack {
-                            HStack(spacing: 6) {
-                                Image(systemName: "\(category.image!)")
-                                Text(category.name!)
-                                    .bold()
-                            }
+                            Image(systemName: "\(category.image!)")
+                                .frame(width: 30) // Установите требуемый размер изображения
+                            Text(category.name!)
+                                .bold()
                         }
+
                     }
                 }
                 .onDelete(perform: deleteCategory)

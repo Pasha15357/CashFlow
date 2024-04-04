@@ -29,6 +29,7 @@ struct EditExpenseView: View {
                         .onAppear {
                             name = expense.name!
                             amount = expense.amount
+//                            selectedCategory = expense.category
                         }
                 }
                 Section(header: Text("Категория расхода"))  {
@@ -62,7 +63,7 @@ struct EditExpenseView: View {
                 .frame(maxWidth: .infinity, alignment: .center) // Центрируем кнопку
                 
             }
-            .navigationTitle("Редактировать расход")
+            .navigationTitle("Редактировать")
             .onAppear {
                 // Убеждаемся, что есть хотя бы одна категория в списке, прежде чем выбрать первую
                 if let firstCategory = category.first {
