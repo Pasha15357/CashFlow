@@ -23,54 +23,77 @@ struct Main: View {
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @State private var categoryNames: [String] = [] // Массив имен категорий
     @State private var selectedCategory: String = ""
+    
+    @State private var balanceInput = ""
+    @State private var balance: Double = 0.0
 
     
     var body: some View {
         NavigationView {
-            List {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 20) {
-                        ForEach(sectionData) { item in
-                            GeometryReader { geometry in
-                                SectionView(section: item)
-                                    .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX - 30)) / -20, axis: (x: 0, y: 10, z: 0))
+            ScrollView {
+                VStack {
+                    VStack {
+                        VStack {
+                            TextField("Введите ваш баланс", text: $balanceInput)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding()
+                            
+                            Button("Сохранить") {
+                                if let newBalance = Double(balanceInput) {
+                                    saveNewBalance(newBalance)
+                                }
                             }
-                            .frame(width: 275, height: 275)
+                            
+                        }
+                        .onAppear {
+                            balanceInput = String(DataController().getCurrentBalance(context: managedObjContext) ?? 0.0)
                         }
                     }
-                    .padding(30)
-                    .padding(.bottom, 30)
-                }
-                .padding(.top, 0)
-                
-                ForEach(category) { category in
-                    NavigationLink(destination: EditCategoryView(category: category)) {
-                        HStack {
-                            Image(systemName: "\(category.image!)")
-                                .frame(width: 30) // Установите требуемый размер изображения
-                            Text(category.name!)
-                                .bold()
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20) {
+                            ForEach(sectionData) { item in
+                                GeometryReader { geometry in
+                                    SectionView(section: item)
+                                        .rotation3DEffect(Angle(degrees: Double(geometry.frame(in: .global).minX - 30)) / -20, axis: (x: 0, y: 10, z: 0))
+                                }
+                                .frame(width: 275, height: 275)
+                            }
                         }
+                        .padding(30)
+                        .padding(.bottom, 30)
+                    }
+                    .padding(.top, 0)
+                    
+                    List {
+                        ForEach(category) { category in
+                            NavigationLink(destination: EditCategoryView(category: category)) {
+                                HStack {
+                                    Image(systemName: "\(category.image!)")
+                                        .frame(width: 30) // Установите требуемый размер изображения
+                                    Text(category.name!)
+                                        .bold()
+                                }
 
+                            }
+                        }
+                        .onDelete(perform: deleteCategory)
+                        HStack {
+                            Spacer()
+                            Button {
+                                showingAddView.toggle()
+                            } label: {
+                                Label("Добавить категорию", systemImage: "plus.circle")
+                            }
+                            Spacer()
+                        }
                     }
                 }
-                .onDelete(perform: deleteCategory)
-                HStack {
-                    Spacer()
-                    Button {
-                        showingAddView.toggle()
-                    } label: {
-                        Label("Добавить категорию", systemImage: "plus.circle")
-                    }
-                    Spacer()
+                .listStyle(.plain)
+                .sheet(isPresented: $showingAddView) {
+                    AddCategory()
                 }
-                
-            }
-            .listStyle(.plain)
-            .sheet(isPresented: $showingAddView) {
-                AddCategory()
-            }
             .navigationTitle("Главная")
+            }
         }
 
     }
@@ -82,6 +105,14 @@ struct Main: View {
         }
     }
     
+    private func saveNewBalance(_ newBalance: Double) {
+        // Создаем экземпляр DataController
+        let dataController = DataController()
+        // Вызываем метод saveNewBalance через экземпляр DataController, передавая новый баланс и объект контекста
+        dataController.saveNewBalance(newBalance, newBalanceValue: newBalance, context: managedObjContext)
+    }
+
+
     
 }
 

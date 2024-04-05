@@ -47,7 +47,18 @@ struct AddIncomeView: View {
                 
                 Button("Сохранить") {
                     if let selectedCategory = selectedCategory {
+                        let expenseAmount = amount
                         DataController().addIncome(name: name, category: selectedCategory.name ?? "", amount: amount, context: managedObjContext)
+                        
+                        // Получаем текущий баланс
+                        guard let currentBalance = DataController().getCurrentBalance(context: managedObjContext) else { return }
+
+                        // Вычитаем сумму расхода из текущего баланса
+                        let newBalance = currentBalance + expenseAmount
+                        
+                        // Сохраняем измененный баланс обратно в Core Data
+                        DataController().saveNewBalance(newBalance, newBalanceValue: newBalance, context: managedObjContext)
+
                         dismiss()
                     }
                 }

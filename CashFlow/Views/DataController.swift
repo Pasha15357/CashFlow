@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
 import CoreData
+
 
 class DataController : ObservableObject {
     let container = NSPersistentContainer(name: "ExpenseModel")
@@ -83,4 +85,43 @@ class DataController : ObservableObject {
         
         save(context: context)
     }
+    
+    func getCurrentBalance(context: NSManagedObjectContext) -> Double? {
+        let request: NSFetchRequest<Balance> = Balance.fetchRequest()
+
+        do {
+            let balances = try context.fetch(request)
+            if let balance = balances.first {
+                return balance.amount
+            } else {
+                return nil
+            }
+        } catch {
+            print("Error fetching balance: \(error.localizedDescription)")
+            return nil
+        }
+    }
+
+    func saveNewBalance(_ newBalance: Double, newBalanceValue: Double, context: NSManagedObjectContext) {
+        let request: NSFetchRequest<Balance> = Balance.fetchRequest()
+        
+        do {
+            let balances = try context.fetch(request)
+            if let balance = balances.first {
+                balance.amount = newBalance
+            } else {
+                let newBalance = Balance(context: context)
+                newBalance.amount = newBalanceValue
+            }
+            
+            try context.save()
+            print("баланс сохранен")
+        } catch {
+            print("Error saving new balance: \(error.localizedDescription)")
+        }
+    }
+
+
 }
+
+
