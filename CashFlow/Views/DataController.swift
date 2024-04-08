@@ -11,7 +11,7 @@ import CoreData
 
 
 class DataController : ObservableObject {
-    let container = NSPersistentContainer(name: "ExpenseModel")
+    let container = NSPersistentContainer(name: "DataModel")
     
     init() {
         container.loadPersistentStores { desc, error in

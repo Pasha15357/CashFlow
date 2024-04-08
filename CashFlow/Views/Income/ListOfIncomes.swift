@@ -7,16 +7,18 @@
 
 import SwiftUI
 
+
 struct ListOfIncomes: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var income: FetchedResults<Income>
     
     @State private var showingAddView = false
+    @StateObject var settings = Settings1() // Создаем экземпляр Settings
     
     var body: some View {
         NavigationView {
             VStack(alignment: .leading){
-                Text("\(Int(totalIncomesToday())) рублей за сегодня")
+                Text("\(settings.selectedCurrency.sign)\(Int(totalIncomesToday())) за сегодня")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
                 List {
@@ -26,7 +28,7 @@ struct ListOfIncomes: View {
                                 VStack (alignment: .leading, spacing: 6) {
                                     Text(income.name!)
                                         .bold()
-                                    Text("\(Int(income.amount)) рублей").foregroundColor(.green)
+                                    Text("\(settings.selectedCurrency.sign)\(Int(income.amount))").foregroundColor(.green)
                                     Text(income.category ?? "")
                                         .bold()
                                 }
@@ -61,6 +63,10 @@ struct ListOfIncomes: View {
             }
         }
         .navigationViewStyle(.stack)
+        .onAppear {
+            // Обновляем выбранную валюту при открытии страницы
+            settings.selectedCurrencyIndex = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex")
+        }
     }
     
     private func deleteIncome(offsets: IndexSet) {

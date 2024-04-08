@@ -21,7 +21,7 @@ struct EditIncomeView: View {
     @State private var selectedCategory: Category?
     
     var body: some View {
-        NavigationView {
+        VStack {
             Form {
                 Section(header: Text("Название дохода")) {
                     TextField("\(income.name!)", text: $name)
@@ -58,10 +58,11 @@ struct EditIncomeView: View {
                         
                     }
                 }
+                
                 .frame(maxWidth: .infinity, alignment: .center) // Центрируем кнопку
                 
             }
-            .navigationTitle("Редактировать доход")
+            
             .onAppear {
                 // Убеждаемся, что есть хотя бы одна категория в списке, прежде чем выбрать первую
                 if let firstCategory = category.first {
@@ -69,6 +70,7 @@ struct EditIncomeView: View {
                 }
             }
         }
+        .navigationTitle("Доход")
     }
 }
 

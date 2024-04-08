@@ -13,7 +13,7 @@ struct AddIncomeView: View {
     @FetchRequest var category: FetchedResults<Category>
     
     @State private var name = ""
-    @State private var amount: Double = 0
+    @State private var amount = Double()
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @State private var selectedCategory: Category?

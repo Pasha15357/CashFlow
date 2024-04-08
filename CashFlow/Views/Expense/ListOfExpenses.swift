@@ -9,18 +9,40 @@ import SwiftUI
 import Foundation
 import CoreData
 
+import SwiftUI
+
+class Settings1: ObservableObject {
+    
+    @Published var selectedCurrencyIndex: Int = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex")
+    
+    struct Currency {
+        var name: String
+        var systemImageName: String
+        var sign: String
+    }
+    
+    var currencies: [Currency] = [
+        Currency(name: "Доллар", systemImageName: "dollarsign.circle", sign: "$"),
+        Currency(name: "Рубль", systemImageName: "rublesign.circle", sign: "₽"),
+        Currency(name: "Евро", systemImageName: "eurosign.circle", sign: "€")
+    ]
+    
+    var selectedCurrency: Currency {
+        return currencies[selectedCurrencyIndex]
+    }
+}
 
 struct ListOfExpenses: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var expense: FetchedResults<Expense>
     
     @State private var showingAddView = false
-    
+    @StateObject var settings = Settings1() // Создаем экземпляр Settings
     
     var body: some View {
         NavigationView {
             VStack(alignment: .leading){
-                Text("\(Int(totalExpensesToday())) рублей за сегодня")
+                Text("\(settings.selectedCurrency.sign)\(Int(totalExpensesToday())) за сегодня") // Используйте выбранную валюту из Settings
                     .foregroundColor(.gray)
                     .padding(.horizontal)
                 List {
@@ -31,23 +53,20 @@ struct ListOfExpenses: View {
                                     Text(expense.name!)
                                         .bold()
                                     
-                                    Text("\(Int(expense.amount)) рублей").foregroundColor(.red)
+                                    Text("\(settings.selectedCurrency.sign)\(Int(expense.amount)) ").foregroundColor(.red) // Используйте выбранную валюту из Settings
                                     Text(expense.category!)
                                         .bold()
-                                                    
                                 }
                                 Spacer()
                                 Text(calcTimeSince(date: expense.date!))
                                     .foregroundColor(.gray)
                                     .italic()
-                                
                             }
                         }
                     }
                     .onDelete(perform: deleteExpense)
                 }
                 .listStyle(.plain)
-                
             }
             .navigationTitle("Расходы")
             .toolbar {
@@ -67,6 +86,10 @@ struct ListOfExpenses: View {
             }
         }
         .navigationViewStyle(.stack)
+        .onAppear {
+            // Обновляем выбранную валюту при открытии страницы
+            settings.selectedCurrencyIndex = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex")
+        }
     }
     
     private func deleteExpense(offsets: IndexSet) {
@@ -88,7 +111,6 @@ struct ListOfExpenses: View {
         return amountToday
     }
 }
-
 
 #Preview {
     ListOfExpenses()

@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 import CoreData
+import Charts
 
 
 
@@ -21,12 +22,17 @@ struct Main: View {
     @State private var amount: Double = 0
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
+    @FetchRequest(sortDescriptors: [], animation: .default) private var expenses: FetchedResults<Expense>
+    
     @State private var categoryNames: [String] = [] // Массив имен категорий
     @State private var selectedCategory: String = ""
     
     @State private var balanceInput = ""
     @State private var balance: Double = 0.0
 
+    @StateObject var settings = Settings1() // Создаем экземпляр Settings
+    
+    @Binding var selectedView: Int
     
     var body: some View {
         NavigationView {
@@ -34,16 +40,9 @@ struct Main: View {
                 VStack {
                     VStack {
                         VStack {
-                            TextField("Введите ваш баланс", text: $balanceInput)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .padding()
-                            
-                            Button("Сохранить") {
-                                if let newBalance = Double(balanceInput) {
-                                    saveNewBalance(newBalance)
-                                }
-                            }
-                            
+                            Text("")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
                         }
                         .onAppear {
                             balanceInput = String(DataController().getCurrentBalance(context: managedObjContext) ?? 0.0)
@@ -63,62 +62,66 @@ struct Main: View {
                         .padding(.bottom, 30)
                     }
                     .padding(.top, 0)
-                    
-                    List {
-                        ForEach(category) { category in
-                            NavigationLink(destination: EditCategoryView(category: category)) {
-                                HStack {
-                                    Image(systemName: "\(category.image!)")
-                                        .frame(width: 30) // Установите требуемый размер изображения
-                                    Text(category.name!)
-                                        .bold()
-                                }
-
+                    VStack(alignment: .leading) { // Выравнивание содержимого по левому краю
+                        Text("Расходы")
+                            .font(.title)
+                            .fontWeight(.bold) // Установка жирного шрифта
+                        Chart(expenses.map { expense in
+                            ExpenseData(name: expense.name ?? "", amount: Int(expense.amount))
+                        }, id: \.name) { expense in
+                            if #available(iOS 17.0, *) {
+                                SectorMark(
+                                    angle: .value ("Macros", expense.amount),
+                                    innerRadius: .ratio(0.618),
+                                    angularInset: 1.5
+                                )
+                                .cornerRadius(4)
+                                .foregroundStyle (by: .value("Name", expense.name))
+                            } else {
+                                // Fallback on earlier versions
                             }
                         }
-                        .onDelete(perform: deleteCategory)
-                        HStack {
-                            Spacer()
-                            Button {
-                                showingAddView.toggle()
-                            } label: {
-                                Label("Добавить категорию", systemImage: "plus.circle")
+                        .frame(height: 300)
+                        .chartXAxis(.hidden)
+                        Section{
+                            Button(action: {
+                                selectedView = 4
+                            }){
+                                Text("Посмотреть полную статистику")
                             }
-                            Spacer()
                         }
                     }
+                    .padding()
                 }
                 .listStyle(.plain)
                 .sheet(isPresented: $showingAddView) {
                     AddCategory()
                 }
-            .navigationTitle("Главная")
+            .navigationTitle("Баланс: \(settings.selectedCurrency.sign)\(balanceInput)")
+            
             }
         }
-
-    }
-    private func deleteCategory(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { category[$0] }.forEach(managedObjContext.delete)
-            
-            DataController().save(context: managedObjContext)
+        .onAppear {
+            // Обновляем выбранную валюту при открытии страницы
+            settings.selectedCurrencyIndex = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex")
         }
+
     }
     
-    private func saveNewBalance(_ newBalance: Double) {
-        // Создаем экземпляр DataController
-        let dataController = DataController()
-        // Вызываем метод saveNewBalance через экземпляр DataController, передавая новый баланс и объект контекста
-        dataController.saveNewBalance(newBalance, newBalanceValue: newBalance, context: managedObjContext)
-    }
+    
+    
 
 
     
 }
 
-#Preview {
-    Main(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+struct Main_Previews: PreviewProvider {
+    static var previews: some View {
+        let selectedView = Binding.constant(1)
+        return Main(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), selectedView: selectedView)
+    }
 }
+
 
 
 struct SectionView: View {

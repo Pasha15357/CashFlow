@@ -30,7 +30,7 @@ struct AddCategory: View {
         ("heart.fill", "Любовь"),
         ("book.fill", "Чтение"),
         ("music.note", "Музыка"),
-        ("film", "Кино"),
+        ("figure.pool.swim", "Плавание"),
         ("globe", "Путешествия"),
         ("camera.fill", "Фотография"),
         ("paintbrush.fill", "Живопись"),

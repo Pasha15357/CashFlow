@@ -22,7 +22,7 @@ struct EditExpenseView: View {
     @State private var selectedCategory: Category?
     
     var body: some View {
-        NavigationView {
+        VStack {
             Form {
                 Section(header: Text("Название расхода")) {
                     TextField("\(expense.name!)", text: $name)
@@ -61,9 +61,8 @@ struct EditExpenseView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .center) // Центрируем кнопку
-                
+
             }
-            .navigationTitle("Редактировать")
             .onAppear {
                 // Убеждаемся, что есть хотя бы одна категория в списке, прежде чем выбрать первую
                 if let firstCategory = category.first {
@@ -71,6 +70,8 @@ struct EditExpenseView: View {
                 }
             }
         }
+        .navigationTitle("Расход")
+
     }
 }
 

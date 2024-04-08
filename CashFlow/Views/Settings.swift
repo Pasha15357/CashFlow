@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import Foundation
+
+
 
 struct Settings: View {
     
@@ -18,8 +21,20 @@ struct Settings: View {
     @State private var language = "Русский"
     static let languages = ["Русский", "English"]
     
-    @State private var currency = "Доллар"
-    static let currencies = ["Доллар", "Рубль", "Евро"]
+    struct Currency {
+        var name: String
+        var systemImageName: String
+        var sign: String
+    }
+    
+    static var selectedCurrencyIndex: Int = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex") // Объявляем selectedCurrencyIndex как static
+        
+        @State private var selectedCurrencyIndex = Self.selectedCurrencyIndex // Здесь используем static selectedCurrencyIndex
+    let currencies: [Currency] = [
+        Currency(name: "Доллар", systemImageName: "dollarsign.circle", sign: "$"),
+        Currency(name: "Рубль", systemImageName: "rublesign.circle", sign: "₽"),
+        Currency(name: "Евро", systemImageName: "eurosign.circle", sign: "€")
+    ]
     
     var body: some View {
         NavigationView {
@@ -35,7 +50,6 @@ struct Settings: View {
                                 .clipShape(Circle())
                                 .frame(width: 100, height: 100)
                             if status{
-                                
                                 Text("Паша")
                                     .font(.largeTitle)
                             }
@@ -61,11 +75,20 @@ struct Settings: View {
                     }
                 }
                 
-                Picker("Валюта", selection: $currency) {
-                    ForEach(Self.currencies, id: \.self) {
-                        Text($0)
+                Picker("Валюта", selection: $selectedCurrencyIndex) {
+                    ForEach(0..<currencies.count) { index in
+                        Label(currencies[index].name, systemImage: currencies[index].systemImageName)
                     }
                 }
+                .onChange(of: selectedCurrencyIndex) { newValue in
+                    UserDefaults.standard.setValue(newValue, forKey: "selectedCurrencyIndex")
+                }
+                
+                
+                NavigationLink("Изменить баланс", destination: EditBalance())
+                
+                
+                NavigationLink("Категории", destination: ListOfCategories(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil)))
                 
                 Section {
                     Button (action : {
@@ -75,17 +98,15 @@ struct Settings: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .center) // Центрируем кнопку
                 }
-                
-                
             }
             .navigationBarTitle("Настройки")
             .sheet(isPresented: $showingAddExpense) {
                 Registration1()
             }
         }
-        
     }
 }
+
 
 #Preview {
     Settings()
