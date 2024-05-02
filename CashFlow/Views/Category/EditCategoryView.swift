@@ -34,7 +34,7 @@ struct EditCategoryView: View {
         ("book.fill", "Чтение"),
         ("music.note", "Музыка"),
         ("figure.pool.swim", "Плавание"),
-        ("globe", "Путешествия"),
+        ("tshirt.fill", "Одежда"),
         ("camera.fill", "Фотография"),
         ("paintbrush.fill", "Живопись"),
         ("banknote", "Деньги"),
@@ -44,11 +44,11 @@ struct EditCategoryView: View {
         ("house.fill", "Дом"),
         ("car.fill", "Автомобиль"),
         ("briefcase.fill", "Работа"),
-        ("gamecontroller.fill", "Игры"),
+        ("pill", "Лекарства"),
         ("graduationcap.fill", "Образование"),
         ("airplane", "Путешествия"),
         ("cart.fill", "Покупки"),
-        ("gift.fill", "Подарки"),
+        ("percent", "Долг"),
     ]
     
     var body: some View {

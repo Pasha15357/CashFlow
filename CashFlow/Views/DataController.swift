@@ -86,6 +86,22 @@ class DataController : ObservableObject {
         save(context: context)
     }
     
+    func addReminer (name:String, date: Date, context: NSManagedObjectContext) {
+        let reminder = Reminder(context: context)
+        reminder.id = UUID()
+        reminder.name = name
+        reminder.date = date
+        
+        save(context: context)
+    }
+    
+    func editReminder(reminder: Reminder, name : String, date: Date, context: NSManagedObjectContext) {
+        reminder.name = name
+        reminder.date = date
+        
+        save(context: context)
+    }
+    
     func getCurrentBalance(context: NSManagedObjectContext) -> Double? {
         let request: NSFetchRequest<Balance> = Balance.fetchRequest()
 

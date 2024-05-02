@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1B14B9A22B1A784F005BA20E /* ApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14B9A12B1A784F005BA20E /* ApplePay.swift */; };
 		1B14B9A42B1A7970005BA20E /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */; };
+		1B3396D92BE44E6B006B12D0 /* CategoriesExpenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3396D82BE44E6B006B12D0 /* CategoriesExpenses.swift */; };
+		1B3396DC2BE45B16006B12D0 /* ListOfExpensesCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3396DB2BE45B16006B12D0 /* ListOfExpensesCategories.swift */; };
+		1B3396DE2BE45E62006B12D0 /* EditReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B3396DD2BE45E62006B12D0 /* EditReminder.swift */; };
 		1B643AD32B8F915C00014153 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643AD22B8F915C00014153 /* DataController.swift */; };
 		1B643AD72B8F971F00014153 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643AD62B8F971F00014153 /* AddExpenseView.swift */; };
 		1B643AD92B8F9FB500014153 /* TimeFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B643AD82B8F9FB500014153 /* TimeFormatting.swift */; };
@@ -20,6 +23,8 @@
 		1B7417102BC4667C008FF37E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B74170E2BC4667C008FF37E /* DataModel.xcdatamodeld */; };
 		1B7417122BC46D87008FF37E /* ListOfCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7417112BC46D87008FF37E /* ListOfCategories.swift */; };
 		1BC3BADC2BBF26C300F1B3D9 /* Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */; };
+		1BC49F582BE39B9000A6A9E8 /* ListOfReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC49F572BE39B9000A6A9E8 /* ListOfReminders.swift */; };
+		1BC49F5B2BE39BCF00A6A9E8 /* AddReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC49F5A2BE39BCF00A6A9E8 /* AddReminder.swift */; };
 		1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */; };
 		1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */; };
 		1BDFE6E42B0E32B2003E45E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BDFE6E32B0E32B2003E45E1 /* Assets.xcassets */; };
@@ -41,6 +46,9 @@
 /* Begin PBXFileReference section */
 		1B14B9A12B1A784F005BA20E /* ApplePay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePay.swift; sourceTree = "<group>"; };
 		1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
+		1B3396D82BE44E6B006B12D0 /* CategoriesExpenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesExpenses.swift; sourceTree = "<group>"; };
+		1B3396DB2BE45B16006B12D0 /* ListOfExpensesCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfExpensesCategories.swift; sourceTree = "<group>"; };
+		1B3396DD2BE45E62006B12D0 /* EditReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReminder.swift; sourceTree = "<group>"; };
 		1B643AD22B8F915C00014153 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		1B643AD62B8F971F00014153 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 		1B643AD82B8F9FB500014153 /* TimeFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatting.swift; sourceTree = "<group>"; };
@@ -49,6 +57,8 @@
 		1B74170F2BC4667C008FF37E /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		1B7417112BC46D87008FF37E /* ListOfCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfCategories.swift; sourceTree = "<group>"; };
 		1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagram.swift; sourceTree = "<group>"; };
+		1BC49F572BE39B9000A6A9E8 /* ListOfReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfReminders.swift; sourceTree = "<group>"; };
+		1BC49F5A2BE39BCF00A6A9E8 /* AddReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminder.swift; sourceTree = "<group>"; };
 		1BDFE6DC2B0E32B0003E45E1 /* CashFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowApp.swift; sourceTree = "<group>"; };
 		1BDFE6E12B0E32B0003E45E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -82,9 +92,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B3396DA2BE45757006B12D0 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */,
+				1B3396D82BE44E6B006B12D0 /* CategoriesExpenses.swift */,
+				1B3396DB2BE45B16006B12D0 /* ListOfExpensesCategories.swift */,
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
 		1B643AD42B8F96C900014153 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1B3396DA2BE45757006B12D0 /* Statistics */,
+				1BC49F592BE39BAF00A6A9E8 /* Reminder */,
 				1BF032D62B8FEFFF00B869B9 /* Category */,
 				1BF032D32B8FEBDF00B869B9 /* Expense */,
 				1BF032D22B8FEBCE00B869B9 /* Income */,
@@ -96,7 +118,6 @@
 				1B14B9A12B1A784F005BA20E /* ApplePay.swift */,
 				1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */,
 				1BF032DE2B907D7000B869B9 /* Registration1.swift */,
-				1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */,
 				1BF907BA2BC42CFB00283B6F /* EditBalance.swift */,
 			);
 			path = Views;
@@ -108,6 +129,16 @@
 				1B643AD82B8F9FB500014153 /* TimeFormatting.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		1BC49F592BE39BAF00A6A9E8 /* Reminder */ = {
+			isa = PBXGroup;
+			children = (
+				1B3396DD2BE45E62006B12D0 /* EditReminder.swift */,
+				1BC49F5A2BE39BCF00A6A9E8 /* AddReminder.swift */,
+				1BC49F572BE39B9000A6A9E8 /* ListOfReminders.swift */,
+			);
+			path = Reminder;
 			sourceTree = "<group>";
 		};
 		1BDFE6D32B0E32B0003E45E1 = {
@@ -262,11 +293,13 @@
 				1BDFE7142B10A4F2003E45E1 /* Registration.swift in Sources */,
 				1B14B9A42B1A7970005BA20E /* PaymentViewModel.swift in Sources */,
 				1BF907B92BC40AB700283B6F /* UserDefaults+Extensions.swift in Sources */,
+				1B3396D92BE44E6B006B12D0 /* CategoriesExpenses.swift in Sources */,
 				1B14B9A22B1A784F005BA20E /* ApplePay.swift in Sources */,
 				1BDFE70C2B0F5567003E45E1 /* ListOfExpenses.swift in Sources */,
 				1BDFE70A2B0E6D91003E45E1 /* Main.swift in Sources */,
 				1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */,
 				1BDFE7122B0F9AD8003E45E1 /* Settings.swift in Sources */,
+				1B3396DC2BE45B16006B12D0 /* ListOfExpensesCategories.swift in Sources */,
 				1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */,
 				1B7417102BC4667C008FF37E /* DataModel.xcdatamodeld in Sources */,
 				1BF032DF2B907D7000B869B9 /* Registration1.swift in Sources */,
@@ -276,10 +309,13 @@
 				1BF032D12B8FEA4700B869B9 /* EditIncomeView.swift in Sources */,
 				1B643AE02B8FDA8F00014153 /* ListOfIncomes.swift in Sources */,
 				1B7417122BC46D87008FF37E /* ListOfCategories.swift in Sources */,
+				1B3396DE2BE45E62006B12D0 /* EditReminder.swift in Sources */,
 				1B643AD32B8F915C00014153 /* DataController.swift in Sources */,
 				1BDFE7102B0F671C003E45E1 /* AddCategoryView.swift in Sources */,
 				1BF907BB2BC42CFB00283B6F /* EditBalance.swift in Sources */,
 				1BF032D52B8FEC0900B869B9 /* AddIncomeView.swift in Sources */,
+				1BC49F582BE39B9000A6A9E8 /* ListOfReminders.swift in Sources */,
+				1BC49F5B2BE39BCF00A6A9E8 /* AddReminder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

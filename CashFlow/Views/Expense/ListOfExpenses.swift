@@ -8,7 +8,6 @@
 import SwiftUI
 import Foundation
 import CoreData
-
 import SwiftUI
 
 class Settings1: ObservableObject {

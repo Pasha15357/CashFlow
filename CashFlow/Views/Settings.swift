@@ -89,6 +89,8 @@ struct Settings: View {
                 
                 
                 NavigationLink("Категории", destination: ListOfCategories(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil)))
+                NavigationLink("Напоминания", destination: ListOfReminders())
+
                 
                 Section {
                     Button (action : {

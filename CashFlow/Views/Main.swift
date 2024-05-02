@@ -9,7 +9,7 @@ import SwiftUI
 import Foundation
 import CoreData
 import Charts
-
+import CloudKit
 
 
 struct Main: View {
@@ -67,7 +67,7 @@ struct Main: View {
                             .font(.title)
                             .fontWeight(.bold) // Установка жирного шрифта
                         Chart(expenses.map { expense in
-                            ExpenseData(name: expense.name ?? "", amount: Int(expense.amount))
+                            ExpenseData(name: expense.name ?? "", amount: Int(expense.amount), category: expense.category ?? "")
                         }, id: \.name) { expense in
                             if #available(iOS 17.0, *) {
                                 SectorMark(
@@ -76,20 +76,26 @@ struct Main: View {
                                     angularInset: 1.5
                                 )
                                 .cornerRadius(4)
-                                .foregroundStyle (by: .value("Name", expense.name))
+                                .foregroundStyle (by: .value("Name", expense.category))
                             } else {
                                 // Fallback on earlier versions
                             }
                         }
                         .frame(height: 300)
                         .chartXAxis(.hidden)
-                        Section{
-                            Button(action: {
-                                selectedView = 4
-                            }){
-                                Text("Посмотреть полную статистику")
-                            }
+                        Button(action: {
+                            selectedView = 4
+                        }) {
+                            Text("Посмотреть полную статистику")
+                                .padding()
                         }
+                        .padding(.horizontal)
+                        .padding(.horizontal)
+                        .background(Color.white) // Задаем цвет фона кнопки (необязательно)
+                        .foregroundColor(.black) // Задаем цвет текста кнопки (необязательно)
+                        .cornerRadius(10) // Задаем скругление углов кнопки (необязательно)
+                        .shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 2) // Добавляем тень кнопке
+                        .frame(maxWidth: .infinity) // Расширяем кнопку по горизонтали
                     }
                     .padding()
                 }
