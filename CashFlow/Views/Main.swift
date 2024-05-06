@@ -87,7 +87,7 @@ struct Main: View {
                             selectedView = 4
                         }) {
                             Text("Посмотреть полную статистику")
-                                .padding()
+                                .padding(.vertical)
                         }
                         .padding(.horizontal)
                         .padding(.horizontal)

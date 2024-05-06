@@ -12,6 +12,8 @@ import CoreData
 
 class DataController : ObservableObject {
     let container = NSPersistentContainer(name: "DataModel")
+    @Environment(\.managedObjectContext) var managedObjContext
+
     
     init() {
         container.loadPersistentStores { desc, error in
@@ -86,14 +88,22 @@ class DataController : ObservableObject {
         save(context: context)
     }
     
-    func addReminer (name:String, date: Date, context: NSManagedObjectContext) {
+    func addReminder (name:String, date: Date, context: NSManagedObjectContext) {
         let reminder = Reminder(context: context)
         reminder.id = UUID()
         reminder.name = name
         reminder.date = date
-        
+        do {
+            try context.save()
+            
+            // Планирование уведомления
+            scheduleNotification(for: reminder)
+        } catch {
+            print("Error saving reminder: \(error.localizedDescription)")
+        }
         save(context: context)
     }
+    
     
     func editReminder(reminder: Reminder, name : String, date: Date, context: NSManagedObjectContext) {
         reminder.name = name
@@ -136,8 +146,48 @@ class DataController : ObservableObject {
             print("Error saving new balance: \(error.localizedDescription)")
         }
     }
-
-
+    
+    private func scheduleNotification(for reminder: Reminder) {
+            let content = UNMutableNotificationContent()
+            content.title = "Напоминание"
+            content.body = reminder.name ?? ""
+            content.sound = UNNotificationSound.default
+            
+            let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: reminder.date!)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+            
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("Error scheduling notification: \(error.localizedDescription)")
+                }
+            }
+        }
+    
+    func getAllExpenses() -> [Expense] {
+            let fetchRequest: NSFetchRequest<Expense> = Expense.fetchRequest()
+            
+            do {
+                let expenses = try managedObjContext.fetch(fetchRequest)
+                return expenses
+            } catch {
+                print("Error fetching expenses: \(error.localizedDescription)")
+                return []
+            }
+        }
+    
+    func getAllIncomes() -> [Income] {
+            let fetchRequest: NSFetchRequest<Income> = Income.fetchRequest()
+            
+            do {
+                let incomes = try managedObjContext.fetch(fetchRequest)
+                return incomes
+            } catch {
+                print("Error fetching expenses: \(error.localizedDescription)")
+                return []
+            }
+        }
 }
 
 

@@ -11,38 +11,44 @@ import CoreData
 struct AddReminder: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
     @Environment(\.dismiss) var dismiss
-
+    
     @State private var name = ""
     @State private var date = Date()
     @State private var isNotificationScheduled = false
-
+    
     var body: some View {
-        VStack {
-            TextField("Название напоминания", text: $name)
-                .padding()
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-
-            DatePicker("Дата и время", selection: $date, displayedComponents: [.date, .hourAndMinute])
-                .padding()
-
-            Button(action: {
-                DataController().addReminer(name: name, date: date, context: managedObjectContext)
-                dismiss()
-            }) {
-                Text("Добавить напоминание")
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(8)
+        NavigationView {
+            Form {
+                Section(header: Text("Название напоминания")) {
+                    TextField("Оплатить счета", text: $name)
+                }
+                Section(header: Text("Время напоминания")) {
+                    DatePicker("Дата и время", selection: $date, displayedComponents: [.date, .hourAndMinute])
+                        .padding(.vertical)
+                }
+                
+                
+                Button("Сохранить") {
+                    DataController().addReminder(name: name, date: date, context: managedObjectContext)
+                    dismiss()
+                }
+                
+                .frame(maxWidth: .infinity, alignment: .center) // Центрируем кнопку
+                
             }
-            .padding()
-
-            Text(isNotificationScheduled ? "Напоминание запланировано" : "")
-                .foregroundColor(.green)
+            .navigationTitle("Новое напоминание")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button (action: {
+                        dismiss()
+                    }) {
+                        Text("Отменить")
+                    }
+                }
+            }
         }
-        .padding()
     }
-
+    
     
 }
 

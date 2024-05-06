@@ -22,6 +22,7 @@
 		1B67E47D2BBC7F0F00D88D8F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1B67E47C2BBC7F0F00D88D8F /* FirebaseFirestore */; };
 		1B7417102BC4667C008FF37E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B74170E2BC4667C008FF37E /* DataModel.xcdatamodeld */; };
 		1B7417122BC46D87008FF37E /* ListOfCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7417112BC46D87008FF37E /* ListOfCategories.swift */; };
+		1B9CB8E52BE97BD70063689C /* xlsxwriter in Frameworks */ = {isa = PBXBuildFile; productRef = 1B9CB8E42BE97BD70063689C /* xlsxwriter */; };
 		1BC3BADC2BBF26C300F1B3D9 /* Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */; };
 		1BC49F582BE39B9000A6A9E8 /* ListOfReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC49F572BE39B9000A6A9E8 /* ListOfReminders.swift */; };
 		1BC49F5B2BE39BCF00A6A9E8 /* AddReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC49F5A2BE39BCF00A6A9E8 /* AddReminder.swift */; };
@@ -85,6 +86,7 @@
 				1B67E47B2BBC7F0F00D88D8F /* FirebaseDatabase in Frameworks */,
 				1B67E4792BBC7F0F00D88D8F /* FirebaseAuth in Frameworks */,
 				1BF907B72BC0845600283B6F /* FirebaseAnalytics in Frameworks */,
+				1B9CB8E52BE97BD70063689C /* xlsxwriter in Frameworks */,
 				1B67E47D2BBC7F0F00D88D8F /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,6 +232,7 @@
 				1B67E47A2BBC7F0F00D88D8F /* FirebaseDatabase */,
 				1B67E47C2BBC7F0F00D88D8F /* FirebaseFirestore */,
 				1BF907B62BC0845600283B6F /* FirebaseAnalytics */,
+				1B9CB8E42BE97BD70063689C /* xlsxwriter */,
 			);
 			productName = CashFlow;
 			productReference = 1BDFE6DC2B0E32B0003E45E1 /* CashFlow.app */;
@@ -261,6 +264,7 @@
 			mainGroup = 1BDFE6D32B0E32B0003E45E1;
 			packageReferences = (
 				1B67E4772BBC7F0F00D88D8F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1B9CB8E32BE97BD70063689C /* XCRemoteSwiftPackageReference "xlsxwriter" */,
 			);
 			productRefGroup = 1BDFE6DD2B0E32B0003E45E1 /* Products */;
 			projectDirPath = "";
@@ -537,6 +541,14 @@
 				minimumVersion = 10.23.1;
 			};
 		};
+		1B9CB8E32BE97BD70063689C /* XCRemoteSwiftPackageReference "xlsxwriter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/damuellen/xlsxwriter.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -554,6 +566,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1B67E4772BBC7F0F00D88D8F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		1B9CB8E42BE97BD70063689C /* xlsxwriter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1B9CB8E32BE97BD70063689C /* XCRemoteSwiftPackageReference "xlsxwriter" */;
+			productName = xlsxwriter;
 		};
 		1BF907B62BC0845600283B6F /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

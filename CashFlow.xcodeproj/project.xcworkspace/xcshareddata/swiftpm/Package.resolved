@@ -1,5 +1,5 @@
 {
-  "originHash" : "c63c63846d9c539229e96de38d6af51417e28c0ee9a0bc48bd0f0f19d923c329",
+  "originHash" : "10bc7431158a222824b3c2f97a248b8947715e349056a08355a90786c81ba1fd",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -116,6 +116,15 @@
       "state" : {
         "revision" : "65e8f29b2d63c4e38e736b25c27b83e012159be8",
         "version" : "1.25.2"
+      }
+    },
+    {
+      "identity" : "xlsxwriter.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/damuellen/xlsxwriter.swift",
+      "state" : {
+        "revision" : "449ad0d3228b6626871ef1a9473056d1e892c77f",
+        "version" : "1.0.2"
       }
     }
   ],

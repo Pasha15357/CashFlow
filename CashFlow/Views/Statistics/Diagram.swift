@@ -28,33 +28,34 @@ struct Diagram: View {
             ScrollView {
                 VStack {
                     VStack(alignment: .leading) { // Выравнивание содержимого по левому краю
-                        NavigationLink("Расходы", destination: CategoriesExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil)))
-                            .font(.title)
-                            .fontWeight(.bold) // Установка жирного шрифта
-                        ZStack(alignment: .center)  {
-                            Chart(expenses.map { expense in
-                                ExpenseData(name: expense.name ?? "", amount: Int(expense.amount), category: expense.category ?? "")
-                            }, id: \.name) { expense in
-                                if #available(iOS 17.0, *) {
-                                    SectorMark(
-                                        angle: .value ("Macros", expense.amount),
-                                        innerRadius: .ratio(0.618),
-                                        angularInset: 1.5
-                                    )
-                                    .cornerRadius(4)
-                                    .foregroundStyle (by: .value("Name", expense.category))
-                                } else {
-                                    // Fallback on earlier versions
+                        NavigationLink(destination: CategoriesExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))) {
+                            VStack{
+                                Text("Расходы - \(settings.selectedCurrency.sign)\(Int(totalExpenses()))")
+                                    .foregroundColor(.black)
+                                Chart(expenses.map { expense in
+                                    ExpenseData(name: expense.name ?? "", amount: Int(expense.amount), category: expense.category ?? "")
+                                }, id: \.name) { expense in
+                                    if #available(iOS 17.0, *) {
+                                        SectorMark(
+                                            angle: .value ("Macros", expense.amount),
+                                            innerRadius: .ratio(0.618),
+                                            angularInset: 1.5
+                                        )
+                                        .cornerRadius(4)
+                                        .foregroundStyle (by: .value("Name", expense.category))
+                                    } else {
+                                        // Fallback on earlier versions
+                                    }
                                 }
-                            }
-                            .frame(height: 300)
-                        .chartXAxis(.hidden)
-                            VStack {
-                                Text("\(settings.selectedCurrency.sign)\(Int(totalExpenses()))")
-                                    .font(.title)
-                                    .fontWeight(.bold)
+                                .frame(height: 300)
+                                .chartXAxis(.hidden)
+                                
+                                
                             }
                         }
+                        .font(.title)
+                        .fontWeight(.bold) // Установка жирного шрифта
+                        
                     }
 
                     VStack(alignment: .leading) { // Выравнивание содержимого по левому краю
@@ -84,16 +85,8 @@ struct Diagram: View {
                                     .font(.title)
                                     .fontWeight(.bold)
                             }
-                            
-                            
-                            
                         }
-                        
-
-                        
                     }
-                   
-                    
                 }
                 .navigationTitle("Статистика")
                 .padding()

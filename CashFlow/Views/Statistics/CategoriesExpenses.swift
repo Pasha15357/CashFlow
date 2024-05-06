@@ -18,11 +18,11 @@ struct CategoriesExpenses: View {
 
 
     var body: some View {
-        VStack{
+        VStack (alignment: .leading){
             List {
                 ForEach(category) { category in
                     if totalExpensesCategory(category: category.name ?? "") != 0 {
-                        NavigationLink(destination: ListOfExpenses()) {
+                        NavigationLink(destination: ListOfExpensesCategories(category: category)) {
                             HStack {
                                 Image(systemName: "\(category.image!)")
                                     .frame(width: 30) // Установите требуемый размер изображения
@@ -40,7 +40,7 @@ struct CategoriesExpenses: View {
                 .onDelete(perform: deleteCategory)
             }
         }
-        .navigationBarTitle("Расходы")
+        .navigationBarTitle("Расходы(\(settings.selectedCurrency.sign)\(Int(totalExpenses())))")
         .sheet(isPresented: $showingAddView) {
             AddCategory()
         }
@@ -62,6 +62,15 @@ struct CategoriesExpenses: View {
         }
         return amount
 //        return String(format: "%.0f", amount) // "%.2f" указывает, что нужно отобразить число с двумя знаками после запятой
+    }
+    
+    private func totalExpenses() -> Double {
+        var amount : Double = 0
+        for item in expense {
+            amount += item.amount
+        }
+        
+        return amount
     }
 
 }

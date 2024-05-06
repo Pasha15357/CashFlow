@@ -13,69 +13,60 @@ import CoreData
 
 struct ListOfReminders: View {
     @Environment(\.managedObjectContext) var managedObjContext
-        @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var reminder: FetchedResults<Reminder>
-        
-        @State private var showingAddView = false
-        @StateObject var settings = Settings1() // Создаем экземпляр Settings
-        
-        @State private var reminders = [Reminder]()
-        @State private var reminderTitle = ""
-        @State private var reminderDate = Date()
-        
-        var body: some View {
-            NavigationView {
-                VStack(alignment: .leading) {
-                    List {
-                        Section(header: Text("Напоминания")) {
-                            ForEach(reminder) { reminder in
-                                NavigationLink(destination: EditReminder()) {
-                                    HStack {
-                                        VStack (alignment: .leading, spacing: 6) {
-                                            Text(reminder.name ?? "")
-                                                .bold()
-                                            
-                                            
-                                            Text(dateToString(reminder.date!))
-                                                .bold()
-
-                                        }
-                                        
-                                        
-                                    }
-                                }
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var reminder: FetchedResults<Reminder>
+    
+    @State private var showingAddView = false
+    @StateObject var settings = Settings1() // Создаем экземпляр Settings
+    
+    @State private var reminders = [Reminder]()
+    @State private var reminderTitle = ""
+    @State private var reminderDate = Date()
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            List {
+                ForEach(reminder) { reminder in
+                    NavigationLink(destination: EditReminder(reminder: reminder)) {
+                        HStack {
+                            VStack (alignment: .leading, spacing: 6) {
+                                Text(reminder.name ?? "")
+                                    .bold()
+                                Text(dateToString(reminder.date!))
+                                    .bold()
+                                
                             }
-                            .onDelete(perform: deleteExpense)
+                            
+                            
                         }
                     }
-                    .listStyle(.plain)
                 }
-                .navigationTitle("Напоминания")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            showingAddView.toggle()
-                        } label: {
-                            Label("Добавить расход", systemImage: "plus.circle")
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        EditButton()
-                    }
-                }
-                .sheet(isPresented: $showingAddView) {
-                    AddReminder()
-                }
+                .onDelete(perform: deleteExpense)
             }
-            .navigationViewStyle(.stack)
-            .onAppear {
-                // Обновляем выбранную валюту при открытии страницы
-                settings.selectedCurrencyIndex = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex")
-                
-                // Загрузка существующих напоминаний
-                loadReminders()
+            .listStyle(.plain)
+        }
+        .navigationTitle("Напоминания")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showingAddView.toggle()
+                } label: {
+                    Label("Добавить расход", systemImage: "plus.circle")
+                }
             }
         }
+        .sheet(isPresented: $showingAddView) {
+            AddReminder()
+        }
+        .onAppear {
+            // Обновляем выбранную валюту при открытии страницы
+            settings.selectedCurrencyIndex = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex")
+            
+            // Загрузка существующих напоминаний
+            loadReminders()
+        }
         
+    }
+    
     private func deleteExpense(offsets: IndexSet) {
         withAnimation {
             offsets.map { reminder[$0] }.forEach(managedObjContext.delete)
@@ -89,7 +80,7 @@ struct ListOfReminders: View {
         dateFormatter.dateFormat = "dd.MM.yyyy HH:mm" // Задайте желаемый формат даты и времени
         return dateFormatter.string(from: date)
     }
-
+    
     
     private func loadReminders() {
         let request: NSFetchRequest<Reminder> = Reminder.fetchRequest()
@@ -105,11 +96,8 @@ struct ListOfReminders: View {
     
     private func deleteReminder(at offsets: IndexSet) {
         withAnimation {
-            offsets.forEach { index in
-                let reminder = reminders[index]
-                managedObjContext.delete(reminder)
-                reminders.remove(at: index)
-            }
+            offsets.map { reminder[$0] }.forEach(managedObjContext.delete)
+
             
             DataController().save(context: managedObjContext)
         }
