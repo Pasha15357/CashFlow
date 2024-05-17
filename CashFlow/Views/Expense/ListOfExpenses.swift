@@ -8,10 +8,8 @@
 import SwiftUI
 import Foundation
 import CoreData
-import SwiftUI
 
 class Settings1: ObservableObject {
-    
     @Published var selectedCurrencyIndex: Int = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex")
     
     struct Currency {
@@ -34,13 +32,14 @@ class Settings1: ObservableObject {
 struct ListOfExpenses: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var expense: FetchedResults<Expense>
-    
+    @FetchRequest var category: FetchedResults<Category>
+
     @State private var showingAddView = false
     @StateObject var settings = Settings1() // Создаем экземпляр Settings
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading){
+            VStack(alignment: .leading) {
                 Text("\(settings.selectedCurrency.sign)\(Int(totalExpensesToday())) за сегодня") // Используйте выбранную валюту из Settings
                     .foregroundColor(.gray)
                     .padding(.horizontal)
@@ -48,13 +47,16 @@ struct ListOfExpenses: View {
                     ForEach(expense) { expense in
                         NavigationLink(destination: EditExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), expense: expense)) {
                             HStack {
-                                VStack (alignment: .leading, spacing: 6) {
+                                VStack(alignment: .leading, spacing: 6) {
                                     Text(expense.name!)
                                         .bold()
                                     
                                     Text("\(settings.selectedCurrency.sign)\(Int(expense.amount)) ").foregroundColor(.red) // Используйте выбранную валюту из Settings
-                                    Text(expense.category!)
-                                        .bold()
+                                    HStack {
+                                        Image(systemName: "\(findCategoryImage(for: expense.category ?? ""))")
+                                        Text(expense.category!)
+                                            .bold()
+                                    }
                                 }
                                 Spacer()
                                 Text(calcTimeSince(date: expense.date!))
@@ -100,7 +102,7 @@ struct ListOfExpenses: View {
     }
     
     private func totalExpensesToday() -> Double {
-        var amountToday : Double = 0
+        var amountToday: Double = 0
         for item in expense {
             if Calendar.current.isDateInToday(item.date!) {
                 amountToday += item.amount
@@ -109,8 +111,17 @@ struct ListOfExpenses: View {
         
         return amountToday
     }
+    
+    private func findCategoryImage(for categoryName: String) -> String {
+        for cat in category {
+            if cat.name == categoryName {
+                return cat.image ?? "defaultImage" // Replace "defaultImage" with a default image name if needed
+            }
+        }
+        return "defaultImage"
+    }
 }
 
 #Preview {
-    ListOfExpenses()
+    ListOfExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
 }

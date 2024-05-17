@@ -20,13 +20,13 @@ struct ContentView: View {
                     Text("Главная")
                 }
                 .tag(1)
-            ListOfExpenses()
+            ListOfExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
                 .tabItem {
                     Image(systemName: (self.selectedView == 2 ? "minus.rectangle" : "minus.rectangle"))
                     Text("Расходы")
                 }
                 .tag(2)
-            ListOfIncomes()
+            ListOfIncomes(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
                 .tabItem {
                     Image(systemName: (self.selectedView == 3 ? "plus.rectangle" : "plus.rectangle"))
                     Text("Доходы")

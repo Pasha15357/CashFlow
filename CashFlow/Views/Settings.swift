@@ -7,27 +7,34 @@
 
 import SwiftUI
 import Foundation
-import xlsxwriter
-
+import FirebaseCore
+import FirebaseAuth
+import FirebaseFirestore
 
 struct Settings: View {
     @Environment(\.managedObjectContext) var managedObjContext
-    
+
     @State private var showingAddExpense = false
     
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     
     @AppStorage("isDarkModeOn") private var isDarkModeOn: Bool = false
     
-    @State private var language = "Русский"
-    static let languages = ["Русский", "English"]
-    
+    @AppStorage("selectedLanguageIndex") private var selectedLanguageIndex = 0
+    let languages = ["Русский", "English"] // Список доступных языков
+
     @State private var balanceInput = ""
     @State private var balance: Double = 0.0
 
     @StateObject var settings = Settings1() // Создаем экземпляр Settings
     
     @State private var showingAddView = false
+    
+    @State var firstName: String = ""
+    @State var lastName: String = ""
+    @State private var selectedImage: UIImage?
+
+
     
     struct Currency {
         var name: String
@@ -51,19 +58,28 @@ struct Settings: View {
                     Button(action: {
                         self.showingAddExpense = true
                     }) {
-                        HStack (alignment: .center, spacing: 50){
-                            Image(systemName: "person.crop.circle")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .clipShape(Circle())
-                                .frame(width: 100, height: 100)
-                            if status{
-                                Text("Паша")
-                                    .font(.largeTitle)
+                        HStack (alignment: .center, spacing: 20){
+                            
+                                
+                            if status, let image = selectedImage{
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .clipShape(Circle())
+                                    .frame(width: 120, height: 120)
+                                Text("\(firstName) \(lastName)")
+                                    .font(.title2)
+                                    .bold()
                             }
                             else{
+                                Image(systemName: "person.crop.circle")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .clipShape(Circle())
+                                    .frame(width: 100, height: 100)
                                 Text("Вход")
                                     .font(.largeTitle)
+                                    
                             }
                         }
                     }
@@ -89,11 +105,12 @@ struct Settings: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 35, height: 35)
-                    Picker("Язык", selection: $language) {
-                        ForEach(Self.languages, id: \.self) {
-                            Text($0)
-                        }
-                    }
+                    Picker("Язык", selection: $selectedLanguageIndex) {
+                                        ForEach(0 ..< languages.count) { index in
+                                            Text(languages[index])
+                                                .tag(index)
+                                        }
+                                    }
                 }
                 
                 HStack {
@@ -147,7 +164,7 @@ struct Settings: View {
                 }
                 
                 Button(action: {
-                    exportToExcel()
+                    showingAddView.toggle()
                 }) {
                     HStack {
                         Image("export")
@@ -155,7 +172,7 @@ struct Settings: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 35, height: 35)
                         Text("Экспорт")
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("black_white"))
                     }
                 }
 
@@ -170,22 +187,48 @@ struct Settings: View {
                 }
             }
             .sheet(isPresented: $showingAddView) {
-                AddExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+                AddReminder()
             }
             .navigationBarTitle("Настройки")
+            .onAppear(perform: loadData)
             .sheet(isPresented: $showingAddExpense) {
                 Registration1()
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("AppleLanguagesDidChangeNotification"))) { _ in
+                    // Перезагрузка представления после изменения языка
+                    self.selectedLanguageIndex = UserDefaults.standard.integer(forKey: "selectedLanguageIndex")
+                }
     }
     
-    func exportToExcel() {
-        let dataController = DataController() // Подставьте ваш класс управления данными
-        let expenses = dataController.getAllExpenses() // Получите список расходов из вашего контроллера данных
-        let incomes = dataController.getAllIncomes() // Получите список доходов из вашего контроллера данных
+    
+    func loadData() {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        // Загрузка данных профиля пользователя из Firestore
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(currentUser.uid)
         
-        let excelExporter = ExcelExporter()
-        excelExporter.exportToExcel(expenses: expenses, incomes: incomes)
+        userRef.getDocument { document, error in
+            if let document = document, document.exists {
+                let data = document.data()
+                firstName = data?["firstName"] as? String ?? ""
+                lastName = data?["lastName"] as? String ?? ""
+                
+                // Попытка получить данные изображения
+                if let imageData = data?["profileImage"] as? Data {
+                    if let profileImage = UIImage(data: imageData) {
+                        // Если изображение удалось преобразовать, устанавливаем его
+                        self.selectedImage = profileImage
+                    } else {
+                        print("Failed to convert data to image")
+                    }
+                } else {
+                    print("Profile image data not found")
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
     }
 
     

@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-
 struct ListOfIncomes: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var income: FetchedResults<Income>
+    @FetchRequest var category: FetchedResults<Category>
     
     @State private var showingAddView = false
     @StateObject var settings = Settings1() // Создаем экземпляр Settings
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading){
+            VStack(alignment: .leading) {
                 Text("\(settings.selectedCurrency.sign)\(Int(totalIncomesToday())) за сегодня")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
@@ -25,25 +25,26 @@ struct ListOfIncomes: View {
                     ForEach(income) { income in
                         NavigationLink(destination: EditIncomeView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), income: income)) {
                             HStack {
-                                VStack (alignment: .leading, spacing: 6) {
+                                VStack(alignment: .leading, spacing: 6) {
                                     Text(income.name!)
                                         .bold()
                                     Text("\(settings.selectedCurrency.sign)\(Int(income.amount))").foregroundColor(.green)
-                                    Text(income.category ?? "")
-                                        .bold()
+                                    HStack {
+                                        Image(systemName: "\(findCategoryImage(for: income.category ?? ""))")
+                                        Text(income.category ?? "")
+                                            .bold()
+                                    }
                                 }
                                 Spacer()
                                 Text(calcTimeSince(date: income.date!))
                                     .foregroundColor(.gray)
                                     .italic()
-                                
                             }
                         }
                     }
                     .onDelete(perform: deleteIncome)
                 }
                 .listStyle(.plain)
-                
             }
             .navigationTitle("Доходы")
             .toolbar {
@@ -78,18 +79,25 @@ struct ListOfIncomes: View {
     }
     
     private func totalIncomesToday() -> Double {
-        var amountToday : Double = 0
+        var amountToday: Double = 0
         for item in income {
             if Calendar.current.isDateInToday(item.date!) {
                 amountToday += item.amount
             }
         }
-        
         return amountToday
     }
     
+    private func findCategoryImage(for categoryName: String) -> String {
+        for cat in category {
+            if cat.name == categoryName {
+                return cat.image ?? "defaultImage" // Replace "defaultImage" with a default image name if needed
+            }
+        }
+        return "defaultImage"
+    }
 }
 
 #Preview {
-    ListOfIncomes()
+    ListOfIncomes(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
 }

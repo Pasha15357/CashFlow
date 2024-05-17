@@ -14,6 +14,8 @@ struct AddExpenseView: View {
     
     @State private var name = ""
     @State private var amount = Double()
+    @State private var date = Date()
+
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @State private var selectedCategory: Category?
@@ -45,10 +47,15 @@ struct AddExpenseView: View {
                         .keyboardType(.numberPad)
                 }
                 
+                Section(header: Text("Дата расхода")) {
+                    DatePicker("Дата и время", selection: $date, displayedComponents: [.date, .hourAndMinute])
+                        
+                }
+                
                 Button("Сохранить") {
                     if let selectedCategory = selectedCategory {
                         let expenseAmount = amount
-                        DataController().addExpense(name: name, category: selectedCategory.name ?? "", amount: amount, context: managedObjContext)
+                        DataController().addExpense(name: name, category: selectedCategory.name ?? "", amount: amount, date: date, context: managedObjContext)
                         
                         // Получаем текущий баланс
                         guard let currentBalance = DataController().getCurrentBalance(context: managedObjContext) else { return }
@@ -74,12 +81,6 @@ struct AddExpenseView: View {
                     }) {
                         Text("Отменить")
                     }
-                }
-            }
-            .onAppear {
-                // Убеждаемся, что есть хотя бы одна категория в списке, прежде чем выбрать первую
-                if let firstCategory = category.first {
-                    selectedCategory = firstCategory
                 }
             }
         }

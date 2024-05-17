@@ -17,7 +17,8 @@ struct EditExpenseView: View {
     
     @State private var name = ""
     @State private var amount: Double = 0
-    
+    @State private var date = Date()
+
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @State private var selectedCategory: Category?
     
@@ -26,11 +27,6 @@ struct EditExpenseView: View {
             Form {
                 Section(header: Text("Название расхода")) {
                     TextField("\(expense.name!)", text: $name)
-                        .onAppear {
-                            name = expense.name!
-                            amount = expense.amount
-//                            selectedCategory = expense.category
-                        }
                 }
                 Section(header: Text("Категория расхода"))  {
                     Menu {
@@ -53,9 +49,14 @@ struct EditExpenseView: View {
                         .keyboardType(.numberPad)
                 }
                 
+                Section(header: Text("Дата расхода")) {
+                    DatePicker("Дата и время", selection: $date, displayedComponents: [.date, .hourAndMinute])
+                        .padding(.vertical)
+                }
+                
                 Button("Сохранить") {
                     if let selectedCategory = selectedCategory {
-                        DataController().editExpense(expense: expense, category: selectedCategory.name ?? "", name: name, amount: amount, context: managedObjContext)
+                        DataController().editExpense(expense: expense, category: selectedCategory.name ?? "", name: name, amount: amount, date: date, context: managedObjContext)
                         dismiss()
                         
                     }
@@ -64,11 +65,16 @@ struct EditExpenseView: View {
 
             }
             .onAppear {
-                // Убеждаемся, что есть хотя бы одна категория в списке, прежде чем выбрать первую
-                if let firstCategory = category.first {
-                    selectedCategory = firstCategory
+                name = expense.name!
+                amount = expense.amount
+                date = expense.date!
+                for cat in category {
+                    if expense.category == cat.name {
+                        selectedCategory = cat
+                    }
                 }
             }
+
         }
         .navigationTitle("Расход")
 
