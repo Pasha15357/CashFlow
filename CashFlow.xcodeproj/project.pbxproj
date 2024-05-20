@@ -22,6 +22,10 @@
 		1B67E47D2BBC7F0F00D88D8F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1B67E47C2BBC7F0F00D88D8F /* FirebaseFirestore */; };
 		1B7417102BC4667C008FF37E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B74170E2BC4667C008FF37E /* DataModel.xcdatamodeld */; };
 		1B7417122BC46D87008FF37E /* ListOfCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7417112BC46D87008FF37E /* ListOfCategories.swift */; };
+		1B787BA82BF7D02A00BF8943 /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B787BA72BF7D02A00BF8943 /* Export.swift */; };
+		1B787BAA2BF7F70C00BF8943 /* Widget1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B787BA92BF7F70C00BF8943 /* Widget1.swift */; };
+		1B787BAC2BFBD3DE00BF8943 /* Widget2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B787BAB2BFBD3DE00BF8943 /* Widget2.swift */; };
+		1B787BAE2BFBD3E800BF8943 /* Widget3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B787BAD2BFBD3E800BF8943 /* Widget3.swift */; };
 		1BC3BADC2BBF26C300F1B3D9 /* Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */; };
 		1BC49F582BE39B9000A6A9E8 /* ListOfReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC49F572BE39B9000A6A9E8 /* ListOfReminders.swift */; };
 		1BC49F5B2BE39BCF00A6A9E8 /* AddReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC49F5A2BE39BCF00A6A9E8 /* AddReminder.swift */; };
@@ -56,6 +60,10 @@
 		1B643ADF2B8FDA8F00014153 /* ListOfIncomes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfIncomes.swift; sourceTree = "<group>"; };
 		1B74170F2BC4667C008FF37E /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		1B7417112BC46D87008FF37E /* ListOfCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfCategories.swift; sourceTree = "<group>"; };
+		1B787BA72BF7D02A00BF8943 /* Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Export.swift; sourceTree = "<group>"; };
+		1B787BA92BF7F70C00BF8943 /* Widget1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget1.swift; sourceTree = "<group>"; };
+		1B787BAB2BFBD3DE00BF8943 /* Widget2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget2.swift; sourceTree = "<group>"; };
+		1B787BAD2BFBD3E800BF8943 /* Widget3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget3.swift; sourceTree = "<group>"; };
 		1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagram.swift; sourceTree = "<group>"; };
 		1BC49F572BE39B9000A6A9E8 /* ListOfReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfReminders.swift; sourceTree = "<group>"; };
 		1BC49F5A2BE39BCF00A6A9E8 /* AddReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminder.swift; sourceTree = "<group>"; };
@@ -119,6 +127,10 @@
 				1B14B9A32B1A7970005BA20E /* PaymentViewModel.swift */,
 				1BF032DE2B907D7000B869B9 /* Registration1.swift */,
 				1BF907BA2BC42CFB00283B6F /* EditBalance.swift */,
+				1B787BA72BF7D02A00BF8943 /* Export.swift */,
+				1B787BA92BF7F70C00BF8943 /* Widget1.swift */,
+				1B787BAB2BFBD3DE00BF8943 /* Widget2.swift */,
+				1B787BAD2BFBD3E800BF8943 /* Widget3.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -294,12 +306,15 @@
 				1B14B9A42B1A7970005BA20E /* PaymentViewModel.swift in Sources */,
 				1BF907B92BC40AB700283B6F /* UserDefaults+Extensions.swift in Sources */,
 				1B3396D92BE44E6B006B12D0 /* CategoriesExpenses.swift in Sources */,
+				1B787BAC2BFBD3DE00BF8943 /* Widget2.swift in Sources */,
 				1B14B9A22B1A784F005BA20E /* ApplePay.swift in Sources */,
 				1BDFE70C2B0F5567003E45E1 /* ListOfExpenses.swift in Sources */,
 				1BDFE70A2B0E6D91003E45E1 /* Main.swift in Sources */,
 				1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */,
+				1B787BA82BF7D02A00BF8943 /* Export.swift in Sources */,
 				1BDFE7122B0F9AD8003E45E1 /* Settings.swift in Sources */,
 				1B3396DC2BE45B16006B12D0 /* ListOfExpensesCategories.swift in Sources */,
+				1B787BAA2BF7F70C00BF8943 /* Widget1.swift in Sources */,
 				1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */,
 				1B7417102BC4667C008FF37E /* DataModel.xcdatamodeld in Sources */,
 				1BF032DF2B907D7000B869B9 /* Registration1.swift in Sources */,
@@ -316,6 +331,7 @@
 				1BF032D52B8FEC0900B869B9 /* AddIncomeView.swift in Sources */,
 				1BC49F582BE39B9000A6A9E8 /* ListOfReminders.swift in Sources */,
 				1BC49F5B2BE39BCF00A6A9E8 /* AddReminder.swift in Sources */,
+				1B787BAE2BFBD3E800BF8943 /* Widget3.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

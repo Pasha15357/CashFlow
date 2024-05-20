@@ -9,61 +9,49 @@ import SwiftUI
 import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
-
+import AuthenticationServices
 
 struct Registration1: View {
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     
     var body: some View {
-        
-        VStack{
-            
-            if status{
-                
+        VStack {
+            if status {
                 Home()
-            }
-            else{
-                
+            } else {
                 SignIn()
             }
-            
-        }.animation(.spring())
-            .onAppear {
-                
-                NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main) { (_) in
-                    
-                    let status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-                    self.status = status
-                }
+        }
+        .onAppear {
+            NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main) { _ in
+                let status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+                self.status = status
             }
-        
-    }
-}
-
-func signInWithEmail(email: String, password : String, completion: @escaping
-(Bool, String) ->Void) {
-    Auth.auth().signIn(withEmail: email, password: password) { (res, err) in
-        if err != nil {
-            completion (false,(err?.localizedDescription)!)
-            return
-            
         }
-        completion (true, (res?.user.email)!)
     }
 }
 
-func signUpWithEmail (email: String, password : String, completion: @escaping
-(Bool, String) -> Void) {
-    Auth.auth().createUser(withEmail: email, password: password) { (res, err) in
-        if err != nil  {
-            completion (false,(err?.localizedDescription)!)
+func signInWithEmail(email: String, password: String, completion: @escaping (Bool, String) -> Void) {
+    Auth.auth().signIn(withEmail: email, password: password) { res, err in
+        if let err = err {
+            completion(false, err.localizedDescription)
             return
         }
-        completion (true,(res?.user.email)!)
+        completion(true, res?.user.email ?? "")
     }
 }
 
-struct Home : View {
+func signUpWithEmail(email: String, password: String, completion: @escaping (Bool, String) -> Void) {
+    Auth.auth().createUser(withEmail: email, password: password) { res, err in
+        if let err = err {
+            completion(false, err.localizedDescription)
+            return
+        }
+        completion(true, res?.user.email ?? "")
+    }
+}
+
+struct Home: View {
     @State var firstName: String = ""
     @State private var lastName: String = ""
     @State private var birthday: Date = Date()
@@ -71,27 +59,34 @@ struct Home : View {
     @State private var selectedImage: UIImage?
     @State private var showImagePicker = false
 
-    
     @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
-        NavigationView{
+        NavigationView {
             Form {
-                
                 if let image = selectedImage {
-                    VStack{
+                    VStack {
                         Image(uiImage: image)
                             .resizable()
-                            .scaledToFit()
                             .clipShape(Circle())
                             .frame(width: 120, height: 120)
+                            .aspectRatio(contentMode: .fit)
                             .frame(maxWidth: .infinity, alignment: .center)
+                        
                         Button("Выбрать изображение") {
                             showImagePicker.toggle()
                         }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(10)
+                        Button("Удалить изображение") {
+                            selectedImage = nil
+                        }
+                        .foregroundColor(.red)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(10)
                     }
                 } else {
-                    VStack{
+                    VStack {
                         Image(systemName: "person.crop.circle")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -103,33 +98,31 @@ struct Home : View {
                         }
                     }
                 }
-                
+
                 Section(header: Text("Имя")) {
                     TextField("Иван", text: $firstName)
                 }
                 Section(header: Text("Фамилия")) {
                     TextField("Иванов", text: $lastName)
                 }
-                Section() {
+                Section {
                     DatePicker("Дата рождения", selection: $birthday, displayedComponents: .date)
                 }
-                
+
                 Section {
-                    HStack(alignment: .center){
+                    HStack(alignment: .center) {
                         Button(action: {
                             saveProfile()
                             dismiss()
-                        })
-                        {
+                        }) {
                             if isLoading {
                                 ProgressView()
                             } else {
                                 Text("Сохранить")
-                                
                             }
                         }
                     }
-                    HStack(alignment: .center){
+                    HStack(alignment: .center) {
                         Button(action: {
                             UserDefaults.standard.set(false, forKey: "status")
                             NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
@@ -138,43 +131,33 @@ struct Home : View {
                                 .foregroundColor(.red)
                         }
                     }
-                    
-                    
-                }
-                Section {
-                    
                 }
             }
             .onAppear(perform: loadData)
             .navigationTitle("Данные профиля")
             .sheet(isPresented: $showImagePicker) {
-                        ImagePicker(selectedImage: $selectedImage)
-                    }
+                ImagePicker(selectedImage: $selectedImage)
+            }
         }
     }
-        
-    
+
     func loadData() {
         guard let currentUser = Auth.auth().currentUser else { return }
-        // Загрузка данных профиля пользователя из Firestore
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(currentUser.uid)
-        
+
         userRef.getDocument { document, error in
             if let document = document, document.exists {
                 let data = document.data()
                 firstName = data?["firstName"] as? String ?? ""
                 lastName = data?["lastName"] as? String ?? ""
-                birthday = data?["birthday"] as? Date ?? Date()
-                
-                // Попытка получить данные изображения
-                if let imageData = data?["profileImage"] as? Data {
-                    if let profileImage = UIImage(data: imageData) {
-                        // Если изображение удалось преобразовать, устанавливаем его
-                        self.selectedImage = profileImage
-                    } else {
-                        print("Failed to convert data to image")
-                    }
+                if let timestamp = data?["birthday"] as? Timestamp {
+                    birthday = timestamp.dateValue()
+                } else {
+                    birthday = Date()
+                }
+                if let imageData = data?["profileImage"] as? Data, let profileImage = UIImage(data: imageData) {
+                    self.selectedImage = profileImage
                 } else {
                     print("Profile image data not found")
                 }
@@ -184,26 +167,23 @@ struct Home : View {
         }
     }
 
-    
     private func saveProfile() {
         guard let currentUser = Auth.auth().currentUser else { return }
-        
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(currentUser.uid)
-        
-        // Преобразуем изображение в данные JPEG
-        guard let imageData = selectedImage?.jpegData(compressionQuality: 0.5) else {
-            print("Failed to convert image to data")
-            return
-        }
-        
-        let userData: [String: Any] = [
+
+        var userData: [String: Any] = [
             "firstName": firstName,
             "lastName": lastName,
-            "birthday": birthday,
-            "profileImage": imageData // Добавляем изображение в данные профиля
+            "birthday": Timestamp(date: birthday)
         ]
-        
+
+        if let selectedImage = selectedImage, let imageData = selectedImage.jpegData(compressionQuality: 0.5) {
+            userData["profileImage"] = imageData
+        } else {
+            userData["profileImage"] = FieldValue.delete()
+        }
+
         userRef.setData(userData, merge: true) { error in
             if let error = error {
                 print("Ошибка сохранения профиля: \(error.localizedDescription)")
@@ -212,194 +192,208 @@ struct Home : View {
             }
         }
     }
-
-    
 }
 
-
-struct SignIn : View {
-    
+struct SignIn: View {
     @State var user = ""
     @State var pass = ""
     @State var message = ""
     @State var alert = false
     @State var show = false
     
-    var body : some View{
+    var body: some View {
         VStack {
-            VStack{
-                Text("Вход").fontWeight(.heavy).font(.largeTitle).padding([.top,.bottom], 20)
+            VStack {
+                Text("Вход")
+                    .fontWeight(.heavy)
+                    .font(.largeTitle)
+                    .padding([.top, .bottom], 20)
                 
-                VStack(alignment: .leading){
-                    
-                    VStack(alignment: .leading){
+                VStack(alignment: .leading) {
+                    VStack(alignment: .leading) {
+                        Text("Почта")
+                            .font(.headline)
+                            .fontWeight(.light)
+                            .foregroundColor(Color(.label).opacity(0.75))
                         
-                        Text("Почта").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
-                        
-                        HStack{
-                            
+                        HStack {
                             TextField("Введите ваш email", text: $user)
                             
-                            if user != ""{
-                                
-                                Image("check").foregroundColor(Color.init(.label))
+                            if user != "" {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(Color(.label))
                             }
-                            
                         }
                         
                         Divider()
-                        
                     }.padding(.bottom, 15)
                     
-                    VStack(alignment: .leading){
-                        
-                        Text("Пароль").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                    VStack(alignment: .leading) {
+                        Text("Пароль")
+                            .font(.headline)
+                            .fontWeight(.light)
+                            .foregroundColor(Color(.label).opacity(0.75))
                         
                         SecureField("Введите ваш пароль", text: $pass)
                         
                         Divider()
                     }
-                    
                 }.padding(.horizontal, 6)
                 
                 Button(action: {
-                    
                     signInWithEmail(email: self.user, password: self.pass) { (verified, status) in
-                        
                         if !verified {
-                            
                             self.message = status
                             self.alert.toggle()
-                        }
-                        else{
-                            
+                        } else {
                             UserDefaults.standard.set(true, forKey: "status")
                             NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                         }
                     }
-                    
                 }) {
-                    
-                    Text("Войти").foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 120).padding()
-                    
-                    
-                }.background(Color.green)
-                    .clipShape(Capsule())
-                    .padding(.top, 45)
-                
-            }.padding()
-                .alert(isPresented: $alert) {
-                    
-                    Alert(title: Text("Error"), message: Text(self.message), dismissButton: .default(Text("Ok")))
+                    Text("Войти")
+                        .foregroundColor(.white)
+                        .frame(width: UIScreen.main.bounds.width - 120)
+                        .padding()
                 }
-            VStack{
+                .background(Color.green)
+                .clipShape(Capsule())
+                .padding(.top, 45)
                 
-                Text("(или)").foregroundColor(Color.gray.opacity(0.5)).padding(.top,30)
-                
-                
-                HStack(spacing: 8){
-                    
-                    Text("Нет аккаунта?").foregroundColor(Color.gray.opacity(0.5))
-                    
-                    Button(action: {
-                        
-                        self.show.toggle()
-                        
-                    }) {
-                        
-                        Text("Регистрация")
-                        
-                    }.foregroundColor(.blue)
-                    
-                }.padding(.top, 25)
-                
-            }.sheet(isPresented: $show) {
-                
-                SignUp(show: self.$show)
+                SignInWithAppleButton(
+                    onRequest: { request in
+                        request.requestedScopes = [.fullName, .email]
+                    },
+                    onCompletion: { result in
+                        switch result {
+                        case .success(let authResults):
+                            switch authResults.credential {
+                            case let appleIDCredential as ASAuthorizationAppleIDCredential:
+                                let userIdentifier = appleIDCredential.user
+                                let email = appleIDCredential.email
+                                let fullName = appleIDCredential.fullName
+                                // Handle successful Apple ID sign-in here
+                                // You may also want to save the userIdentifier in UserDefaults
+                                UserDefaults.standard.set(true, forKey: "status")
+                                NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                            default:
+                                break
+                            }
+                        case .failure(let error):
+                            print("Authorization failed: \(error.localizedDescription)")
+                        }
+                    }
+                )
+                .signInWithAppleButtonStyle(.black)
+                .frame(width: UIScreen.main.bounds.width - 120, height: 45)
+                .padding(.top, 20)
+            }
+            .padding()
+            .alert(isPresented: $alert) {
+                Alert(title: Text("Error"), message: Text(self.message), dismissButton: .default(Text("Ok")))
             }
         }
     }
 }
 
-struct SignUp : View {
+class AppleSignInCoordinator: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    var parent: SignIn
     
+    init(parent: SignIn) {
+        self.parent = parent
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            let userIdentifier = appleIDCredential.user
+            let email = appleIDCredential.email
+            let fullName = appleIDCredential.fullName
+            // Handle successful Apple ID sign-in here
+            // You may also want to save the userIdentifier in UserDefaults
+            UserDefaults.standard.set(true, forKey: "status")
+            NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("Authorization failed: \(error.localizedDescription)")
+    }
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return UIApplication.shared.windows.first!
+    }
+}
+
+struct SignUp: View {
     @State var user = ""
     @State var pass = ""
     @State var message = ""
     @State var alert = false
-    @Binding var show : Bool
+    @Binding var show: Bool
     
-    var body : some View{
-        
-        VStack{
-            Text("Регистрация").fontWeight(.heavy).font(.largeTitle).padding([.top,.bottom], 20)
+    var body: some View {
+        VStack {
+            Text("Регистрация")
+                .fontWeight(.heavy)
+                .font(.largeTitle)
+                .padding([.top, .bottom], 20)
             
-            VStack(alignment: .leading){
-                
-                VStack(alignment: .leading){
+            VStack(alignment: .leading) {
+                VStack(alignment: .leading) {
+                    Text("Почта")
+                        .font(.headline)
+                        .fontWeight(.light)
+                        .foregroundColor(Color(.label).opacity(0.75))
                     
-                    Text("Почта").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
-                    
-                    HStack{
-                        
+                    HStack {
                         TextField("Введите ваш email", text: $user)
                         
-                        if user != ""{
-                            
-                            Image("check").foregroundColor(Color.init(.label))
+                        if user != "" {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(Color(.label))
                         }
-                        
                     }
                     
                     Divider()
-                    
                 }.padding(.bottom, 15)
                 
-                VStack(alignment: .leading){
-                    
-                    Text("Пароль").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
+                VStack(alignment: .leading) {
+                    Text("Пароль")
+                        .font(.headline)
+                        .fontWeight(.light)
+                        .foregroundColor(Color(.label).opacity(0.75))
                     
                     SecureField("Введите ваш пароль", text: $pass)
                     
                     Divider()
                 }
-                
             }.padding(.horizontal, 6)
             
             Button(action: {
-                
                 signUpWithEmail(email: self.user, password: self.pass) { (verified, status) in
-                    
-                    if !verified{
-                        
+                    if !verified {
                         self.message = status
                         self.alert.toggle()
-                        
-                    }
-                    else{
-                        
+                    } else {
                         UserDefaults.standard.set(true, forKey: "status")
-                        
                         self.show.toggle()
-                        
                         NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                     }
                 }
-                
             }) {
-                
-                Text("Зарегистрироваться").foregroundColor(.white).frame(width: UIScreen.main.bounds.width - 120).padding()
-                
-                
-            }.background(Color.green)
-                .clipShape(Capsule())
-                .padding(.top, 45)
-            
-        }.padding()
-            .alert(isPresented: $alert) {
-                
-                Alert(title: Text("Error"), message: Text(self.message), dismissButton: .default(Text("Ok")))
+                Text("Зарегистрироваться")
+                    .foregroundColor(.white)
+                    .frame(width: UIScreen.main.bounds.width - 120)
+                    .padding()
             }
+            .background(Color.green)
+            .clipShape(Capsule())
+            .padding(.top, 45)
+        }
+        .padding()
+        .alert(isPresented: $alert) {
+            Alert(title: Text("Error"), message: Text(self.message), dismissButton: .default(Text("Ok")))
+        }
     }
 }
 
@@ -431,15 +425,12 @@ struct ImagePicker: UIViewControllerRepresentable {
         return imagePicker
     }
 
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
-    }
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) { }
 
     func makeCoordinator() -> Coordinator {
         return Coordinator(parent: self)
     }
 }
-
-
 
 #Preview {
     Registration1()

@@ -15,7 +15,7 @@ struct ListOfExpensesCategories: View {
     @State private var showingAddView = false
     @StateObject var settings = Settings1() // Создаем экземпляр Settings
     
-    @State var selectedPeriod: Period = .today
+    var selectedPeriod: Period
     @State private var startDate = Date()
     @State private var endDate = Date()
     @State private var filteredExpenses: [Expense] = []
@@ -27,7 +27,7 @@ struct ListOfExpensesCategories: View {
                     .padding(.horizontal)
                 List {
                     ForEach(filteredExpenses) { expense in
-                        if expense.category == category.name{
+                        if expense.category == category.name {
                             NavigationLink(destination: EditExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), expense: expense)) {
                                 HStack {
                                     VStack (alignment: .leading, spacing: 6) {
@@ -78,15 +78,6 @@ struct ListOfExpensesCategories: View {
         }
     }
     
-    private func totalExpenses() -> Double {
-        var amount : Double = 0
-        for item in expenses {
-            amount += item.amount
-        }
-        
-        return amount
-    }
-    
     private func updateFilteredExpenses() {
         switch selectedPeriod {
         case .today:
@@ -97,16 +88,14 @@ struct ListOfExpensesCategories: View {
             filteredExpenses = Array(expenses)
         case .lastMonth:
             guard let startOfMonth = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Date())) else { return }
-            let endOfMonth = Calendar.current.date(byAdding: .day, value: 1, to: startDate)! // Конец сегодняшнего дня
+            let endOfMonth = Calendar.current.date(byAdding: .day, value: 1, to: startOfMonth)! // Конец месяца
             filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startOfMonth, and: endOfMonth) }
-
         case .custom:
             filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startDate, and: endDate) }
-            
         }
     }
 }
 
-//#Preview {
-//    ListOfExpensesCategories()
-//}
+#Preview {
+    ListOfExpensesCategories(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil).wrappedValue.first!, selectedPeriod: .today)
+}

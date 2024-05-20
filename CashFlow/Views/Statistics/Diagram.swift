@@ -27,16 +27,16 @@ struct Diagram: View {
     @FetchRequest(sortDescriptors: [], animation: .default) private var expenses: FetchedResults<Expense>
     @FetchRequest(sortDescriptors: [], animation: .default) private var incomes: FetchedResults<Income>
     
-    @StateObject var settings = Settings1() // Создаем экземпляр Settings
+    @StateObject private var settings = Settings1() // Перенос инициализации сюда
 
-    @State var selectedPeriod: Period = .today
+    @State private var selectedPeriod: Period = .today
     @State private var startDate = Date()
     @State private var endDate = Date()
     @State private var filteredExpenses: [Expense] = []
     let dateFormatter = DateFormatter()
     
     var body: some View {
-        NavigationView{
+        NavigationView {
             ScrollView {
                 VStack {
                     Text("Расходы - \(settings.selectedCurrency.sign)\(Int(totalExpenses()))")
@@ -53,7 +53,6 @@ struct Diagram: View {
                     .padding(.bottom)
                     .onChange(of: selectedPeriod) { newValue in
                         updateFilteredExpenses()
-                        CategoriesExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil)).updateFilteredExpenses()
                     }
                     switch selectedPeriod {
                     case .today:
@@ -88,7 +87,7 @@ struct Diagram: View {
                         }
                     }
                     VStack(alignment: .leading) { // Выравнивание содержимого по левому краю
-                        NavigationLink(destination: CategoriesExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))) {
+                        NavigationLink(destination: CategoriesExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), selectedPeriod: selectedPeriod)) {
                             VStack{
                                 
                                 Chart(filteredExpenses.map { expense in
@@ -163,7 +162,7 @@ struct Diagram: View {
     
     private func totalExpenses() -> Double {
         var amount : Double = 0
-        for item in expenses {
+        for item in filteredExpenses {
             amount += item.amount
         }
         
@@ -194,8 +193,6 @@ struct Diagram: View {
         return Text(capitalizedMonth)
     }
 
-    
-
     private func updateFilteredExpenses() {
         switch selectedPeriod {
         case .today:
@@ -214,9 +211,7 @@ struct Diagram: View {
             
         }
     }
-    
 }
-
 
 // Перечисление для периодов
 enum Period: String, CaseIterable {
@@ -226,7 +221,8 @@ enum Period: String, CaseIterable {
     case custom = "Пользовательский"
 }
 
-
-#Preview {
-    Diagram()
+struct Diagram_Previews: PreviewProvider {
+    static var previews: Diagram {
+        Diagram()
+    }
 }

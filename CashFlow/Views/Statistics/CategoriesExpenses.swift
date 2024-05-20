@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct CategoriesExpenses: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest var category: FetchedResults<Category>
@@ -15,8 +14,7 @@ struct CategoriesExpenses: View {
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @FetchRequest(sortDescriptors: [], animation: .default) private var expenses: FetchedResults<Expense>
     
-    
-    @State var selectedPeriod = Diagram().selectedPeriod
+    var selectedPeriod: Period
 
     @State private var startDate = Date()
     @State private var endDate = Date()
@@ -28,13 +26,12 @@ struct CategoriesExpenses: View {
     
     @StateObject var settings = Settings1() // Создаем экземпляр Settings
 
-
     var body: some View {
         VStack (alignment: .leading){
             List {
                 ForEach(category) { category in
                     if totalExpensesCategory(category: category.name ?? "") != 0 {
-                        NavigationLink(destination: ListOfExpensesCategories(category: category)) {
+                        NavigationLink(destination: ListOfExpensesCategories(category: category, selectedPeriod: selectedPeriod)) {
                             HStack {
                                 Image(systemName: "\(category.image!)")
                                     .frame(width: 30) // Установите требуемый размер изображения
@@ -69,7 +66,6 @@ struct CategoriesExpenses: View {
         }
         .onAppear {
             updateFilteredExpenses()
-            selectedPeriod = Diagram().selectedPeriod
         }
     }
     
@@ -88,7 +84,6 @@ struct CategoriesExpenses: View {
             }
         }
         return amount
-//        return String(format: "%.0f", amount) // "%.2f" указывает, что нужно отобразить число с двумя знаками после запятой
     }
     
     private func totalExpenses() -> Double {
@@ -118,7 +113,7 @@ struct CategoriesExpenses: View {
     }
 }
 
-
 #Preview {
-    CategoriesExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+    CategoriesExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), selectedPeriod: .today)
 }
+

@@ -60,18 +60,31 @@ struct Settings: View {
                     }) {
                         HStack (alignment: .center, spacing: 20){
                             
-                                
-                            if status, let image = selectedImage{
+                            
+                            if let image = selectedImage {
                                 Image(uiImage: image)
                                     .resizable()
-                                    .aspectRatio(contentMode: .fit)
                                     .clipShape(Circle())
-                                    .frame(width: 120, height: 120)
+                                    .frame(width: 100, height: 100)
+                                    .aspectRatio(contentMode: .fit)
+                                Text("\(firstName) \(lastName)")
+                                    .font(.title2)
+                                    .bold()
+                                
+                                
+                            }
+                            else if status{
+                                Image(systemName: "person.crop.circle")
+                                    .resizable()
+
+                                    .clipShape(Circle())
+                                    .frame(width: 100, height: 100)
+                                    .aspectRatio(contentMode: .fit)
                                 Text("\(firstName) \(lastName)")
                                     .font(.title2)
                                     .bold()
                             }
-                            else{
+                            else {
                                 Image(systemName: "person.crop.circle")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
@@ -79,7 +92,6 @@ struct Settings: View {
                                     .frame(width: 100, height: 100)
                                 Text("Вход")
                                     .font(.largeTitle)
-                                    
                             }
                         }
                     }
@@ -179,7 +191,9 @@ struct Settings: View {
                 
                 Section {
                     Button (action : {
-                        
+                        UserDefaults.standard.set(false, forKey: "status")
+                        NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                        loadData()
                     }) {
                         Text("Выйти").foregroundColor(.red)
                     }
@@ -187,7 +201,7 @@ struct Settings: View {
                 }
             }
             .sheet(isPresented: $showingAddView) {
-                AddReminder()
+                ExportView()
             }
             .navigationBarTitle("Настройки")
             .onAppear(perform: loadData)
