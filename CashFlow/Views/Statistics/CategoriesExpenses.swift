@@ -14,8 +14,8 @@ struct CategoriesExpenses: View {
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @FetchRequest(sortDescriptors: [], animation: .default) private var expenses: FetchedResults<Expense>
     
-    var selectedPeriod: Period
-
+    @State private var selectedPeriod: Period = .today // Сделаем selectedPeriod состоянием
+    
     @State private var startDate = Date()
     @State private var endDate = Date()
     @State private var filteredExpenses: [Expense] = []
@@ -31,7 +31,7 @@ struct CategoriesExpenses: View {
             List {
                 ForEach(category) { category in
                     if totalExpensesCategory(category: category.name ?? "") != 0 {
-                        NavigationLink(destination: ListOfExpensesCategories(category: category, selectedPeriod: selectedPeriod)) {
+                        NavigationLink(destination: ListOfExpensesCategories(category: category)) {
                             HStack {
                                 Image(systemName: "\(category.image!)")
                                     .frame(width: 30) // Установите требуемый размер изображения
@@ -65,6 +65,7 @@ struct CategoriesExpenses: View {
             AddCategory()
         }
         .onAppear {
+            loadUserDefaults()
             updateFilteredExpenses()
         }
     }
@@ -96,6 +97,8 @@ struct CategoriesExpenses: View {
     }
     
     func updateFilteredExpenses() {
+        let (adjustedStartDate, adjustedEndDate) = startDate <= endDate ? (startDate, endDate) : (endDate, startDate)
+        
         switch selectedPeriod {
         case .today:
             let startDate = Calendar.current.startOfDay(for: Date()) // Начало сегодняшнего дня
@@ -105,15 +108,24 @@ struct CategoriesExpenses: View {
             filteredExpenses = Array(expenses)
         case .lastMonth:
             guard let startOfMonth = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Date())) else { return }
-            let endOfMonth = Calendar.current.startOfDay(for: Date())
-            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startOfMonth, and: endOfMonth) }
+            let endOfMonth = Calendar.current.startOfDay(for: Date()) // Начало сегодняшнего дня
+            let endOfMonth1 = Calendar.current.date(byAdding: .day, value: 1, to: endOfMonth)!
+            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startOfMonth, and: endOfMonth1) }
         case .custom:
-            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startDate, and: endDate) }
+            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(adjustedStartDate, and: adjustedEndDate) }
         }
+    }
+    
+    private func loadUserDefaults() {
+        if let periodString = UserDefaults.standard.string(forKey: "selectedPeriod"),
+           let period = Period(rawValue: periodString) {
+            selectedPeriod = period
+        }
+        startDate = UserDefaults.standard.object(forKey: "startDate") as? Date ?? Date()
+        endDate = UserDefaults.standard.object(forKey: "endDate") as? Date ?? Date()
     }
 }
 
 #Preview {
-    CategoriesExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), selectedPeriod: .today)
+    CategoriesExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
 }
-

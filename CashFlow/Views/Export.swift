@@ -6,35 +6,72 @@ struct ExportView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var exportSuccess: Bool = false
     @State private var showingAlert: Bool = false
+    @Environment(\.dismiss) var dismiss
+
     
     var body: some View {
-        VStack {
-            Text("Export Data")
-                .font(.largeTitle)
-                .padding()
-            
-            Button(action: {
-                exportData()
-            }) {
-                Text("Export")
-                    .font(.title2)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+        NavigationView {
+            VStack(alignment: .leading) {
+                Text("Формат экспорта CSV")
+                    .font(.headline)
+                    .padding(.bottom, 5)
+                
+                Text("CSV — это простой формат файла для хранения данных в виде таблицы. Каждая строка — это запись данных, а каждое поле разделено запятой.")
+                    .padding(.bottom, 20)
+                
+                Text("Экспортируемые данные")
+                    .font(.headline)
+                    .padding(.bottom, 5)
+                
+                Text("При экспорте в файл CSV будут сохранены следующие данные:")
+                    .padding(.bottom, 5)
+                
+                Text("- Баланс: Ваш баланс на данный момент с выбранной валютой.")
+                    .padding(.bottom, 2)
+                
+                Text("- Расходы: Все ваши расходы, внесенные за весь период использования, включая название, дату, сумму и категорию.")
+                    .padding(.bottom, 2)
+                
+                Text("- Доходы: Все ваши доходы, внесенные за весь период использования, включая название, дату, сумму и категорию.")
+                    .padding(.bottom, 20)
+                
+                Spacer()
+                
+                Button(action: {
+                    exportData()
+                }) {
+                    Text("Экспортировать")
+                        .foregroundColor(.white)
+                        .frame(width: UIScreen.main.bounds.width - 120)
+                        .padding()
+                }
+                .frame(maxWidth: .infinity, alignment: .center) 
+                .background(Color.green)
+                .clipShape(Capsule())
+                .padding(.top, 45)
             }
-        }
-        .padding()
-        .alert(isPresented: $showingAlert) {
-            Alert(
-                title: Text(exportSuccess ? "Success" : "Error"),
-                message: Text(exportSuccess ? "Data exported successfully." : "Failed to export data."),
-                dismissButton: .default(Text("OK")) {
-                    if exportSuccess {
-                        presentationMode.wrappedValue.dismiss()
+            .padding()
+            .navigationBarTitle("Экспорт в CSV-файл")
+            .alert(isPresented: $showingAlert) {
+                Alert(
+                    title: Text(exportSuccess ? "Успех" : "Ошибка"),
+                    message: Text(exportSuccess ? "Данные успешно экспортированы." : "Не удалось экспортировать данные."),
+                    dismissButton: .default(Text("OK")) {
+                        if exportSuccess {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                )
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button (action: {
+                        dismiss()
+                    }) {
+                        Text("Отменить")
                     }
                 }
-            )
+            }
         }
     }
     
@@ -51,6 +88,7 @@ struct ExportView: View {
         }
     }
 }
+
 
 class CoreDataStack {
     static let shared = CoreDataStack()

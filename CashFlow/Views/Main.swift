@@ -65,27 +65,28 @@ struct Main: View {
                     }
                     .padding(.top, 0)
                     VStack(alignment: .leading) {
-                        Text("Расходы")
-                            .font(.title)
-                            .fontWeight(.bold) // Установка жирного шрифта
-                        NavigationLink(destination: Diagram()) {
-                            Chart(expenses.map { expense in
-                                ExpenseData(name: expense.name ?? "", amount: Int(expense.amount), category: expense.category ?? "")
-                            }, id: \.name) { expense in
+                        ZStack(alignment: .center)  {
+                            Chart(expenses.map { income in
+                                ExpenseData(name: income.name ?? "", amount: Int(income.amount), category: income.category ?? "")
+                            }, id: \.name) { income in
                                 if #available(iOS 17.0, *) {
                                     SectorMark(
-                                        angle: .value ("Macros", expense.amount),
+                                        angle: .value ("Macros", income.amount),
                                         innerRadius: .ratio(0.618),
-                                        angularInset: 1.5
+                                        outerRadius: .inset(1),
+                                        angularInset: 1
                                     )
                                     .cornerRadius(4)
-                                    .foregroundStyle (by: .value("Name", expense.category))
+                                    .foregroundStyle (by: .value("Name", income.category))
                                 } else {
                                     // Fallback on earlier versions
                                 }
                             }
                             .frame(height: 300)
                             .chartXAxis(.hidden)
+                            Text("Расходы")
+                                .font(.title)
+                                .fontWeight(.bold)
                         }
                     }
                     .padding()

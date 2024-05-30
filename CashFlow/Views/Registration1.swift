@@ -58,6 +58,7 @@ struct Home: View {
     @State private var isLoading = false
     @State private var selectedImage: UIImage?
     @State private var showImagePicker = false
+    
 
     @Environment(\.dismiss) var dismiss
 
@@ -138,6 +139,16 @@ struct Home: View {
             .sheet(isPresented: $showImagePicker) {
                 ImagePicker(selectedImage: $selectedImage)
             }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button (action: {
+                        dismiss()
+                    }) {
+                        Text("Отменить")
+                    }
+                }
+            }
+            
         }
     }
 
@@ -264,25 +275,7 @@ struct SignIn: View {
                     onRequest: { request in
                         request.requestedScopes = [.fullName, .email]
                     },
-                    onCompletion: { result in
-                        switch result {
-                        case .success(let authResults):
-                            switch authResults.credential {
-                            case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                                let userIdentifier = appleIDCredential.user
-                                let email = appleIDCredential.email
-                                let fullName = appleIDCredential.fullName
-                                // Handle successful Apple ID sign-in here
-                                // You may also want to save the userIdentifier in UserDefaults
-                                UserDefaults.standard.set(true, forKey: "status")
-                                NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-                            default:
-                                break
-                            }
-                        case .failure(let error):
-                            print("Authorization failed: \(error.localizedDescription)")
-                        }
-                    }
+                    onCompletion: handleSignInWithApple
                 )
                 .signInWithAppleButtonStyle(.black)
                 .frame(width: UIScreen.main.bounds.width - 120, height: 45)
@@ -291,6 +284,56 @@ struct SignIn: View {
             .padding()
             .alert(isPresented: $alert) {
                 Alert(title: Text("Error"), message: Text(self.message), dismissButton: .default(Text("Ok")))
+            }
+        }
+    }
+    
+    private func handleSignInWithApple(result: Result<ASAuthorization, Error>) {
+        switch result {
+        case .success(let authResults):
+            switch authResults.credential {
+            case let appleIDCredential as ASAuthorizationAppleIDCredential:
+                let userIdentifier = appleIDCredential.user
+                let email = appleIDCredential.email
+                let fullName = appleIDCredential.fullName
+                // Handle successful Apple ID sign-in here
+                // You may also want to save the userIdentifier in UserDefaults
+                UserDefaults.standard.set(true, forKey: "status")
+                NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                // Save the user identifier and other details in your database
+                saveAppleUserInDatabase(userIdentifier: userIdentifier, email: email, fullName: fullName)
+            default:
+                break
+            }
+        case .failure(let error):
+            self.message = "Authorization failed: \(error.localizedDescription)"
+            self.alert.toggle()
+            print("Authorization failed: \(error.localizedDescription)")
+        }
+    }
+    
+     func saveAppleUserInDatabase(userIdentifier: String, email: String?, fullName: PersonNameComponents?) {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(currentUser.uid)
+
+        var userData: [String: Any] = [
+            "userIdentifier": userIdentifier
+        ]
+        
+        if let email = email {
+            userData["email"] = email
+        }
+        
+        if let fullName = fullName {
+            userData["fullName"] = "\(fullName.givenName ?? "") \(fullName.familyName ?? "")"
+        }
+
+        userRef.setData(userData, merge: true) { error in
+            if let error = error {
+                print("Error saving user: \(error.localizedDescription)")
+            } else {
+                print("User saved successfully")
             }
         }
     }
@@ -309,9 +352,10 @@ class AppleSignInCoordinator: NSObject, ASAuthorizationControllerDelegate, ASAut
             let email = appleIDCredential.email
             let fullName = appleIDCredential.fullName
             // Handle successful Apple ID sign-in here
-            // You may also want to save the userIdentifier in UserDefaults
             UserDefaults.standard.set(true, forKey: "status")
             NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+            // Save the user identifier and other details in your database
+            parent.saveAppleUserInDatabase(userIdentifier: userIdentifier, email: email, fullName: fullName)
         }
     }
     
@@ -323,6 +367,7 @@ class AppleSignInCoordinator: NSObject, ASAuthorizationControllerDelegate, ASAut
         return UIApplication.shared.windows.first!
     }
 }
+
 
 struct SignUp: View {
     @State var user = ""
@@ -431,6 +476,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         return Coordinator(parent: self)
     }
 }
+
 
 #Preview {
     Registration1()

@@ -10,62 +10,62 @@ import SwiftUI
 struct ListOfExpensesCategories: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var expenses: FetchedResults<Expense>
-    var category : FetchedResults<Category>.Element
+    var category: FetchedResults<Category>.Element
 
     @State private var showingAddView = false
     @StateObject var settings = Settings1() // Создаем экземпляр Settings
     
-    var selectedPeriod: Period
+    @State private var selectedPeriod: Period = .today
     @State private var startDate = Date()
     @State private var endDate = Date()
     @State private var filteredExpenses: [Expense] = []
     
     var body: some View {
-            VStack(alignment: .leading){
-                Text("Категория - \(category.name ?? "")") // Используйте выбранную валюту из Settings
-                    .foregroundColor(.gray)
-                    .padding(.horizontal)
-                List {
-                    ForEach(filteredExpenses) { expense in
-                        if expense.category == category.name {
-                            NavigationLink(destination: EditExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), expense: expense)) {
-                                HStack {
-                                    VStack (alignment: .leading, spacing: 6) {
-                                        Text(expense.name!)
-                                            .bold()
-                                        
-                                        Text("\(settings.selectedCurrency.sign)\(Int(expense.amount)) ").foregroundColor(.red) // Используйте выбранную валюту из Settings
-                                        
-                                    }
-                                    Spacer()
-                                    Text(calcTimeSince(date: expense.date!))
-                                        .foregroundColor(.gray)
-                                        .italic()
+        VStack(alignment: .leading) {
+            Text("Категория - \(category.name ?? "")") // Используйте выбранную валюту из Settings
+                .foregroundColor(.gray)
+                .padding(.horizontal)
+            List {
+                ForEach(filteredExpenses) { expense in
+                    if expense.category == category.name {
+                        NavigationLink(destination: EditExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), expense: expense)) {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 6) {
+                                    Text(expense.name!)
+                                        .bold()
+                                    
+                                    Text("\(settings.selectedCurrency.sign)\(Int(expense.amount)) ").foregroundColor(.red) // Используйте выбранную валюту из Settings
                                 }
+                                Spacer()
+                                Text(calcTimeSince(date: expense.date!))
+                                    .foregroundColor(.gray)
+                                    .italic()
                             }
                         }
                     }
-                    .onDelete(perform: deleteExpense)
                 }
-                .listStyle(.plain)
+                .onDelete(perform: deleteExpense)
             }
-            .navigationTitle("Расходы")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        showingAddView.toggle()
-                    } label: {
-                        Label("Добавить расход", systemImage: "plus.circle")
-                    }
+            .listStyle(.plain)
+        }
+        .navigationTitle("Расходы")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showingAddView.toggle()
+                } label: {
+                    Label("Добавить расход", systemImage: "plus.circle")
                 }
             }
-            .sheet(isPresented: $showingAddView) {
-                AddExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
-            }
+        }
+        .sheet(isPresented: $showingAddView) {
+            AddExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+        }
         .navigationViewStyle(.stack)
         .onAppear {
             // Обновляем выбранную валюту при открытии страницы
             settings.selectedCurrencyIndex = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex")
+            loadUserDefaults()
             updateFilteredExpenses()
         }
     }
@@ -79,6 +79,8 @@ struct ListOfExpensesCategories: View {
     }
     
     private func updateFilteredExpenses() {
+        let (adjustedStartDate, adjustedEndDate) = startDate <= endDate ? (startDate, endDate) : (endDate, startDate)
+        
         switch selectedPeriod {
         case .today:
             let startDate = Calendar.current.startOfDay(for: Date()) // Начало сегодняшнего дня
@@ -88,14 +90,24 @@ struct ListOfExpensesCategories: View {
             filteredExpenses = Array(expenses)
         case .lastMonth:
             guard let startOfMonth = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Date())) else { return }
-            let endOfMonth = Calendar.current.date(byAdding: .day, value: 1, to: startOfMonth)! // Конец месяца
-            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startOfMonth, and: endOfMonth) }
+            let endOfMonth = Calendar.current.startOfDay(for: Date()) // Начало сегодняшнего дня
+            let endOfMonth1 = Calendar.current.date(byAdding: .day, value: 1, to: endOfMonth)!
+            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startOfMonth, and: endOfMonth1) }
         case .custom:
-            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startDate, and: endDate) }
+            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(adjustedStartDate, and: adjustedEndDate) }
         }
+    }
+    
+    private func loadUserDefaults() {
+        if let periodString = UserDefaults.standard.string(forKey: "selectedPeriod"),
+           let period = Period(rawValue: periodString) {
+            selectedPeriod = period
+        }
+        startDate = UserDefaults.standard.object(forKey: "startDate") as? Date ?? Date()
+        endDate = UserDefaults.standard.object(forKey: "endDate") as? Date ?? Date()
     }
 }
 
 #Preview {
-    ListOfExpensesCategories(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil).wrappedValue.first!, selectedPeriod: .today)
+    ListOfExpensesCategories(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil).wrappedValue.first!)
 }

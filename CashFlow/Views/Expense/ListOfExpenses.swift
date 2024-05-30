@@ -9,25 +9,7 @@ import SwiftUI
 import Foundation
 import CoreData
 
-class Settings1: ObservableObject {
-    @Published var selectedCurrencyIndex: Int = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex")
-    
-    struct Currency {
-        var name: String
-        var systemImageName: String
-        var sign: String
-    }
-    
-    var currencies: [Currency] = [
-        Currency(name: "Доллар", systemImageName: "dollarsign.circle", sign: "$"),
-        Currency(name: "Рубль", systemImageName: "rublesign.circle", sign: "₽"),
-        Currency(name: "Евро", systemImageName: "eurosign.circle", sign: "€")
-    ]
-    
-    var selectedCurrency: Currency {
-        return currencies[selectedCurrencyIndex]
-    }
-}
+
 
 struct ListOfExpenses: View {
     @Environment(\.managedObjectContext) var managedObjContext
@@ -40,7 +22,7 @@ struct ListOfExpenses: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("\(settings.selectedCurrency.sign)\(Int(totalExpensesToday())) за сегодня") // Используйте выбранную валюту из Settings
+                Text("\(Int(totalExpensesToday())) \(settings.selectedCurrency.sign) за сегодня") // Используйте выбранную валюту из Settings
                     .foregroundColor(.gray)
                     .padding(.horizontal)
                 List {
@@ -51,7 +33,7 @@ struct ListOfExpenses: View {
                                     Text(expense.name!)
                                         .bold()
                                     
-                                    Text("\(settings.selectedCurrency.sign)\(Int(expense.amount)) ").foregroundColor(.red) // Используйте выбранную валюту из Settings
+                                    Text("\(Int(expense.amount)) \(settings.selectedCurrency.sign) ").foregroundColor(.red) // Используйте выбранную валюту из Settings
                                     HStack {
                                         Image(systemName: "\(findCategoryImage(for: expense.category ?? ""))")
                                         Text(expense.category!)

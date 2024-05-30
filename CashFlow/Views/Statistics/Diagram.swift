@@ -9,11 +9,49 @@ import SwiftUI
 import Charts
 import Foundation
 
+
 extension Date {
     func isBetween(_ date1: Date, and date2: Date) -> Bool {
-        return (date1...date2).contains(self)
+        let (startDate, endDate) = date1 <= date2 ? (date1, date2) : (date2, date1)
+        return (startDate...endDate).contains(self)
     }
 }
+
+
+
+extension UserDefaults {
+    private enum Keys {
+        static let selectedPeriod = "selectedPeriod"
+        static let startDate = "startDate"
+        static let endDate = "endDate"
+    }
+    
+    func saveSelectedPeriod(_ period: Period) {
+        set(period.rawValue, forKey: Keys.selectedPeriod)
+    }
+    
+    func loadSelectedPeriod() -> Period {
+        let rawValue = string(forKey: Keys.selectedPeriod) ?? Period.today.rawValue
+        return Period(rawValue: rawValue) ?? .today
+    }
+    
+    func saveStartDate(_ date: Date) {
+        set(date, forKey: Keys.startDate)
+    }
+    
+    func loadStartDate() -> Date {
+        return object(forKey: Keys.startDate) as? Date ?? Date()
+    }
+    
+    func saveEndDate(_ date: Date) {
+        set(date, forKey: Keys.endDate)
+    }
+    
+    func loadEndDate() -> Date {
+        return object(forKey: Keys.endDate) as? Date ?? Date()
+    }
+}
+
 
 struct ExpenseData {
     let name: String
@@ -39,10 +77,17 @@ struct Diagram: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    Text("Расходы - \(settings.selectedCurrency.sign)\(Int(totalExpenses()))")
-                        .font(.title)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading) // Выравнивание текста по левому краю
+                    HStack {
+                        Text("Расходы -")
+                            .font(.title)
+                            .bold()
+                        Text("\(Int(totalExpenses())) \(settings.selectedCurrency.sign)")
+                            .foregroundColor(.red)
+                            .font(.title)
+                            .bold()
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading) // Выравнивание текста по левому краю
+
                     // Панель с переключателями
                     Picker("Period", selection: $selectedPeriod) {
                         ForEach(Period.allCases, id: \.self) { period in
@@ -52,6 +97,7 @@ struct Diagram: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .padding(.bottom)
                     .onChange(of: selectedPeriod) { newValue in
+                        UserDefaults.standard.saveSelectedPeriod(newValue)
                         updateFilteredExpenses()
                     }
                     switch selectedPeriod {
@@ -73,21 +119,23 @@ struct Diagram: View {
                     case .custom:
                         HStack(alignment: .center) {
                             DatePicker("", selection: $startDate, displayedComponents: .date)
-                                .onChange(of: startDate) { _ in
+                                .onChange(of: startDate) { newValue in
+                                    UserDefaults.standard.saveStartDate(newValue)
                                     updateFilteredExpenses()
                                 }
                                 .labelsHidden() // Убирает текстовую метку над DatePicker
                             Text("—")
                                 .bold()
                             DatePicker("", selection: $endDate, displayedComponents: .date)
-                                .onChange(of: endDate) { _ in
+                                .onChange(of: endDate) { newValue in
+                                    UserDefaults.standard.saveEndDate(newValue)
                                     updateFilteredExpenses()
                                 }
                                 .labelsHidden() // Убирает текстовую метку над DatePicker
                         }
                     }
                     VStack(alignment: .leading) { // Выравнивание содержимого по левому краю
-                        NavigationLink(destination: CategoriesExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), selectedPeriod: selectedPeriod)) {
+                        NavigationLink(destination: CategoriesExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))) {
                             VStack{
                                 
                                 Chart(filteredExpenses.map { expense in
@@ -146,7 +194,7 @@ struct Diagram: View {
                         }
                     }
                 }
-                .navigationTitle("Статистика")
+                .navigationBarTitle("Статистика", displayMode: .large)
                 .padding()
             }
             
@@ -155,9 +203,14 @@ struct Diagram: View {
         .onAppear {
             // Обновляем выбранную валюту при открытии страницы
             settings.selectedCurrencyIndex = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex")
+            
+            // Загружаем данные из UserDefaults
+            selectedPeriod = UserDefaults.standard.loadSelectedPeriod()
+            startDate = UserDefaults.standard.loadStartDate()
+            endDate = UserDefaults.standard.loadEndDate()
+            
             updateFilteredExpenses()
         }
-        
     }
     
     private func totalExpenses() -> Double {
@@ -203,8 +256,9 @@ struct Diagram: View {
             filteredExpenses = Array(expenses)
         case .lastMonth:
             guard let startOfMonth = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Date())) else { return }
-            let endOfMonth = Calendar.current.date(byAdding: .day, value: 1, to: startDate)! // Конец сегодняшнего дня
-            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startOfMonth, and: endOfMonth) }
+            let endOfMonth = Calendar.current.startOfDay(for: Date()) // Начало сегодняшнего дня
+            let endOfMonth1 = Calendar.current.date(byAdding: .day, value: 1, to: endOfMonth)!
+            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startOfMonth, and: endOfMonth1) }
 
         case .custom:
             filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startDate, and: endDate) }
