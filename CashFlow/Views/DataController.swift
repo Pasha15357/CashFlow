@@ -116,6 +116,22 @@ class DataController : ObservableObject {
         save(context: context)
     }
     
+    func getCurrentBalanceString(context: NSManagedObjectContext) -> String {
+        let request: NSFetchRequest<Balance> = Balance.fetchRequest()
+
+        do {
+            let balances = try context.fetch(request)
+            if let balance = balances.first {
+                return String(format: "%.2f", balance.amount)
+            } else {
+                return ""
+            }
+        } catch {
+            print("Error fetching balance: \(error.localizedDescription)")
+            return ""
+        }
+    }
+    
     func getCurrentBalance(context: NSManagedObjectContext) -> Double? {
         let request: NSFetchRequest<Balance> = Balance.fetchRequest()
 

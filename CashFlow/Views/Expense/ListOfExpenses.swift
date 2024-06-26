@@ -9,35 +9,39 @@ import SwiftUI
 import Foundation
 import CoreData
 
-
-
 struct ListOfExpenses: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var expense: FetchedResults<Expense>
-    @FetchRequest var category: FetchedResults<Category>
+    @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
+
 
     @State private var showingAddView = false
     @StateObject var settings = Settings1() // Создаем экземпляр Settings
-    
+
+    @State private var searchText = ""
+    @State private var showSearchBar = false
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("\(Int(totalExpensesToday())) \(settings.selectedCurrency.sign) за сегодня") // Используйте выбранную валюту из Settings
+                Text("\(Int(totalExpensesToday())) \(settings.selectedCurrency.sign) за сегодня")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
                 List {
-                    ForEach(expense) { expense in
-                        NavigationLink(destination: EditExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), expense: expense)) {
+                    ForEach(filteredExpenses) { expense in
+                        NavigationLink(destination: EditExpenseView(expense: expense)) {
                             HStack {
                                 VStack(alignment: .leading, spacing: 6) {
                                     Text(expense.name!)
                                         .bold()
                                     
-                                    Text("\(Int(expense.amount)) \(settings.selectedCurrency.sign) ").foregroundColor(.red) // Используйте выбранную валюту из Settings
+                                    Text("\(Int(expense.amount)) \(settings.selectedCurrency.sign) ").foregroundColor(.red)
                                     HStack {
                                         Image(systemName: "\(findCategoryImage(for: expense.category ?? ""))")
+                                        
                                         Text(expense.category!)
-                                            .bold()
+                                            .foregroundColor(.gray)
+//                                            .bold()
                                     }
                                 }
                                 Spacer()
@@ -50,6 +54,7 @@ struct ListOfExpenses: View {
                     .onDelete(perform: deleteExpense)
                 }
                 .listStyle(.plain)
+                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             }
             .navigationTitle("Расходы")
             .toolbar {
@@ -70,15 +75,21 @@ struct ListOfExpenses: View {
         }
         .navigationViewStyle(.stack)
         .onAppear {
-            // Обновляем выбранную валюту при открытии страницы
             settings.selectedCurrencyIndex = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex")
         }
     }
     
+    private var filteredExpenses: [Expense] {
+        if searchText.isEmpty {
+            return expense.map { $0 }
+        } else {
+            return expense.filter { $0.name?.lowercased().contains(searchText.lowercased()) ?? false }
+        }
+    }
+
     private func deleteExpense(offsets: IndexSet) {
         withAnimation {
             offsets.map { expense[$0] }.forEach(managedObjContext.delete)
-            
             DataController().save(context: managedObjContext)
         }
     }
@@ -90,14 +101,13 @@ struct ListOfExpenses: View {
                 amountToday += item.amount
             }
         }
-        
         return amountToday
     }
     
     private func findCategoryImage(for categoryName: String) -> String {
-        for cat in category {
+        for cat in categories {
             if cat.name == categoryName {
-                return cat.image ?? "defaultImage" // Replace "defaultImage" with a default image name if needed
+                return cat.image ?? "defaultImage"
             }
         }
         return "defaultImage"
@@ -105,5 +115,5 @@ struct ListOfExpenses: View {
 }
 
 #Preview {
-    ListOfExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+    ListOfExpenses()
 }

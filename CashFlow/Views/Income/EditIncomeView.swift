@@ -10,7 +10,6 @@ import SwiftUI
 struct EditIncomeView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.dismiss) var dismiss
-    @FetchRequest var category: FetchedResults<Category>
     
     var income : FetchedResults<Income>.Element
     
@@ -22,6 +21,9 @@ struct EditIncomeView: View {
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @State private var selectedCategory: Category?
     
+    @StateObject var settings = Settings1() // Создаем экземпляр Settings
+
+    
     var body: some View {
         VStack {
             Form {
@@ -30,7 +32,7 @@ struct EditIncomeView: View {
                 }
                 Section(header: Text("Категория дохода"))  {
                     Menu {
-                        ForEach(category, id: \.self) { cat in
+                        ForEach(categories, id: \.self) { cat in
                             Button(action: {
                                 selectedCategory = cat
                             }) {
@@ -44,7 +46,7 @@ struct EditIncomeView: View {
                     }
                 }
                 
-                Section(header: Text("Сумма дохода")) {
+                Section(header: Text("Сумма дохода (\(settings.selectedCurrency.sign))")) {
                     TextField("Стоимость", value: $amount, formatter: NumberFormatter())
                         .keyboardType(.numberPad)
                 }
@@ -70,7 +72,7 @@ struct EditIncomeView: View {
                 name = income.name!
                 amount = income.amount
                 date = income.date!
-                for cat in category {
+                for cat in categories {
                     if income.category == cat.name {
                         selectedCategory = cat
                     }

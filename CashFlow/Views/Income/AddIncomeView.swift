@@ -20,6 +20,9 @@ struct AddIncomeView: View {
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @State private var selectedCategory: Category?
     
+    @StateObject var settings = Settings1() // Создаем экземпляр Settings
+
+    
     var body: some View {
         NavigationView {
             Form {
@@ -42,7 +45,7 @@ struct AddIncomeView: View {
                     }
                 }
                 
-                Section(header: Text("Сумма дохода")) {
+                Section(header: Text("Сумма дохода (\(settings.selectedCurrency.sign))")) {
                     TextField("Стоимость", value: $amount, formatter: NumberFormatter())
                         .keyboardType(.numberPad)
                 }

@@ -19,6 +19,8 @@ struct AddExpenseView: View {
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @State private var selectedCategory: Category?
+    
+    @StateObject var settings = Settings1() // Создаем экземпляр Settings
 
     var body: some View {
         NavigationView {
@@ -42,7 +44,7 @@ struct AddExpenseView: View {
                     }
                 }
                 
-                Section(header: Text("Сумма расхода")) {
+                Section(header: Text("Сумма расхода (\(settings.selectedCurrency.sign))")) {
                     TextField("Стоимость", value: $amount, formatter: NumberFormatter())
                         .keyboardType(.numberPad)
                 }

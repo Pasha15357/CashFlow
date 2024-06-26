@@ -26,6 +26,9 @@
 		1B787BAA2BF7F70C00BF8943 /* Widget1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B787BA92BF7F70C00BF8943 /* Widget1.swift */; };
 		1B787BAC2BFBD3DE00BF8943 /* Widget2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B787BAB2BFBD3DE00BF8943 /* Widget2.swift */; };
 		1B787BAE2BFBD3E800BF8943 /* Widget3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B787BAD2BFBD3E800BF8943 /* Widget3.swift */; };
+		1B787BB02C0E747000BF8943 /* CategoriesIncomes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B787BAF2C0E747000BF8943 /* CategoriesIncomes.swift */; };
+		1B787BB22C0E762C00BF8943 /* ListOfIncomesCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B787BB12C0E762C00BF8943 /* ListOfIncomesCategories.swift */; };
+		1B787BB62C1A5B9C00BF8943 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 1B787BB52C1A5B9C00BF8943 /* GoogleMobileAds */; };
 		1BC3BADC2BBF26C300F1B3D9 /* Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */; };
 		1BC49F582BE39B9000A6A9E8 /* ListOfReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC49F572BE39B9000A6A9E8 /* ListOfReminders.swift */; };
 		1BC49F5B2BE39BCF00A6A9E8 /* AddReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC49F5A2BE39BCF00A6A9E8 /* AddReminder.swift */; };
@@ -45,6 +48,7 @@
 		1BF907B72BC0845600283B6F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1BF907B62BC0845600283B6F /* FirebaseAnalytics */; };
 		1BF907B92BC40AB700283B6F /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF907B82BC40AB700283B6F /* UserDefaults+Extensions.swift */; };
 		1BF907BB2BC42CFB00283B6F /* EditBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF907BA2BC42CFB00283B6F /* EditBalance.swift */; };
+		260DC159ED6F35EEB34F51D5 /* Pods_CashFlow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454762EA609D12A3BA5E3653 /* Pods_CashFlow.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +68,9 @@
 		1B787BA92BF7F70C00BF8943 /* Widget1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget1.swift; sourceTree = "<group>"; };
 		1B787BAB2BFBD3DE00BF8943 /* Widget2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget2.swift; sourceTree = "<group>"; };
 		1B787BAD2BFBD3E800BF8943 /* Widget3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget3.swift; sourceTree = "<group>"; };
+		1B787BAF2C0E747000BF8943 /* CategoriesIncomes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesIncomes.swift; sourceTree = "<group>"; };
+		1B787BB12C0E762C00BF8943 /* ListOfIncomesCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfIncomesCategories.swift; sourceTree = "<group>"; };
+		1B787BB32C1766AE00BF8943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagram.swift; sourceTree = "<group>"; };
 		1BC49F572BE39B9000A6A9E8 /* ListOfReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfReminders.swift; sourceTree = "<group>"; };
 		1BC49F5A2BE39BCF00A6A9E8 /* AddReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminder.swift; sourceTree = "<group>"; };
@@ -83,6 +90,9 @@
 		1BF032DE2B907D7000B869B9 /* Registration1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration1.swift; sourceTree = "<group>"; };
 		1BF907B82BC40AB700283B6F /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		1BF907BA2BC42CFB00283B6F /* EditBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBalance.swift; sourceTree = "<group>"; };
+		454762EA609D12A3BA5E3653 /* Pods_CashFlow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CashFlow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		45545A1CC56764D6BBF73E52 /* Pods-CashFlow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CashFlow.debug.xcconfig"; path = "Target Support Files/Pods-CashFlow/Pods-CashFlow.debug.xcconfig"; sourceTree = "<group>"; };
+		7643DFCB592C729C4E091B67 /* Pods-CashFlow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CashFlow.release.xcconfig"; path = "Target Support Files/Pods-CashFlow/Pods-CashFlow.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,10 +100,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B787BB62C1A5B9C00BF8943 /* GoogleMobileAds in Frameworks */,
 				1B67E47B2BBC7F0F00D88D8F /* FirebaseDatabase in Frameworks */,
 				1B67E4792BBC7F0F00D88D8F /* FirebaseAuth in Frameworks */,
 				1BF907B72BC0845600283B6F /* FirebaseAnalytics in Frameworks */,
 				1B67E47D2BBC7F0F00D88D8F /* FirebaseFirestore in Frameworks */,
+				260DC159ED6F35EEB34F51D5 /* Pods_CashFlow.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +118,8 @@
 				1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */,
 				1B3396D82BE44E6B006B12D0 /* CategoriesExpenses.swift */,
 				1B3396DB2BE45B16006B12D0 /* ListOfExpensesCategories.swift */,
+				1B787BAF2C0E747000BF8943 /* CategoriesIncomes.swift */,
+				1B787BB12C0E762C00BF8943 /* ListOfIncomesCategories.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -158,6 +172,8 @@
 			children = (
 				1BDFE6DE2B0E32B0003E45E1 /* CashFlow */,
 				1BDFE6DD2B0E32B0003E45E1 /* Products */,
+				CBD2F5A39B61E83D6934B6C1 /* Pods */,
+				768270D13276CAB040C02AB4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -172,6 +188,7 @@
 		1BDFE6DE2B0E32B0003E45E1 /* CashFlow */ = {
 			isa = PBXGroup;
 			children = (
+				1B787BB32C1766AE00BF8943 /* Info.plist */,
 				1BDFE6DF2B0E32B0003E45E1 /* CashFlowApp.swift */,
 				1B643AD52B8F96E300014153 /* Helpers */,
 				1B643AD42B8F96C900014153 /* Views */,
@@ -221,6 +238,23 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		768270D13276CAB040C02AB4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				454762EA609D12A3BA5E3653 /* Pods_CashFlow.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CBD2F5A39B61E83D6934B6C1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				45545A1CC56764D6BBF73E52 /* Pods-CashFlow.debug.xcconfig */,
+				7643DFCB592C729C4E091B67 /* Pods-CashFlow.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -228,9 +262,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1BDFE7002B0E32B2003E45E1 /* Build configuration list for PBXNativeTarget "CashFlow" */;
 			buildPhases = (
+				A4A243D910BC8E9C00D3DF8B /* [CP] Check Pods Manifest.lock */,
 				1BDFE6D82B0E32B0003E45E1 /* Sources */,
 				1BDFE6D92B0E32B0003E45E1 /* Frameworks */,
 				1BDFE6DA2B0E32B0003E45E1 /* Resources */,
+				59DCC97AAA360E31C862982B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -242,6 +278,7 @@
 				1B67E47A2BBC7F0F00D88D8F /* FirebaseDatabase */,
 				1B67E47C2BBC7F0F00D88D8F /* FirebaseFirestore */,
 				1BF907B62BC0845600283B6F /* FirebaseAnalytics */,
+				1B787BB52C1A5B9C00BF8943 /* GoogleMobileAds */,
 			);
 			productName = CashFlow;
 			productReference = 1BDFE6DC2B0E32B0003E45E1 /* CashFlow.app */;
@@ -269,10 +306,12 @@
 			knownRegions = (
 				en,
 				ru,
+				Base,
 			);
 			mainGroup = 1BDFE6D32B0E32B0003E45E1;
 			packageReferences = (
 				1B67E4772BBC7F0F00D88D8F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1B787BB42C1A5B9C00BF8943 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = 1BDFE6DD2B0E32B0003E45E1 /* Products */;
 			projectDirPath = "";
@@ -295,6 +334,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		59DCC97AAA360E31C862982B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CashFlow/Pods-CashFlow-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CashFlow/Pods-CashFlow-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CashFlow/Pods-CashFlow-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4A243D910BC8E9C00D3DF8B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CashFlow-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1BDFE6D82B0E32B0003E45E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -305,6 +386,7 @@
 				1BDFE7142B10A4F2003E45E1 /* Registration.swift in Sources */,
 				1B14B9A42B1A7970005BA20E /* PaymentViewModel.swift in Sources */,
 				1BF907B92BC40AB700283B6F /* UserDefaults+Extensions.swift in Sources */,
+				1B787BB02C0E747000BF8943 /* CategoriesIncomes.swift in Sources */,
 				1B3396D92BE44E6B006B12D0 /* CategoriesExpenses.swift in Sources */,
 				1B787BAC2BFBD3DE00BF8943 /* Widget2.swift in Sources */,
 				1B14B9A22B1A784F005BA20E /* ApplePay.swift in Sources */,
@@ -312,6 +394,7 @@
 				1BDFE70A2B0E6D91003E45E1 /* Main.swift in Sources */,
 				1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */,
 				1B787BA82BF7D02A00BF8943 /* Export.swift in Sources */,
+				1B787BB22C0E762C00BF8943 /* ListOfIncomesCategories.swift in Sources */,
 				1BDFE7122B0F9AD8003E45E1 /* Settings.swift in Sources */,
 				1B3396DC2BE45B16006B12D0 /* ListOfExpensesCategories.swift in Sources */,
 				1B787BAA2BF7F70C00BF8943 /* Widget1.swift in Sources */,
@@ -375,7 +458,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -438,7 +521,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -459,6 +542,7 @@
 		};
 		1BDFE7012B0E32B2003E45E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45545A1CC56764D6BBF73E52 /* Pods-CashFlow.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -468,7 +552,9 @@
 				DEVELOPMENT_TEAM = 92MJ8LTTDF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CashFlow/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Приложение использует Face ID для аутентификации";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -491,6 +577,7 @@
 		};
 		1BDFE7022B0E32B2003E45E1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7643DFCB592C729C4E091B67 /* Pods-CashFlow.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -500,7 +587,9 @@
 				DEVELOPMENT_TEAM = 92MJ8LTTDF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CashFlow/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Приложение использует Face ID для аутентификации";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -553,6 +642,14 @@
 				minimumVersion = 10.23.1;
 			};
 		};
+		1B787BB42C1A5B9C00BF8943 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -570,6 +667,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1B67E4772BBC7F0F00D88D8F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		1B787BB52C1A5B9C00BF8943 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1B787BB42C1A5B9C00BF8943 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 		1BF907B62BC0845600283B6F /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

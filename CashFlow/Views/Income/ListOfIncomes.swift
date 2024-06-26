@@ -10,31 +10,34 @@ import SwiftUI
 struct ListOfIncomes: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var income: FetchedResults<Income>
-    @FetchRequest var category: FetchedResults<Category>
+    @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
+
     
     @State private var showingAddView = false
     @StateObject var settings = Settings1() // Создаем экземпляр Settings
-    
+
+    @State private var searchText = ""
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("\(settings.selectedCurrency.sign)\(Int(totalIncomesToday())) за сегодня")
+                Text("\(Int(totalIncomesToday())) \(settings.selectedCurrency.sign) за сегодня")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
                 List {
-                    ForEach(income) { income in
-                        NavigationLink(destination: EditIncomeView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), income: income)) {
+                    ForEach(filteredIncomes) { income in
+                        NavigationLink(destination: EditIncomeView(income: income)) {
                             HStack {
                                 VStack(alignment: .leading, spacing: 6) {
                                     Text(income.name!)
                                         .bold()
-                                    Text("\(settings.selectedCurrency.sign)\(Int(income.amount))").foregroundColor(.green)
+                                    Text("\(Int(income.amount)) \(settings.selectedCurrency.sign)").foregroundColor(.green)
                                     HStack {
                                         Image(systemName: "\(findCategoryImage(for: income.category ?? ""))")
                                         Text(income.category ?? "")
                                             .bold()
                                     }
-                                }
+                                } 
                                 Spacer()
                                 Text(calcTimeSince(date: income.date!))
                                     .foregroundColor(.gray)
@@ -45,6 +48,7 @@ struct ListOfIncomes: View {
                     .onDelete(perform: deleteIncome)
                 }
                 .listStyle(.plain)
+                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             }
             .navigationTitle("Доходы")
             .toolbar {
@@ -65,11 +69,18 @@ struct ListOfIncomes: View {
         }
         .navigationViewStyle(.stack)
         .onAppear {
-            // Обновляем выбранную валюту при открытии страницы
             settings.selectedCurrencyIndex = UserDefaults.standard.integer(forKey: "selectedCurrencyIndex")
         }
     }
     
+    private var filteredIncomes: [Income] {
+        if searchText.isEmpty {
+            return income.map { $0 }
+        } else {
+            return income.filter { $0.name?.lowercased().contains(searchText.lowercased()) ?? false }
+        }
+    }
+
     private func deleteIncome(offsets: IndexSet) {
         withAnimation {
             offsets.map { income[$0] }.forEach(managedObjContext.delete)
@@ -89,7 +100,7 @@ struct ListOfIncomes: View {
     }
     
     private func findCategoryImage(for categoryName: String) -> String {
-        for cat in category {
+        for cat in categories {
             if cat.name == categoryName {
                 return cat.image ?? "defaultImage" // Replace "defaultImage" with a default image name if needed
             }
@@ -99,5 +110,5 @@ struct ListOfIncomes: View {
 }
 
 #Preview {
-    ListOfIncomes(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+    ListOfIncomes()
 }

@@ -20,9 +20,9 @@ struct EditCategoryView: View {
     
     let customIcons = [
         ("bus", "Транспорт"),
-        ("oilcan", "Бензин"),
+        ("oilcan.fill", "Бензин"),
         ("fork.knife.circle", "Еда"),
-        ("gamecontroller", "Игры"),
+        ("gamecontroller.fill", "Игры"),
         ("antenna.radiowaves.left.and.right", "Связь"),
         ("figure.run", "Игры"),
         ("gift", "Подарки"),

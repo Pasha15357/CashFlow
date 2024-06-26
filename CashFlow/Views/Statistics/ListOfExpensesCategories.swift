@@ -22,19 +22,19 @@ struct ListOfExpensesCategories: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Категория - \(category.name ?? "")") // Используйте выбранную валюту из Settings
+            Text("Категория - \(category.name ?? "")")
                 .foregroundColor(.gray)
                 .padding(.horizontal)
             List {
                 ForEach(filteredExpenses) { expense in
                     if expense.category == category.name {
-                        NavigationLink(destination: EditExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), expense: expense)) {
+                        NavigationLink(destination: EditExpenseView(expense: expense)) {
                             HStack {
                                 VStack(alignment: .leading, spacing: 6) {
                                     Text(expense.name!)
                                         .bold()
                                     
-                                    Text("\(settings.selectedCurrency.sign)\(Int(expense.amount)) ").foregroundColor(.red) // Используйте выбранную валюту из Settings
+                                    Text("\(Int(expense.amount)) \(settings.selectedCurrency.sign)").foregroundColor(.red)
                                 }
                                 Spacer()
                                 Text(calcTimeSince(date: expense.date!))
@@ -48,7 +48,7 @@ struct ListOfExpensesCategories: View {
             }
             .listStyle(.plain)
         }
-        .navigationTitle("Расходы")
+        .navigationBarTitle("Расходы", displayMode: .large)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {

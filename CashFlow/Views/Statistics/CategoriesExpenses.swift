@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CategoriesExpenses: View {
     @Environment(\.managedObjectContext) var managedObjContext
-    @FetchRequest var category: FetchedResults<Category>
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @FetchRequest(sortDescriptors: [], animation: .default) private var expenses: FetchedResults<Expense>
@@ -29,7 +28,7 @@ struct CategoriesExpenses: View {
     var body: some View {
         VStack (alignment: .leading){
             List {
-                ForEach(category) { category in
+                ForEach(categories) { category in
                     if totalExpensesCategory(category: category.name ?? "") != 0 {
                         NavigationLink(destination: ListOfExpensesCategories(category: category)) {
                             HStack {
@@ -38,7 +37,7 @@ struct CategoriesExpenses: View {
                                 Text(category.name!)
                                     .bold()
                                 Spacer()
-                                Text("\(settings.selectedCurrency.sign)\(totalExpensesCategory(category: category.name ?? ""))")
+                                Text("\(totalExpensesCategory(category: category.name ?? "")) \(settings.selectedCurrency.sign)")
                                     .foregroundColor(.red)
                                 
                             }
@@ -53,7 +52,7 @@ struct CategoriesExpenses: View {
                     Text("Итого:")
                         .bold()
                     Spacer()
-                    Text("\(settings.selectedCurrency.sign)\(Int(totalExpenses()))")
+                    Text("\(Int(totalExpenses())) \(settings.selectedCurrency.sign)")
                         .foregroundColor(.red)
                     Spacer()
                         .frame(width: 18)
@@ -72,7 +71,7 @@ struct CategoriesExpenses: View {
     
     private func deleteCategory(offsets: IndexSet) {
         withAnimation {
-            offsets.map { category[$0] }.forEach(managedObjContext.delete)
+            offsets.map { categories[$0] }.forEach(managedObjContext.delete)
             
             DataController().save(context: managedObjContext)
         }
@@ -127,5 +126,5 @@ struct CategoriesExpenses: View {
 }
 
 #Preview {
-    CategoriesExpenses(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+    CategoriesExpenses()
 }

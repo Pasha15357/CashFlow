@@ -8,12 +8,16 @@
 import SwiftUI
 import FirebaseCore
 import UserNotifications
+import GoogleMobileAds
 
 
-class AppDelegate: NSObject, UIApplicationDelegate,  UNUserNotificationCenterDelegate  {
+
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             if granted {
@@ -28,6 +32,7 @@ class AppDelegate: NSObject, UIApplicationDelegate,  UNUserNotificationCenterDel
         return true
     }
 }
+
 
 @main
 struct CashFlowApp: App {

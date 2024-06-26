@@ -270,16 +270,70 @@ struct SignIn: View {
                 .background(Color.green)
                 .clipShape(Capsule())
                 .padding(.top, 45)
-                
-                SignInWithAppleButton(
-                    onRequest: { request in
-                        request.requestedScopes = [.fullName, .email]
-                    },
-                    onCompletion: handleSignInWithApple
-                )
-                .signInWithAppleButtonStyle(.black)
-                .frame(width: UIScreen.main.bounds.width - 120, height: 45)
-                .padding(.top, 20)
+                HStack (spacing: 25) {
+                    Button(action: {
+                        
+                    }) {
+                        Image("AppleLogo")
+                            .resizable()
+                            .renderingMode(.original)
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                    }
+                    Button(action: {
+                        
+                    }) {
+                        Image("Facebook")
+                            .resizable()
+                            .renderingMode(.original)
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                    }
+                    Button(action: {
+                        
+                    }) {
+                        Image("Twitter")
+                            .resizable()
+                            .renderingMode(.original)
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                    }
+                }
+                .padding(.top, 30)
+//                SignInWithAppleButton(
+//                    onRequest: { request in
+//                        request.requestedScopes = [.fullName, .email]
+//                    },
+//                    onCompletion: handleSignInWithApple
+//                )
+//                .signInWithAppleButtonStyle(.black)
+//                .frame(width: UIScreen.main.bounds.width - 120, height: 45)
+//                .padding(.top, 20)
+                VStack{
+                                
+                                Text("(или)").foregroundColor(Color.gray.opacity(0.5)).padding(.top,30)
+                                
+                                
+                                HStack(spacing: 8){
+                                    
+                                    Text("Нет аккаунта?").foregroundColor(Color.gray.opacity(0.5))
+                                    
+                                    Button(action: {
+                                        
+                                        self.show.toggle()
+                                        
+                                    }) {
+                                        
+                                        Text("Регистрация")
+                                        
+                                    }.foregroundColor(.blue)
+                                    
+                                }.padding(.top, 25)
+                                
+                            }.sheet(isPresented: $show) {
+                                
+                                SignUp(show: self.$show)
+                            }
             }
             .padding()
             .alert(isPresented: $alert) {

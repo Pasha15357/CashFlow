@@ -15,10 +15,13 @@ struct EditBalance: View {
     @State private var balanceInput = ""
     @State private var balance: Double = 0.0
     
+    @StateObject var settings = Settings1() // Создаем экземпляр Settings
+
+    
     var body: some View {
         VStack {
             List {
-                Section(header: Text("Баланс")) {
+                Section(header: Text("Баланс (\(settings.selectedCurrency.sign))")) {
                     TextField("Введите ваш баланс", text: $balanceInput)
                 }
                 Section {
@@ -35,7 +38,7 @@ struct EditBalance: View {
         }
         .navigationBarTitle("Баланс")
         .onAppear {
-            balanceInput = String(DataController().getCurrentBalance(context: managedObjContext) ?? 0.0)
+            balanceInput = DataController().getCurrentBalanceString(context: managedObjContext)
         }
     }
     

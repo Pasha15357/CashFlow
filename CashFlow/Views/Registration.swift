@@ -39,7 +39,7 @@ struct Registration: View {
                 .padding(.horizontal, 30)
                 .padding(.top, 50)
                 
-                HStack (spacing: 25){
+                HStack (spacing: 25) {
                     Button(action: {
                         
                     }) {
