@@ -10,14 +10,13 @@ import SwiftUI
 struct AddExpenseView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.dismiss) var dismiss
-    @FetchRequest var category: FetchedResults<Category>
     
     @State private var name = ""
     @State private var amount = Double()
     @State private var date = Date()
 
-    
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
+
     @State private var selectedCategory: Category?
     
     @StateObject var settings = Settings1() // Создаем экземпляр Settings
@@ -30,7 +29,7 @@ struct AddExpenseView: View {
                 }
                 Section(header: Text("Категория расхода"))  {
                     Menu {
-                        ForEach(category, id: \.self) { cat in
+                        ForEach(categories, id: \.self) { cat in
                             Button(action: {
                                 selectedCategory = cat
                             }) {
@@ -45,8 +44,8 @@ struct AddExpenseView: View {
                 }
                 
                 Section(header: Text("Сумма расхода (\(settings.selectedCurrency.sign))")) {
-                    TextField("Стоимость", value: $amount, formatter: NumberFormatter())
-                        .keyboardType(.numberPad)
+                    TextField("Стоимость", value: $amount, formatter: AddIncomeView().formatter)
+                        .keyboardType(.decimalPad)
                 }
                 
                 Section(header: Text("Дата расхода")) {
@@ -93,5 +92,5 @@ struct AddExpenseView: View {
 
 
 #Preview {
-    AddExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+    AddExpenseView()
 }

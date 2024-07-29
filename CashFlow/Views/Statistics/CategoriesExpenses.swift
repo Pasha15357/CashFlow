@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoriesExpenses: View {
     @Environment(\.managedObjectContext) var managedObjContext
+
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @FetchRequest(sortDescriptors: [], animation: .default) private var expenses: FetchedResults<Expense>
@@ -21,12 +22,15 @@ struct CategoriesExpenses: View {
     let dateFormatter = DateFormatter()
     
     @State private var showingAddView = false
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var expense: FetchedResults<Expense>
+    
     
     @StateObject var settings = Settings1() // Создаем экземпляр Settings
 
     var body: some View {
         VStack (alignment: .leading){
+            period()
+                .foregroundColor(.gray)
+                .padding(.horizontal)
             List {
                 ForEach(categories) { category in
                     if totalExpensesCategory(category: category.name ?? "") != 0 {
@@ -37,7 +41,7 @@ struct CategoriesExpenses: View {
                                 Text(category.name!)
                                     .bold()
                                 Spacer()
-                                Text("\(totalExpensesCategory(category: category.name ?? "")) \(settings.selectedCurrency.sign)")
+                                Text("\(String(format: "%.2f", totalExpensesCategory(category: category.name ?? ""))) \(settings.selectedCurrency.sign)")
                                     .foregroundColor(.red)
                                 
                             }
@@ -52,14 +56,15 @@ struct CategoriesExpenses: View {
                     Text("Итого:")
                         .bold()
                     Spacer()
-                    Text("\(Int(totalExpenses())) \(settings.selectedCurrency.sign)")
+                    Text("\(settings.selectedCurrency.sign)\(String(format: "%.2f", totalExpenses()))")
                         .foregroundColor(.red)
                     Spacer()
                         .frame(width: 18)
                 }
             }
+            .listStyle(.plain)
         }
-        .navigationBarTitle("Расходы")
+        .navigationBarTitle("Расходы", displayMode: .large)
         .sheet(isPresented: $showingAddView) {
             AddCategory()
         }
@@ -76,11 +81,11 @@ struct CategoriesExpenses: View {
             DataController().save(context: managedObjContext)
         }
     }
-    private func totalExpensesCategory(category: String) -> Int {
-        var amount : Int = 0
+    private func totalExpensesCategory(category: String) -> Double {
+        var amount : Double = 0
         for item in filteredExpenses {
             if category == item.category {
-                amount += Int(item.amount)
+                amount += item.amount
             }
         }
         return amount
@@ -94,6 +99,25 @@ struct CategoriesExpenses: View {
         
         return amount
     }
+    
+    func period() -> Text {
+        let (_, _) = startDate <= endDate ? (startDate, endDate) : (endDate, startDate)
+       
+       switch selectedPeriod {
+       case .today:
+           return Diagram().dateForToday()
+       case .allTime:
+           return Text("Весь период")
+       case .lastMonth:
+           return Diagram().dateForMonth()
+       case .custom:
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "d MMMM yyyy"
+           let startDate1 = dateFormatter.string(from: startDate)
+           let endDate1 = dateFormatter.string(from: endDate)
+           return Text("С \(startDate1) по \(endDate1)")
+       }
+   }
     
     func updateFilteredExpenses() {
         let (adjustedStartDate, adjustedEndDate) = startDate <= endDate ? (startDate, endDate) : (endDate, startDate)

@@ -11,7 +11,7 @@ import CoreData
 
 struct ListOfExpenses: View {
     @Environment(\.managedObjectContext) var managedObjContext
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var expense: FetchedResults<Expense>
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var expenses: FetchedResults<Expense>
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
 
 
@@ -24,7 +24,7 @@ struct ListOfExpenses: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("\(Int(totalExpensesToday())) \(settings.selectedCurrency.sign) за сегодня")
+                Text("\(String(format: "%.2f",totalExpensesToday())) \(settings.selectedCurrency.sign) за сегодня")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
                 List {
@@ -35,7 +35,7 @@ struct ListOfExpenses: View {
                                     Text(expense.name!)
                                         .bold()
                                     
-                                    Text("\(Int(expense.amount)) \(settings.selectedCurrency.sign) ").foregroundColor(.red)
+                                    Text("\(String(format: "%.2f",expense.amount)) \(settings.selectedCurrency.sign) ").foregroundColor(.red)
                                     HStack {
                                         Image(systemName: "\(findCategoryImage(for: expense.category ?? ""))")
                                         
@@ -70,7 +70,7 @@ struct ListOfExpenses: View {
                 }
             }
             .sheet(isPresented: $showingAddView) {
-                AddExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+                AddExpenseView()
             }
         }
         .navigationViewStyle(.stack)
@@ -81,22 +81,22 @@ struct ListOfExpenses: View {
     
     private var filteredExpenses: [Expense] {
         if searchText.isEmpty {
-            return expense.map { $0 }
+            return expenses.map { $0 }
         } else {
-            return expense.filter { $0.name?.lowercased().contains(searchText.lowercased()) ?? false }
+            return expenses.filter { $0.name?.lowercased().contains(searchText.lowercased()) ?? false }
         }
     }
 
     private func deleteExpense(offsets: IndexSet) {
         withAnimation {
-            offsets.map { expense[$0] }.forEach(managedObjContext.delete)
+            offsets.map { expenses[$0] }.forEach(managedObjContext.delete)
             DataController().save(context: managedObjContext)
         }
     }
     
     private func totalExpensesToday() -> Double {
         var amountToday: Double = 0
-        for item in expense {
+        for item in expenses {
             if Calendar.current.isDateInToday(item.date!) {
                 amountToday += item.amount
             }

@@ -29,6 +29,12 @@
 		1B787BB02C0E747000BF8943 /* CategoriesIncomes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B787BAF2C0E747000BF8943 /* CategoriesIncomes.swift */; };
 		1B787BB22C0E762C00BF8943 /* ListOfIncomesCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B787BB12C0E762C00BF8943 /* ListOfIncomesCategories.swift */; };
 		1B787BB62C1A5B9C00BF8943 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 1B787BB52C1A5B9C00BF8943 /* GoogleMobileAds */; };
+		1BA1E31A2C34CC3F00B37F11 /* AddDebt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1E3192C34CC3F00B37F11 /* AddDebt.swift */; };
+		1BA1E31C2C34CC7B00B37F11 /* Debts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1E31B2C34CC7B00B37F11 /* Debts.swift */; };
+		1BA1E31F2C354C5A00B37F11 /* EditDebt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1E31E2C354C5A00B37F11 /* EditDebt.swift */; };
+		1BA1E3222C57C84700B37F11 /* AddLent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1E3212C57C84700B37F11 /* AddLent.swift */; };
+		1BA1E3242C57C85300B37F11 /* Lents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1E3232C57C85300B37F11 /* Lents.swift */; };
+		1BA1E3262C57C85D00B37F11 /* EditLent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1E3252C57C85D00B37F11 /* EditLent.swift */; };
 		1BC3BADC2BBF26C300F1B3D9 /* Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */; };
 		1BC49F582BE39B9000A6A9E8 /* ListOfReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC49F572BE39B9000A6A9E8 /* ListOfReminders.swift */; };
 		1BC49F5B2BE39BCF00A6A9E8 /* AddReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC49F5A2BE39BCF00A6A9E8 /* AddReminder.swift */; };
@@ -71,6 +77,12 @@
 		1B787BAF2C0E747000BF8943 /* CategoriesIncomes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesIncomes.swift; sourceTree = "<group>"; };
 		1B787BB12C0E762C00BF8943 /* ListOfIncomesCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfIncomesCategories.swift; sourceTree = "<group>"; };
 		1B787BB32C1766AE00BF8943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1BA1E3192C34CC3F00B37F11 /* AddDebt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDebt.swift; sourceTree = "<group>"; };
+		1BA1E31B2C34CC7B00B37F11 /* Debts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debts.swift; sourceTree = "<group>"; };
+		1BA1E31E2C354C5A00B37F11 /* EditDebt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDebt.swift; sourceTree = "<group>"; };
+		1BA1E3212C57C84700B37F11 /* AddLent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLent.swift; sourceTree = "<group>"; };
+		1BA1E3232C57C85300B37F11 /* Lents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lents.swift; sourceTree = "<group>"; };
+		1BA1E3252C57C85D00B37F11 /* EditLent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLent.swift; sourceTree = "<group>"; };
 		1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagram.swift; sourceTree = "<group>"; };
 		1BC49F572BE39B9000A6A9E8 /* ListOfReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfReminders.swift; sourceTree = "<group>"; };
 		1BC49F5A2BE39BCF00A6A9E8 /* AddReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminder.swift; sourceTree = "<group>"; };
@@ -127,6 +139,8 @@
 		1B643AD42B8F96C900014153 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1BA1E3202C57C71600B37F11 /* Lents */,
+				1BA1E31D2C34CCED00B37F11 /* Debts */,
 				1B3396DA2BE45757006B12D0 /* Statistics */,
 				1BC49F592BE39BAF00A6A9E8 /* Reminder */,
 				1BF032D62B8FEFFF00B869B9 /* Category */,
@@ -155,6 +169,26 @@
 				1B643AD82B8F9FB500014153 /* TimeFormatting.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		1BA1E31D2C34CCED00B37F11 /* Debts */ = {
+			isa = PBXGroup;
+			children = (
+				1BA1E3192C34CC3F00B37F11 /* AddDebt.swift */,
+				1BA1E31B2C34CC7B00B37F11 /* Debts.swift */,
+				1BA1E31E2C354C5A00B37F11 /* EditDebt.swift */,
+			);
+			path = Debts;
+			sourceTree = "<group>";
+		};
+		1BA1E3202C57C71600B37F11 /* Lents */ = {
+			isa = PBXGroup;
+			children = (
+				1BA1E3212C57C84700B37F11 /* AddLent.swift */,
+				1BA1E3232C57C85300B37F11 /* Lents.swift */,
+				1BA1E3252C57C85D00B37F11 /* EditLent.swift */,
+			);
+			path = Lents;
 			sourceTree = "<group>";
 		};
 		1BC49F592BE39BAF00A6A9E8 /* Reminder */ = {
@@ -292,7 +326,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					1BDFE6DB2B0E32B0003E45E1 = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -385,18 +419,24 @@
 				1B643AD92B8F9FB500014153 /* TimeFormatting.swift in Sources */,
 				1BDFE7142B10A4F2003E45E1 /* Registration.swift in Sources */,
 				1B14B9A42B1A7970005BA20E /* PaymentViewModel.swift in Sources */,
+				1BA1E31C2C34CC7B00B37F11 /* Debts.swift in Sources */,
 				1BF907B92BC40AB700283B6F /* UserDefaults+Extensions.swift in Sources */,
 				1B787BB02C0E747000BF8943 /* CategoriesIncomes.swift in Sources */,
 				1B3396D92BE44E6B006B12D0 /* CategoriesExpenses.swift in Sources */,
 				1B787BAC2BFBD3DE00BF8943 /* Widget2.swift in Sources */,
 				1B14B9A22B1A784F005BA20E /* ApplePay.swift in Sources */,
+				1BA1E3262C57C85D00B37F11 /* EditLent.swift in Sources */,
+				1BA1E3222C57C84700B37F11 /* AddLent.swift in Sources */,
 				1BDFE70C2B0F5567003E45E1 /* ListOfExpenses.swift in Sources */,
 				1BDFE70A2B0E6D91003E45E1 /* Main.swift in Sources */,
 				1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */,
 				1B787BA82BF7D02A00BF8943 /* Export.swift in Sources */,
+				1BA1E31A2C34CC3F00B37F11 /* AddDebt.swift in Sources */,
 				1B787BB22C0E762C00BF8943 /* ListOfIncomesCategories.swift in Sources */,
+				1BA1E3242C57C85300B37F11 /* Lents.swift in Sources */,
 				1BDFE7122B0F9AD8003E45E1 /* Settings.swift in Sources */,
 				1B3396DC2BE45B16006B12D0 /* ListOfExpensesCategories.swift in Sources */,
+				1BA1E31F2C354C5A00B37F11 /* EditDebt.swift in Sources */,
 				1B787BAA2BF7F70C00BF8943 /* Widget1.swift in Sources */,
 				1BDFE6E02B0E32B0003E45E1 /* CashFlowApp.swift in Sources */,
 				1B7417102BC4667C008FF37E /* DataModel.xcdatamodeld in Sources */,
@@ -426,6 +466,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -489,6 +530,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

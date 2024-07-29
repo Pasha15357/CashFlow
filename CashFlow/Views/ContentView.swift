@@ -23,7 +23,7 @@ struct ContentView: View {
         Group {
             if isAuthenticated || !isFaceIDOn {
                 TabView(selection: $selectedView) {
-                    Main(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), selectedView: $selectedView)
+                    Main(selectedView: $selectedView)
                         .tabItem {
                             Image(systemName: (self.selectedView == 1 ? "house" : "house.fill"))
                             Text("Главная")
@@ -62,17 +62,25 @@ struct ContentView: View {
                         Color.white.edgesIgnoringSafeArea(.all)
                     }
 
-                    VStack {
-                        Text("Авторизация Face ID не удалась")
-                            .foregroundColor(isDarkModeOn ? .white : .black)
-                            .padding(.bottom, 20)
+                    VStack (alignment: .center) {
+                        HStack (alignment: .center) {
+                            
+                            Text("Чтобы открыть приложение, используйте Face ID")
+                                .foregroundColor(isDarkModeOn ? .white : .black)
+                                .padding(.bottom, 20)
+                                .font(.title)
+                                .bold()
+                            .frame(maxWidth: 300, alignment: .center)
+                            
+                        }
+
 
                         Button(action: {
                             authenticateWithFaceID { success in
                                 isAuthenticated = success
                                 if !success {
                                     // Обработка отказа в аутентификации
-                                    print("Face ID authentication failed on retry")
+                                    print("Открыть приложение")
                                 }
                             }
                         }) {

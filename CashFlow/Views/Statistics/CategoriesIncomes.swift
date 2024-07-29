@@ -27,6 +27,9 @@ struct CategoriesIncomes: View {
 
     var body: some View {
         VStack (alignment: .leading){
+            period()
+                .foregroundColor(.gray)
+                .padding(.horizontal)
             List {
                 ForEach(categories) { category in
                     if totalIncomesCategory(category: category.name ?? "") != 0 {
@@ -37,7 +40,7 @@ struct CategoriesIncomes: View {
                                 Text(category.name!)
                                     .bold()
                                 Spacer()
-                                Text("\(totalIncomesCategory(category: category.name ?? "")) \(settings.selectedCurrency.sign)")
+                                Text("\(String(format: "%.2f", totalIncomesCategory(category: category.name ?? ""))) \(settings.selectedCurrency.sign)")
                                     .foregroundColor(.green)
                             }
                         }
@@ -50,14 +53,15 @@ struct CategoriesIncomes: View {
                     Text("Итого:")
                         .bold()
                     Spacer()
-                    Text("\(Int(totalIncomes())) \(settings.selectedCurrency.sign)")
+                    Text("\(String(format: "%.2f", totalIncomes())) \(settings.selectedCurrency.sign)")
                         .foregroundColor(.green)
                     Spacer()
                         .frame(width: 18)
                 }
             }
+            .listStyle(.plain)
         }
-        .navigationBarTitle("Доходы")
+        .navigationBarTitle("Доходы", displayMode: .large)
         .sheet(isPresented: $showingAddView) {
             AddCategory()
         }
@@ -75,11 +79,11 @@ struct CategoriesIncomes: View {
         }
     }
     
-    private func totalIncomesCategory(category: String) -> Int {
-        var amount: Int = 0
+    private func totalIncomesCategory(category: String) -> Double {
+        var amount: Double = 0
         for item in filteredIncomes {
             if category == item.category {
-                amount += Int(item.amount)
+                amount += item.amount
             }
         }
         return amount
@@ -111,6 +115,25 @@ struct CategoriesIncomes: View {
         case .custom:
             filteredIncomes = incomes.filter { ($0.date ?? Date()).isBetween(adjustedStartDate, and: adjustedEndDate) }
         }
+    }
+    
+    func period() -> Text {
+        let (_, _) = startDate <= endDate ? (startDate, endDate) : (endDate, startDate)
+       
+       switch selectedPeriod {
+       case .today:
+           return Diagram().dateForToday()
+       case .allTime:
+           return Text("Весь период")
+       case .lastMonth:
+           return Diagram().dateForMonth()
+       case .custom:
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "d MMMM yyyy"
+           let startDate1 = dateFormatter.string(from: startDate)
+           let endDate1 = dateFormatter.string(from: endDate)
+           return Text("С \(startDate1) по \(endDate1)")
+       }
     }
     
     private func loadUserDefaults() {

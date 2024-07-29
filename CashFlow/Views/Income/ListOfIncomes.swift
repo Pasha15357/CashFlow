@@ -21,7 +21,7 @@ struct ListOfIncomes: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("\(Int(totalIncomesToday())) \(settings.selectedCurrency.sign) за сегодня")
+                Text("\(String(format: "%.2f",totalIncomesToday())) \(settings.selectedCurrency.sign) за сегодня")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
                 List {
@@ -31,11 +31,11 @@ struct ListOfIncomes: View {
                                 VStack(alignment: .leading, spacing: 6) {
                                     Text(income.name!)
                                         .bold()
-                                    Text("\(Int(income.amount)) \(settings.selectedCurrency.sign)").foregroundColor(.green)
+                                    Text("\(String(format: "%.2f", income.amount)) \(settings.selectedCurrency.sign)").foregroundColor(.green)
                                     HStack {
                                         Image(systemName: "\(findCategoryImage(for: income.category ?? ""))")
-                                        Text(income.category ?? "")
-                                            .bold()
+                                        Text(income.category!)
+                                            .foregroundColor(.gray)
                                     }
                                 } 
                                 Spacer()
@@ -64,7 +64,7 @@ struct ListOfIncomes: View {
                 }
             }
             .sheet(isPresented: $showingAddView) {
-                AddIncomeView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+                AddIncomeView()
             }
         }
         .navigationViewStyle(.stack)

@@ -9,14 +9,13 @@ import SwiftUI
 
 struct ListOfCategories: View {
     @Environment(\.managedObjectContext) var managedObjContext
-    @FetchRequest var category: FetchedResults<Category>
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @State private var showingAddView = false
 
     var body: some View {
         VStack{
             List {
-                ForEach(category) { category in
+                ForEach(categories) { category in
                     NavigationLink(destination: EditCategoryView(category: category)) {
                         HStack {
                             Image(systemName: "\(category.image!)")
@@ -47,7 +46,7 @@ struct ListOfCategories: View {
     
     private func deleteCategory(offsets: IndexSet) {
         withAnimation {
-            offsets.map { category[$0] }.forEach(managedObjContext.delete)
+            offsets.map { categories[$0] }.forEach(managedObjContext.delete)
             
             DataController().save(context: managedObjContext)
         }
@@ -55,5 +54,5 @@ struct ListOfCategories: View {
 }
 
 #Preview {
-    ListOfCategories(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+    ListOfCategories()
 }

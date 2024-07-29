@@ -10,17 +10,21 @@ import SwiftUI
 struct AddIncomeView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.dismiss) var dismiss
-    @FetchRequest var category: FetchedResults<Category>
     
     @State private var name = ""
     @State private var amount = Double()
     @State private var date = Date()
 
-    
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @State private var selectedCategory: Category?
     
     @StateObject var settings = Settings1() // Создаем экземпляр Settings
+    
+    let formatter: NumberFormatter = {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            return formatter
+        }()
 
     
     var body: some View {
@@ -31,7 +35,7 @@ struct AddIncomeView: View {
                 }
                 Section(header: Text("Категория дохода"))  {
                     Menu {
-                        ForEach(category, id: \.self) { cat in
+                        ForEach(categories, id: \.self) { cat in
                             Button(action: {
                                 selectedCategory = cat
                             }) {
@@ -46,8 +50,8 @@ struct AddIncomeView: View {
                 }
                 
                 Section(header: Text("Сумма дохода (\(settings.selectedCurrency.sign))")) {
-                    TextField("Стоимость", value: $amount, formatter: NumberFormatter())
-                        .keyboardType(.numberPad)
+                    TextField("Стоимость", value: $amount, formatter: formatter)
+                        .keyboardType(.decimalPad)
                 }
                 
                 Section(header: Text("Дата расхода")) {
@@ -91,5 +95,5 @@ struct AddIncomeView: View {
 }
 
 #Preview {
-    AddIncomeView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+    AddIncomeView()
 }

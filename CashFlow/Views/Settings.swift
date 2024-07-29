@@ -199,7 +199,7 @@ struct Settings: View {
                     startNetworkMonitoring()
                 }
 
-                NavigationLink(destination: ListOfCategories(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))) {
+                NavigationLink(destination: ListOfCategories()) {
                     HStack {
                         Image("category")
                             .resizable()
@@ -217,6 +217,13 @@ struct Settings: View {
                     Text("Напоминания")
                 }
 
+                NavigationLink(destination: Debts()) {
+                    Image("debts")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 35, height: 35)
+                    Text("Долги")
+                }
                 Button(action: {
                     showingAddView.toggle()
                 }) {

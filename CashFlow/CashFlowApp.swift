@@ -39,10 +39,13 @@ struct CashFlowApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var dataController = DataController()
     
+    @AppStorage("isDarkModeOn") private var isDarkModeOn: Bool = false
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
+                .preferredColorScheme(isDarkModeOn ? .dark : .light) // Установите явную тему
         }
     }
 }

@@ -10,54 +10,58 @@ import ContactsUI
 import CoreData
 
 struct AddDebt: View {
+    
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentationMode
-    @State private var amount: String = ""
+    @State private var amountLent: Double = 0
+    @State private var amountOwed: Double = 0
     @State private var dateTaken: Date = Date()
-    @State private var dateDue: Date = Date()
+    @State private var dateDue = Date()
     @State private var contactName: String = ""
     @State private var contactIdentifier: String = ""
-    @State private var isReminderSet: Bool = false
-    @State private var isDebtOwedToMe: Bool = true
+    @State private var isReminderSet = false
+    
     @State private var showContactPicker = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
-                Section(header: Text("Детали долга")) {
-                    TextField("Сумма", text: $amount)
-                        .keyboardType(.decimalPad)
-
-                    DatePicker("Дата взятия", selection: $dateTaken, displayedComponents: .date)
-
-                    DatePicker("Дата возврата", selection: $dateDue, displayedComponents: .date)
-
-                    Toggle(isOn: $isReminderSet) {
-                        Text("Установить напоминание")
-                    }
+                Section(header: Text("Сколько взяли")) {
+                    TextField("100", value: $amountLent, formatter: NumberFormatter())
+                        .keyboardType(.numberPad)
                 }
+                Section(header: Text("Сколько вернёте")) {
+                    TextField("105", value: $amountOwed, formatter: NumberFormatter())
+                        .keyboardType(.numberPad)
+                }
+                Section(header: Text("Даты")) {
+                    DatePicker("Когда взяли", selection: $dateTaken, displayedComponents: .date)
 
+                    DatePicker("Когда вернёте", selection: $dateDue, displayedComponents: .date)
+
+                    
+                }
+                
                 Section(header: Text("Контакт")) {
                     TextField("Контакт", text: $contactName)
                         .disabled(true)
-
+                    
                     Button("Выбрать контакт") {
                         showContactPicker = true
                     }
+                    
                 }
-
-                Section {
-                    Picker("Тип долга", selection: $isDebtOwedToMe) {
-                        Text("Мне должны").tag(true)
-                        Text("Я должен").tag(false)
-                    }.pickerStyle(SegmentedPickerStyle())
+                Toggle(isOn: $isReminderSet) {
+                    Text("Установить напоминание")
                 }
+                
             }
             .navigationBarTitle("Добавить долг", displayMode: .inline)
             .navigationBarItems(leading: Button("Отмена") {
                 presentationMode.wrappedValue.dismiss()
             }, trailing: Button("Сохранить") {
-                saveDebt()
+                DataController().addDebt(amountLent: amountLent, amountOwed: amountOwed, dateTaken: dateTaken, dateDue: dateDue, contactName: contactName, contactIdentifier: contactIdentifier, isReminderSet: isReminderSet, context: managedObjectContext)
+                DataController().addIncome(name: "Взял в долг у \(contactName)", category: "Долг", amount: amountLent, date: dateTaken, context: managedObjectContext)
                 presentationMode.wrappedValue.dismiss()
             })
             .sheet(isPresented: $showContactPicker) {
@@ -66,61 +70,37 @@ struct AddDebt: View {
         }
     }
 
-    private func saveDebt() {
-        guard let amountDouble = Double(amount) else { return }
+    
+}
 
-        let newDebt = Debt(context: managedObjectContext)
-        newDebt.id = UUID()
-        newDebt.amount = amountDouble
-        newDebt.dateTaken = dateTaken
-        newDebt.dateDue = dateDue
-        newDebt.contactName = contactName
-        newDebt.contactIdentifier = contactIdentifier
-        newDebt.isReminderSet = isReminderSet
-        newDebt.isDebtOwedToMe = isDebtOwedToMe
+struct ContactPickerView: UIViewControllerRepresentable {
+    @Binding var contactName: String
+    @Binding var contactIdentifier: String
+    
+    class Coordinator: NSObject, CNContactPickerDelegate {
+        var parent: ContactPickerView
 
-        if isReminderSet {
-            addReminder(name: "Возврат долга: \(contactName)", date: dateDue, context: managedObjectContext)
+        init(parent: ContactPickerView) {
+            self.parent = parent
         }
 
-        do {
-            try managedObjectContext.save()
-        } catch {
-            print("Ошибка сохранения долга: \(error.localizedDescription)")
+        func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+            parent.contactName = "\(contact.givenName) \(contact.familyName)"
+            parent.contactIdentifier = contact.identifier
         }
     }
-
-    private func addReminder(name: String, date: Date, context: NSManagedObjectContext) {
-        let reminder = Reminder(context: context)
-        reminder.id = UUID()
-        reminder.name = name
-        reminder.date = date
-
-        do {
-            try context.save()
-            scheduleNotification(for: reminder)
-        } catch {
-            print("Ошибка сохранения напоминания: \(error.localizedDescription)")
-        }
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(parent: self)
     }
 
-    private func scheduleNotification(for reminder: Reminder) {
-        let content = UNMutableNotificationContent()
-        content.title = "Напоминание"
-        content.body = reminder.name ?? ""
-        content.sound = UNNotificationSound.default
-
-        let triggerDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: reminder.date ?? Date())
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print("Ошибка планирования уведомления: \(error.localizedDescription)")
-            }
-        }
+    func makeUIViewController(context: Context) -> CNContactPickerViewController {
+        let picker = CNContactPickerViewController()
+        picker.delegate = context.coordinator
+        return picker
     }
+
+    func updateUIViewController(_ uiViewController: CNContactPickerViewController, context: Context) {}
 }
 
 

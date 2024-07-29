@@ -1,10 +1,3 @@
-//
-//  ListOfExpensesCategories.swift
-//  CashFlow
-//
-//  Created by Паша on 3.05.24.
-//
-
 import SwiftUI
 
 struct ListOfExpensesCategories: View {
@@ -18,26 +11,34 @@ struct ListOfExpensesCategories: View {
     @State private var selectedPeriod: Period = .today
     @State private var startDate = Date()
     @State private var endDate = Date()
-    @State private var filteredExpenses: [Expense] = []
-    
+    @State private var filteredExpenses: [Expense] = [] // Хранение фильтрованных расходов
+
+    // Новая переменная состояния для строки поиска
+    @State private var searchText = ""
+
     var body: some View {
         VStack(alignment: .leading) {
+            period()
+                .foregroundColor(.gray)
+                .padding(.horizontal)
             Text("Категория - \(category.name ?? "")")
                 .foregroundColor(.gray)
                 .padding(.horizontal)
+            
+            // Добавление строки поиска
             List {
                 ForEach(filteredExpenses) { expense in
                     if expense.category == category.name {
                         NavigationLink(destination: EditExpenseView(expense: expense)) {
                             HStack {
                                 VStack(alignment: .leading, spacing: 6) {
-                                    Text(expense.name!)
+                                    Text(expense.name ?? "")
                                         .bold()
                                     
-                                    Text("\(Int(expense.amount)) \(settings.selectedCurrency.sign)").foregroundColor(.red)
+                                    Text("\(String(format: "%.2f", expense.amount)) \(settings.selectedCurrency.sign)").foregroundColor(.red)
                                 }
                                 Spacer()
-                                Text(calcTimeSince(date: expense.date!))
+                                Text(calcTimeSince(date: expense.date ?? Date()))
                                     .foregroundColor(.gray)
                                     .italic()
                             }
@@ -47,6 +48,7 @@ struct ListOfExpensesCategories: View {
                 .onDelete(perform: deleteExpense)
             }
             .listStyle(.plain)
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always)) // Добавление свойства searchable
         }
         .navigationBarTitle("Расходы", displayMode: .large)
         .toolbar {
@@ -59,7 +61,7 @@ struct ListOfExpensesCategories: View {
             }
         }
         .sheet(isPresented: $showingAddView) {
-            AddExpenseView(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))
+            AddExpenseView()
         }
         .navigationViewStyle(.stack)
         .onAppear {
@@ -68,36 +70,64 @@ struct ListOfExpensesCategories: View {
             loadUserDefaults()
             updateFilteredExpenses()
         }
+        .onChange(of: searchText) { _ in
+            updateFilteredExpenses()
+        }
     }
-    
+
     private func deleteExpense(offsets: IndexSet) {
         withAnimation {
             offsets.map { expenses[$0] }.forEach(managedObjContext.delete)
-            
             DataController().save(context: managedObjContext)
         }
     }
-    
+
     private func updateFilteredExpenses() {
         let (adjustedStartDate, adjustedEndDate) = startDate <= endDate ? (startDate, endDate) : (endDate, startDate)
         
+        var expensesToFilter = Array(expenses)
+
+        // Фильтрация расходов по строке поиска
+        if !searchText.isEmpty {
+            expensesToFilter = expensesToFilter.filter { $0.name?.lowercased().contains(searchText.lowercased()) ?? false }
+        }
+        
         switch selectedPeriod {
         case .today:
-            let startDate = Calendar.current.startOfDay(for: Date()) // Начало сегодняшнего дня
-            let endDate = Calendar.current.date(byAdding: .day, value: 1, to: startDate)! // Конец сегодняшнего дня
-            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startDate, and: endDate) }
+            let startDate = Calendar.current.startOfDay(for: Date())
+            let endDate = Calendar.current.date(byAdding: .day, value: 1, to: startDate)!
+            filteredExpenses = expensesToFilter.filter { ($0.date ?? Date()).isBetween(startDate, and: endDate) }
         case .allTime:
-            filteredExpenses = Array(expenses)
+            filteredExpenses = expensesToFilter
         case .lastMonth:
             guard let startOfMonth = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Date())) else { return }
-            let endOfMonth = Calendar.current.startOfDay(for: Date()) // Начало сегодняшнего дня
+            let endOfMonth = Calendar.current.startOfDay(for: Date())
             let endOfMonth1 = Calendar.current.date(byAdding: .day, value: 1, to: endOfMonth)!
-            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(startOfMonth, and: endOfMonth1) }
+            filteredExpenses = expensesToFilter.filter { ($0.date ?? Date()).isBetween(startOfMonth, and: endOfMonth1) }
         case .custom:
-            filteredExpenses = expenses.filter { ($0.date ?? Date()).isBetween(adjustedStartDate, and: adjustedEndDate) }
+            filteredExpenses = expensesToFilter.filter { ($0.date ?? Date()).isBetween(adjustedStartDate, and: adjustedEndDate) }
         }
     }
-    
+
+    func period() -> Text {
+        let (_, _) = startDate <= endDate ? (startDate, endDate) : (endDate, startDate)
+        
+        switch selectedPeriod {
+        case .today:
+            return Diagram().dateForToday()
+        case .allTime:
+            return Text("Весь период")
+        case .lastMonth:
+            return Diagram().dateForMonth()
+        case .custom:
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "d MMMM yyyy"
+            let startDate1 = dateFormatter.string(from: startDate)
+            let endDate1 = dateFormatter.string(from: endDate)
+            return Text("С \(startDate1) по \(endDate1)")
+        }
+    }
+
     private func loadUserDefaults() {
         if let periodString = UserDefaults.standard.string(forKey: "selectedPeriod"),
            let period = Period(rawValue: periodString) {

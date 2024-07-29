@@ -334,14 +334,14 @@ struct Diagram: View {
         return amount
     }
     
-    private func dateForToday() -> Text {
+    func dateForToday() -> Text {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d MMMM yyyy"
         let formattedDate = dateFormatter.string(from: Date())
         return Text(formattedDate)
     }
 
-    private func dateForMonth() -> Text {
+    func dateForMonth() -> Text {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "LLLL"
         let formattedDate = dateFormatter.string(from: Date())

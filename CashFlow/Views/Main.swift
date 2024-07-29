@@ -146,7 +146,6 @@ struct ExchangeRateWidget: View {
 
 struct Main: View {
     @Environment(\.managedObjectContext) var managedObjContext
-    @FetchRequest var category: FetchedResults<Category>
     
     @State private var showingAddView = false
     
@@ -270,7 +269,7 @@ struct Main: View {
                     }
                     Divider()
                     
-                    NavigationLink(destination: ListOfCategories(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil))) {
+                    NavigationLink(destination: ListOfCategories()) {
                         HStack {
                             Image("category")
                                 .resizable()
@@ -325,7 +324,7 @@ struct Main: View {
 struct Main_Previews: PreviewProvider {
     static var previews: some View {
         let selectedView = Binding.constant(1)
-        return Main(category: FetchRequest(entity: Category.entity(), sortDescriptors: [], predicate: nil), selectedView: selectedView)
+        return Main(selectedView: selectedView)
     }
 }
 

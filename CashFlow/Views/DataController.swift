@@ -92,7 +92,7 @@ class DataController : ObservableObject {
         save(context: context)
     }
     
-    func addReminder (name:String, date: Date, context: NSManagedObjectContext) {
+    func addReminder (name: String, date: Date, context: NSManagedObjectContext) {
         let reminder = Reminder(context: context)
         reminder.id = UUID()
         reminder.name = name
@@ -114,6 +114,50 @@ class DataController : ObservableObject {
         reminder.date = date
         
         save(context: context)
+    }
+    
+    func addDebt(amountLent: Double, amountOwed: Double, dateTaken: Date, dateDue: Date, contactName: String, contactIdentifier: String, isReminderSet: Bool, context: NSManagedObjectContext) {
+        let newDebt = Debt(context: context)
+        newDebt.id = UUID()
+        newDebt.amountLent = amountLent
+        newDebt.amountOwed = amountOwed
+        newDebt.dateTaken = dateTaken
+        newDebt.dateDue = dateDue
+        newDebt.contactName = contactName
+        newDebt.contactIdentifier = contactIdentifier
+        newDebt.isReminderSet = isReminderSet
+
+        if isReminderSet {
+            addReminder(name: "Возврат долга \(contactName) - \(Int(amountOwed))", date: dateDue, context: context)
+        }
+
+        do {
+            try context.save()
+        } catch {
+            print("Ошибка сохранения долга: \(error.localizedDescription)")
+        }
+    }
+    
+    func addLent(amountLent: Double, amountOwed: Double, dateTaken: Date, dateDue: Date, contactName: String, contactIdentifier: String, isReminderSet: Bool, context: NSManagedObjectContext) {
+        let lent = Lent(context: context)
+        lent.id = UUID()
+        lent.amountLent = amountLent
+        lent.amountOwed = amountOwed
+        lent.dateTaken = dateTaken
+        lent.dateDue = dateDue
+        lent.contactName = contactName
+        lent.contactIdentifier = contactIdentifier
+        lent.isReminderSet = isReminderSet
+
+        if isReminderSet {
+            addReminder(name: "Возврат долга от \(contactName) - \(Int(amountOwed))", date: dateDue, context: context)
+        }
+
+        do {
+            try context.save()
+        } catch {
+            print("Ошибка сохранения долга: \(error.localizedDescription)")
+        }
     }
     
     func getCurrentBalanceString(context: NSManagedObjectContext) -> String {
