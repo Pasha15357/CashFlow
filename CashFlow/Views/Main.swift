@@ -305,6 +305,24 @@ struct Main: View {
                     }
                     Divider()
                     
+                    NavigationLink(destination: Debts()) {
+                        HStack {
+                            Image("debts")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 35, height: 35)
+                            Text("Долги")
+                                .bold()
+                                .foregroundColor(Color("black_white"))
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.gray)
+                        }
+                        .padding(.vertical, 10)
+                        .padding(.horizontal, 20)
+                    }
+                    Divider()
+                    
                 }
                 .navigationTitle("Главная")
                 .sheet(isPresented: $showingAddView) {

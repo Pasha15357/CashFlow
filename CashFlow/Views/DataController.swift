@@ -13,6 +13,8 @@ import CoreData
 class DataController : ObservableObject {
     let container = NSPersistentContainer(name: "DataModel")
     @Environment(\.managedObjectContext) var managedObjContext
+    @StateObject var settings = Settings1() // Создаем экземпляр Settings
+
 
     
     init() {
@@ -116,7 +118,7 @@ class DataController : ObservableObject {
         save(context: context)
     }
     
-    func addDebt(amountLent: Double, amountOwed: Double, dateTaken: Date, dateDue: Date, contactName: String, contactIdentifier: String, isReminderSet: Bool, context: NSManagedObjectContext) {
+    func addDebt(amountLent: Double, amountOwed: Double, dateTaken: Date, dateDue: Date, contactName: String, contactIdentifier: String, contactPhoneNumber: String, isReminderSet: Bool, context: NSManagedObjectContext) {
         let newDebt = Debt(context: context)
         newDebt.id = UUID()
         newDebt.amountLent = amountLent
@@ -125,10 +127,11 @@ class DataController : ObservableObject {
         newDebt.dateDue = dateDue
         newDebt.contactName = contactName
         newDebt.contactIdentifier = contactIdentifier
+        newDebt.contactPhoneNumber = contactPhoneNumber
         newDebt.isReminderSet = isReminderSet
 
         if isReminderSet {
-            addReminder(name: "Возврат долга \(contactName) - \(Int(amountOwed))", date: dateDue, context: context)
+            addReminder(name: "Вернуть долг \(contactName) - \(Int(amountOwed)) \(settings.selectedCurrency.sign)", date: dateDue, context: context)
         }
 
         do {
@@ -138,7 +141,28 @@ class DataController : ObservableObject {
         }
     }
     
-    func addLent(amountLent: Double, amountOwed: Double, dateTaken: Date, dateDue: Date, contactName: String, contactIdentifier: String, isReminderSet: Bool, context: NSManagedObjectContext) {
+    func editDebt(debt: Debt, amountLent: Double, amountOwed: Double, dateTaken: Date, dateDue: Date, contactName: String, contactIdentifier: String, contactPhoneNumber: String, isReminderSet: Bool, context: NSManagedObjectContext) {
+        debt.amountLent = amountLent
+        debt.amountOwed = amountOwed
+        debt.dateTaken = dateTaken
+        debt.dateDue = dateDue
+        debt.contactName = contactName
+        debt.contactIdentifier = contactIdentifier
+        debt.contactPhoneNumber = contactPhoneNumber
+        debt.isReminderSet = isReminderSet
+
+        if isReminderSet {
+            addReminder(name: "Вернуть долг \(contactName) - \(Int(amountOwed)) \(settings.selectedCurrency.sign)", date: dateDue, context: context)
+        }
+
+        do {
+            try context.save()
+        } catch {
+            print("Ошибка сохранения долга: \(error.localizedDescription)")
+        }
+    }
+    
+    func addLent(amountLent: Double, amountOwed: Double, dateTaken: Date, dateDue: Date, contactName: String, contactIdentifier: String, contactPhoneNumber: String, isReminderSet: Bool, context: NSManagedObjectContext) {
         let lent = Lent(context: context)
         lent.id = UUID()
         lent.amountLent = amountLent
@@ -147,10 +171,32 @@ class DataController : ObservableObject {
         lent.dateDue = dateDue
         lent.contactName = contactName
         lent.contactIdentifier = contactIdentifier
+        lent.contactPhoneNumber = contactPhoneNumber
         lent.isReminderSet = isReminderSet
 
         if isReminderSet {
-            addReminder(name: "Возврат долга от \(contactName) - \(Int(amountOwed))", date: dateDue, context: context)
+            addReminder(name: "Возврат долга от \(contactName) - \(Int(amountOwed)) \(settings.selectedCurrency.sign)", date: dateDue, context: context)
+        }
+
+        do {
+            try context.save()
+        } catch {
+            print("Ошибка сохранения долга: \(error.localizedDescription)")
+        }
+    }
+    
+    func editLent(lent: Lent, amountLent: Double, amountOwed: Double, dateTaken: Date, dateDue: Date, contactName: String, contactIdentifier: String, contactPhoneNumber: String, isReminderSet: Bool, context: NSManagedObjectContext) {
+         lent.amountLent = amountLent
+         lent.amountOwed = amountOwed
+         lent.dateTaken = dateTaken
+         lent.dateDue = dateDue
+         lent.contactName = contactName
+         lent.contactIdentifier = contactIdentifier
+         lent.contactPhoneNumber = contactPhoneNumber
+         lent.isReminderSet = isReminderSet
+
+        if isReminderSet {
+            addReminder(name: "Возврат долга от \(contactName) - \(Int(amountOwed)) \(settings.selectedCurrency.sign)", date: dateDue, context: context)
         }
 
         do {

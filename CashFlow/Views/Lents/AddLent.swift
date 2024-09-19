@@ -19,6 +19,7 @@ struct AddLent: View {
     @State private var dateDue = Date()
     @State private var contactName: String = ""
     @State private var contactIdentifier: String = ""
+    @State private var contactPhoneNumber: String = ""
     @State private var isReminderSet = false
     
     @State private var showContactPicker = false
@@ -42,14 +43,17 @@ struct AddLent: View {
                 }
                 
                 Section(header: Text("Контакт")) {
-                    TextField("Контакт", text: $contactName)
-                        .disabled(true)
+                    TextField("Имя человека", text: $contactName)
+                        
+                    
+                    TextField("Номер телефона", text: $contactPhoneNumber)
                     
                     Button("Выбрать контакт") {
                         showContactPicker = true
                     }
                     
                 }
+                
                 Toggle(isOn: $isReminderSet) {
                     Text("Установить напоминание")
                 }
@@ -59,12 +63,12 @@ struct AddLent: View {
             .navigationBarItems(leading: Button("Отмена") {
                 presentationMode.wrappedValue.dismiss()
             }, trailing: Button("Сохранить") {
-                DataController().addLent(amountLent: amountLent, amountOwed: amountOwed, dateTaken: dateTaken, dateDue: dateDue, contactName: contactName, contactIdentifier: contactIdentifier, isReminderSet: isReminderSet, context: managedObjectContext)
+                DataController().addLent(amountLent: amountLent, amountOwed: amountOwed, dateTaken: dateTaken, dateDue: dateDue, contactName: contactName, contactIdentifier: contactIdentifier, contactPhoneNumber: contactPhoneNumber, isReminderSet: isReminderSet, context: managedObjectContext)
                 DataController().addExpense(name: "Дал в долг \(contactName)", category: "Долг", amount: amountLent, date: dateTaken, context: managedObjectContext)
                 presentationMode.wrappedValue.dismiss()
             })
             .sheet(isPresented: $showContactPicker) {
-                ContactPickerView(contactName: $contactName, contactIdentifier: $contactIdentifier)
+                ContactPickerView(contactName: $contactName, contactIdentifier: $contactIdentifier, contactPhoneNumber: $contactPhoneNumber)          
             }
         }
     }

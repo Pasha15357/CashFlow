@@ -35,6 +35,7 @@
 		1BA1E3222C57C84700B37F11 /* AddLent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1E3212C57C84700B37F11 /* AddLent.swift */; };
 		1BA1E3242C57C85300B37F11 /* Lents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1E3232C57C85300B37F11 /* Lents.swift */; };
 		1BA1E3262C57C85D00B37F11 /* EditLent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1E3252C57C85D00B37F11 /* EditLent.swift */; };
+		1BA1E32A2C597C8800B37F11 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1E3292C597C8800B37F11 /* Toast.swift */; };
 		1BC3BADC2BBF26C300F1B3D9 /* Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */; };
 		1BC49F582BE39B9000A6A9E8 /* ListOfReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC49F572BE39B9000A6A9E8 /* ListOfReminders.swift */; };
 		1BC49F5B2BE39BCF00A6A9E8 /* AddReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC49F5A2BE39BCF00A6A9E8 /* AddReminder.swift */; };
@@ -83,6 +84,7 @@
 		1BA1E3212C57C84700B37F11 /* AddLent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLent.swift; sourceTree = "<group>"; };
 		1BA1E3232C57C85300B37F11 /* Lents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lents.swift; sourceTree = "<group>"; };
 		1BA1E3252C57C85D00B37F11 /* EditLent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLent.swift; sourceTree = "<group>"; };
+		1BA1E3292C597C8800B37F11 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		1BC3BADB2BBF26C300F1B3D9 /* Diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagram.swift; sourceTree = "<group>"; };
 		1BC49F572BE39B9000A6A9E8 /* ListOfReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfReminders.swift; sourceTree = "<group>"; };
 		1BC49F5A2BE39BCF00A6A9E8 /* AddReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminder.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				1B787BA92BF7F70C00BF8943 /* Widget1.swift */,
 				1B787BAB2BFBD3DE00BF8943 /* Widget2.swift */,
 				1B787BAD2BFBD3E800BF8943 /* Widget3.swift */,
+				1BA1E3292C597C8800B37F11 /* Toast.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				1BDFE6E22B0E32B0003E45E1 /* ContentView.swift in Sources */,
 				1B787BA82BF7D02A00BF8943 /* Export.swift in Sources */,
 				1BA1E31A2C34CC3F00B37F11 /* AddDebt.swift in Sources */,
+				1BA1E32A2C597C8800B37F11 /* Toast.swift in Sources */,
 				1B787BB22C0E762C00BF8943 /* ListOfIncomesCategories.swift in Sources */,
 				1BA1E3242C57C85300B37F11 /* Lents.swift in Sources */,
 				1BDFE7122B0F9AD8003E45E1 /* Settings.swift in Sources */,

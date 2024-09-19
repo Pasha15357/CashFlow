@@ -56,7 +56,7 @@ struct CategoriesExpenses: View {
                     Text("Итого:")
                         .bold()
                     Spacer()
-                    Text("\(settings.selectedCurrency.sign)\(String(format: "%.2f", totalExpenses()))")
+                    Text("\(String(format: "%.2f", totalExpenses())) \(settings.selectedCurrency.sign)")
                         .foregroundColor(.red)
                     Spacer()
                         .frame(width: 18)

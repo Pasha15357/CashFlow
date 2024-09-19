@@ -13,6 +13,7 @@
         <attribute name="amountOwed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="contactIdentifier" optional="YES" attributeType="String"/>
         <attribute name="contactName" optional="YES" attributeType="String"/>
+        <attribute name="contactPhoneNumber" optional="YES" attributeType="String"/>
         <attribute name="dateDue" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="dateTaken" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -37,6 +38,7 @@
         <attribute name="amountOwed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="contactIdentifier" optional="YES" attributeType="String"/>
         <attribute name="contactName" optional="YES" attributeType="String"/>
+        <attribute name="contactPhoneNumber" optional="YES" attributeType="String"/>
         <attribute name="dateDue" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="dateTaken" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>

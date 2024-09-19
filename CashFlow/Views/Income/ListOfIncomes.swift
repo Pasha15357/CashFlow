@@ -29,7 +29,7 @@ struct ListOfIncomes: View {
                         NavigationLink(destination: EditIncomeView(income: income)) {
                             HStack {
                                 VStack(alignment: .leading, spacing: 6) {
-                                    Text(income.name!)
+                                    Text(income.name ?? "")
                                         .bold()
                                     Text("\(String(format: "%.2f", income.amount)) \(settings.selectedCurrency.sign)").foregroundColor(.green)
                                     HStack {
