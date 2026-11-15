@@ -1,5 +1,5 @@
 //
-//  Registration1.swift
+//  Registration.swift
 //  CashFlow
 //
 //  Created by Паша on 29.02.24.
@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import AuthenticationServices
 
-struct Registration1: View {
+struct Registration: View {
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     
     var body: some View {
@@ -533,5 +533,5 @@ struct ImagePicker: UIViewControllerRepresentable {
 
 
 #Preview {
-    Registration1()
+    Registration()
 }
