@@ -126,7 +126,7 @@ struct Diagram: View {
                             .bold()
                     }
                     .frame(maxWidth: .infinity, alignment: .leading) // Выравнивание текста по левому краю
-
+                    
                     // Панель с переключателями для расходов
                     Picker("Period", selection: $selectedPeriod) {
                         ForEach(Period.allCases, id: \.self) { period in
@@ -173,37 +173,49 @@ struct Diagram: View {
                                 .labelsHidden() // Убирает текстовую метку над DatePicker
                         }
                     }
-                    VStack(alignment: .leading) { // Выравнивание содержимого по левому краю
-                        NavigationLink(destination: CategoriesExpenses()) {
-                            VStack {
-                                Chart(filteredExpenses.map { expense in
-                                    ExpenseData(name: expense.name ?? "", amount: Int(expense.amount), category: expense.category ?? "")
-                                }, id: \.name) { expense in
-                                    if #available(iOS 17.0, *) {
-                                        SectorMark(
-                                            angle: .value("Macros", expense.amount),
-                                            innerRadius: .ratio(0.618),
-                                            angularInset: 1.5
-                                        )
-                                        .cornerRadius(4)
-                                        .foregroundStyle(by: .value("Name", expense.category))
-                                    } else {
-                                        // Fallback on earlier versions
-                                    }
-                                }
-                                .frame(height: 300)
-                                .chartXAxis {
-                                    AxisMarks(position: .bottom, values: .stride(by: 1)) { value in
-                                        AxisValueLabel()
-                                    }
-                                }
-                                .chartXAxis(.hidden)
-                            }
+                    if filteredExpenses.isEmpty {
+                        VStack {
+                            Spacer()
+                            Text("Нет расходов")
+                                .font(.title)
+                                .foregroundColor(.gray)
+                                .padding()
+                            Spacer()
                         }
-                        .font(.title)
-                        .fontWeight(.bold) // Установка жирного шрифта
+                        .frame(height: 300) // Задаёт высоту для VStack
+                    } else {
+                        VStack(alignment: .leading) { // Выравнивание содержимого по левому краю
+                            NavigationLink(destination: CategoriesExpenses()) {
+                                VStack {
+                                    Chart(filteredExpenses.map { expense in
+                                        ExpenseData(name: expense.name ?? "", amount: Int(expense.amount), category: expense.category ?? "")
+                                    }, id: \.name) { expense in
+                                        if #available(iOS 17.0, *) {
+                                            SectorMark(
+                                                angle: .value("Macros", expense.amount),
+                                                innerRadius: .ratio(0.618),
+                                                angularInset: 1.5
+                                            )
+                                            .cornerRadius(4)
+                                            .foregroundStyle(by: .value("Name", expense.category))
+                                        } else {
+                                            // Fallback on earlier versions
+                                        }
+                                    }
+                                    .frame(height: 300)
+                                    .chartXAxis {
+                                        AxisMarks(position: .bottom, values: .stride(by: 1)) { value in
+                                            AxisValueLabel()
+                                        }
+                                    }
+                                    .chartXAxis(.hidden)
+                                }
+                            }
+                            .font(.title)
+                            .fontWeight(.bold) // Установка жирного шрифта
+                        }
                     }
-
+                    
                     // Доходы
                     HStack {
                         Text("Доходы -")
@@ -216,7 +228,7 @@ struct Diagram: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading) // Выравнивание текста по левому краю
                     .padding(.top, 20)
-
+                    
                     // Панель с переключателями для доходов
                     Picker("Income Period", selection: $incomeSelectedPeriod) {
                         ForEach(Period.allCases, id: \.self) { period in
@@ -263,6 +275,17 @@ struct Diagram: View {
                                 .labelsHidden() // Убирает текстовую метку над DatePicker
                         }
                     }
+                    if filteredIncomes.isEmpty {
+                        VStack {
+                            Spacer()
+                            Text("Нет доходов")
+                                .font(.title)
+                                .foregroundColor(.gray)
+                                .padding()
+                            Spacer()
+                        }
+                        .frame(height: 300) // Задаёт высоту для VStack
+                    } else {
                     VStack(alignment: .leading) { // Выравнивание содержимого по левому краю
                         NavigationLink(destination: CategoriesIncomes()) {
                             VStack {
@@ -293,6 +316,7 @@ struct Diagram: View {
                         .font(.title)
                         .fontWeight(.bold) // Установка жирного шрифта
                     }
+                }
                     
                 }
                 .navigationBarTitle("Статистика", displayMode: .inline)

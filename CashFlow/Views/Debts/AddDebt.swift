@@ -28,12 +28,12 @@ struct AddDebt: View {
         NavigationStack {
             Form {
                 Section(header: Text("Сколько взяли")) {
-                    TextField("100", value: $amountLent, formatter: NumberFormatter())
-                        .keyboardType(.numberPad)
+                    TextField("100", value: $amountLent, formatter: AddIncomeView().formatter)
+                        .keyboardType(.decimalPad)
                 }
                 Section(header: Text("Сколько вернёте")) {
-                    TextField("105", value: $amountOwed, formatter: NumberFormatter())
-                        .keyboardType(.numberPad)
+                    TextField("105", value: $amountOwed, formatter: AddIncomeView().formatter)
+                        .keyboardType(.decimalPad)
                 }
                 Section(header: Text("Даты")) {
                     DatePicker("Когда взяли", selection: $dateTaken, displayedComponents: .date)
@@ -59,7 +59,7 @@ struct AddDebt: View {
                 }
                 
             }
-            .navigationBarTitle("Добавить долг", displayMode: .inline)
+            .navigationBarTitle("Добавить долг")
             .navigationBarItems(leading: Button("Отмена") {
                 presentationMode.wrappedValue.dismiss()
             }, trailing: Button("Сохранить") {

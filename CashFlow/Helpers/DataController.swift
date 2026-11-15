@@ -298,6 +298,26 @@ class DataController : ObservableObject {
                 return []
             }
         }
+    
+    func editSubscription(subscription: Subscription, name: String, service: String, serviceIcon: String, paymentFrequency: String, duration: Int, startDate: Date, isReminderSet: Bool, context: NSManagedObjectContext) {
+        subscription.name = name
+        subscription.service = service
+        subscription.serviceIcon = serviceIcon
+        subscription.paymentFrequency = paymentFrequency
+        subscription.duration = Int16(duration)
+        subscription.startDate = startDate
+        subscription.isReminderSet = isReminderSet
+
+        if isReminderSet {
+            addReminder(name: "Подписка на \(service)", date: startDate, context: context)
+        }
+
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save subscription: \(error.localizedDescription)")
+        }
+    }
 }
 
 

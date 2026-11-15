@@ -28,7 +28,7 @@ struct EditExpenseView: View {
         VStack {
             Form {
                 Section(header: Text("Название расхода")) {
-                    TextField("\(expense.name!)", text: $name)
+                    TextField("\(expense.name)", text: $name)
                 }
                 Section(header: Text("Категория расхода"))  {
                     Menu {
@@ -47,8 +47,8 @@ struct EditExpenseView: View {
                 }
                 
                 Section(header: Text("Сумма расхода (\(settings.selectedCurrency.sign))")) {
-                    TextField("Стоимость", value: $amount, formatter: NumberFormatter())
-                        .keyboardType(.numberPad)
+                    TextField("Стоимость", value: $amount, formatter: AddIncomeView().formatter)
+                        .keyboardType(.decimalPad)
                 }
                 
                 Section(header: Text("Дата расхода")) {
@@ -64,6 +64,23 @@ struct EditExpenseView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .center) // Центрируем кнопку
+                
+                Section {
+                    Button("Удалить") {
+                        // Удаляем выбранный долг из базы данных
+                        managedObjContext.delete(expense)
+                        
+                        // Сохраняем изменения
+                        do {
+                            try managedObjContext.save()
+                        } catch {
+                            print("Ошибка при сохранении контекста: \(error)")
+                        }
+                        dismiss()
+                    }
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity, alignment: .center) // Центрируем кнопку
+                }
 
             }
             .onAppear {

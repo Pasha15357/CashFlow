@@ -15,40 +15,69 @@ struct ListOfIncomes: View {
     
     @State private var showingAddView = false
     @StateObject var settings = Settings1() // Создаем экземпляр Settings
+    @State private var sortOption: String = "date_desc"
 
     @State private var searchText = ""
 
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("\(String(format: "%.2f",totalIncomesToday())) \(settings.selectedCurrency.sign) за сегодня")
-                    .foregroundColor(.gray)
+                if filteredIncomes.isEmpty {
+                    VStack {
+                        Spacer()
+                        Text("Нет расходов")
+                            .font(.title)
+                            .foregroundColor(.gray)
+                            .padding()
+                        Spacer()
+                    }
+                }
+                else {
+                    HStack {
+                        Text("\(String(format: "%.2f", totalIncomesToday())) \(settings.selectedCurrency.sign) за сегодня")
+                            .foregroundColor(.gray)
+
+                        Spacer()
+
+                        Picker("Сортировка", selection: $sortOption) {
+                            Text("По дате ↓").tag("date_desc")
+                            Text("По дате ↑").tag("date_asc")
+                            Text("Сумма ↓").tag("amount_desc")
+                            Text("Сумма ↑").tag("amount_asc")
+                            Text("Название A→Z").tag("name_asc")
+                            Text("Название Z→A").tag("name_desc")
+                            Text("Категория A→Z").tag("category_asc")
+                            Text("Категория Z→A").tag("category_desc")
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                    }
                     .padding(.horizontal)
-                List {
-                    ForEach(filteredIncomes) { income in
-                        NavigationLink(destination: EditIncomeView(income: income)) {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 6) {
-                                    Text(income.name ?? "")
-                                        .bold()
-                                    Text("\(String(format: "%.2f", income.amount)) \(settings.selectedCurrency.sign)").foregroundColor(.green)
-                                    HStack {
-                                        Image(systemName: "\(findCategoryImage(for: income.category ?? ""))")
-                                        Text(income.category!)
-                                            .foregroundColor(.gray)
+                    List {
+                        ForEach(filteredIncomes) { income in
+                            NavigationLink(destination: EditIncomeView(income: income)) {
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 6) {
+                                        Text(income.name ?? "")
+                                            .bold()
+                                        Text("\(String(format: "%.2f", income.amount)) \(settings.selectedCurrency.sign)").foregroundColor(.green)
+                                        HStack {
+                                            Image(systemName: "\(findCategoryImage(for: income.category ?? ""))")
+                                            Text(income.category!)
+                                                .foregroundColor(.gray)
+                                        }
                                     }
-                                } 
-                                Spacer()
-                                Text(calcTimeSince(date: income.date!))
-                                    .foregroundColor(.gray)
-                                    .italic()
+                                    Spacer()
+                                    Text(calcTimeSince(date: income.date!))
+                                        .foregroundColor(.gray)
+                                        .italic()
+                                }
                             }
                         }
+                        .onDelete(perform: deleteIncome)
                     }
-                    .onDelete(perform: deleteIncome)
+                    .listStyle(.plain)
+                    .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
                 }
-                .listStyle(.plain)
-                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
             }
             .navigationTitle("Доходы")
             .toolbar {
@@ -74,11 +103,32 @@ struct ListOfIncomes: View {
     }
     
     private var filteredIncomes: [Income] {
-        if searchText.isEmpty {
-            return income.map { $0 }
-        } else {
-            return income.filter { $0.name?.lowercased().contains(searchText.lowercased()) ?? false }
+        var list = income.map { $0 }
+
+        if !searchText.isEmpty {
+            list = list.filter { $0.name?.lowercased().contains(searchText.lowercased()) ?? false }
         }
+
+        switch sortOption {
+        case "date_asc":
+            list = list.sorted { ($0.date ?? Date()) < ($1.date ?? Date()) }
+        case "amount_desc":
+            list = list.sorted { $0.amount > $1.amount }
+        case "amount_asc":
+            list = list.sorted { $0.amount < $1.amount }
+        case "name_asc":
+            list = list.sorted { ($0.name ?? "") < ($1.name ?? "") }
+        case "name_desc":
+            list = list.sorted { ($0.name ?? "") > ($1.name ?? "") }
+        case "category_asc":
+            list = list.sorted { ($0.category ?? "") < ($1.category ?? "") }
+        case "category_desc":
+            list = list.sorted { ($0.category ?? "") > ($1.category ?? "") }
+        default:
+            list = list.sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
+        }
+
+        return list
     }
 
     private func deleteIncome(offsets: IndexSet) {

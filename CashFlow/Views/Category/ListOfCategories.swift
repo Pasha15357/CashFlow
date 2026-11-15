@@ -11,6 +11,8 @@ struct ListOfCategories: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories: FetchedResults<Category>
     @State private var showingAddView = false
+    @State private var showingBasedCategories = false
+
 
     var body: some View {
         VStack{
@@ -23,10 +25,18 @@ struct ListOfCategories: View {
                             Text(category.name!)
                                 .bold()
                         }
-                        
                     }
                 }
                 .onDelete(perform: deleteCategory)
+                HStack {
+                    Spacer()
+                    Button {
+                        showingBasedCategories.toggle()
+                    } label: {
+                        Label("Добавить готовые категории", systemImage: "tag")
+                    }
+                    Spacer()
+                }
                 HStack {
                     Spacer()
                     Button {
@@ -41,6 +51,9 @@ struct ListOfCategories: View {
         .navigationBarTitle("Категории")
         .sheet(isPresented: $showingAddView) {
             AddCategory()
+        }
+        .sheet(isPresented: $showingBasedCategories) {
+            BasedCategories()
         }
     }
     

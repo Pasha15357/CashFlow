@@ -23,6 +23,7 @@ struct EditBalance: View {
             List {
                 Section(header: Text("Баланс (\(settings.selectedCurrency.sign))")) {
                     TextField("Введите ваш баланс", text: $balanceInput)
+                    
                 }
                 Section {
                     Button("Сохранить") {

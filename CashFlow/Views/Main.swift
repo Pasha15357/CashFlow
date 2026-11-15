@@ -170,8 +170,6 @@ struct Main: View {
         NavigationStack {
             ScrollView {
                 VStack {
-                    
-                    
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
                             ForEach(sectionData) { item in
@@ -188,7 +186,9 @@ struct Main: View {
                         .padding(.bottom, 30)
                     }
                     .padding(.top, 0)
-                    
+//                    Image("no_expense")
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
                     VStack(alignment: .leading) { // Выравнивание содержимого по левому краю
                         NavigationLink(destination: Diagram()) {
                             VStack {
@@ -220,7 +220,7 @@ struct Main: View {
                         .fontWeight(.bold) // Установка жирного шрифта
                     }
                     .padding()
-                    // Виджеты курсов валют
+//                     Виджеты курсов валют
                     VStack (alignment: .leading) {
                         HStack {
                             Text("Актуальные курсы валют")

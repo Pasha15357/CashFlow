@@ -1,0 +1,43 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name YandexMobileAds
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import AVFoundation
+import CoreGraphics
+import CoreLocation
+import Foundation
+import SafariServices
+import StoreKit
+import Swift
+import UIKit
+@_exported import YandexMobileAds
+import _Concurrency
+import _StringProcessing
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(YMACacheUrlProvider) public class CacheUrlProvider : ObjectiveC.NSObject {
+  @objc override convenience dynamic public init()
+  public func cacheUrl(_ url: Foundation.URL) -> Foundation.URL
+  @objc public func fileExists(cacheUrl url: Foundation.URL) -> Swift.Bool
+  @objc deinit
+}
+public class FileDataSaver {
+  public enum FileDataSaverError : Swift.Error {
+    case emptyData
+    case writingError
+    public static func == (a: YandexMobileAds.FileDataSaver.FileDataSaverError, b: YandexMobileAds.FileDataSaver.FileDataSaverError) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public init()
+  public func save(_ data: Foundation.Data?, to cacheUrl: Foundation.URL, completion: @escaping (Swift.Result<Foundation.URL, YandexMobileAds.FileDataSaver.FileDataSaverError>) -> Swift.Void)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(YMAVideoCleaner) public class VideoCleaner : ObjectiveC.NSObject {
+  @objc public static let shared: YandexMobileAds.VideoCleaner
+  @objc override convenience dynamic public init()
+  @objc public func addToQueue(cacheUrl url: Foundation.URL)
+  @objc deinit
+}
+extension YandexMobileAds.FileDataSaver.FileDataSaverError : Swift.Equatable {}
+extension YandexMobileAds.FileDataSaver.FileDataSaverError : Swift.Hashable {}

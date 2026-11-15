@@ -3,7 +3,7 @@
 //  CashFlow
 //
 //  Created by Паша on 23.11.23.
-//
+// m-v-vm
 
 import SwiftUI
 import Foundation
@@ -163,7 +163,6 @@ struct Settings: View {
                                 convertAllAmounts(from: currentCurrency, to: selectedCurrency, context: managedObjContext)
                                 currentCurrencyIndex = newValue // Обновляем текущую валюту
                                 balanceInput = DataController().getCurrentBalanceString(context: managedObjContext)
-
                             } else {
                                 settings.showAlert = true
                                 settings.selectedCurrencyIndex = currentCurrencyIndex
@@ -224,6 +223,15 @@ struct Settings: View {
                         .frame(width: 35, height: 35)
                     Text("Долги")
                 }
+                
+                NavigationLink(destination: SubscriptionsView()) {
+                    Image("subscriptions")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 35, height: 35)
+                    Text("Подписки")
+                }
+                
                 Button(action: {
                     showingAddView.toggle()
                 }) {
@@ -395,7 +403,7 @@ struct Settings: View {
             }
         }
         
-        private func checkInternetConnection(completion: @escaping (Bool) -> Void) {
+        func checkInternetConnection(completion: @escaping (Bool) -> Void) {
             let monitor = NWPathMonitor()
             monitor.pathUpdateHandler = { path in
                 if path.status == .satisfied {

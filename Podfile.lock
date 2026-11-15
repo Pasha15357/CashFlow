@@ -1,20 +1,85 @@
 PODS:
+  - DivKit (28.4.0):
+    - DivKit_LayoutKit (= 28.4.0)
+    - DivKit_Serialization (= 28.4.0)
+    - VGSLCommonCore (~> 2.2)
+    - VGSLNetworking (~> 2.2)
+  - DivKit_LayoutKit (28.4.0):
+    - DivKit_LayoutKitInterface (= 28.4.0)
+    - VGSLCommonCore (~> 2.2)
+  - DivKit_LayoutKitInterface (28.4.0):
+    - VGSLBase (~> 2.2)
+    - VGSLBaseTiny (~> 2.2)
+    - VGSLBaseUI (~> 2.2)
+  - DivKit_Serialization (28.4.0):
+    - VGSLCommonCore (~> 2.2)
   - Google-Mobile-Ads-SDK (11.5.0):
     - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleUserMessagingPlatform (2.4.0)
+  - VGSLBase (2.3.2):
+    - VGSLBaseTiny (= 2.3.2)
+    - VGSLBaseUI (= 2.3.2)
+  - VGSLBaseTiny (2.3.2)
+  - VGSLBaseUI (2.3.2):
+    - VGSLBaseTiny (= 2.3.2)
+  - VGSLCommonCore (2.3.2):
+    - VGSLBase (= 2.3.2)
+  - VGSLNetworking (2.3.2):
+    - VGSLBase (= 2.3.2)
+  - YandexMobileAds (6.1.0):
+    - DivKit (~> 28.4.0)
+    - VGSLCommonCore (~> 2.3.0)
+    - VGSLNetworking (~> 2.3.0)
+    - YandexMobileAds/Static (= 6.1.0)
+  - YandexMobileAds/Static (6.1.0):
+    - DivKit (~> 28.4.0)
+    - VGSLCommonCore (~> 2.3.0)
+    - VGSLNetworking (~> 2.3.0)
+    - YandexMobileMetrica (< 5.0.0, >= 4.0.0)
+  - YandexMobileMetrica (4.5.2):
+    - YandexMobileMetrica/Static (= 4.5.2)
+  - YandexMobileMetrica/Static (4.5.2):
+    - YandexMobileMetrica/Static/Core (= 4.5.2)
+    - YandexMobileMetrica/Static/Crashes (= 4.5.2)
+  - YandexMobileMetrica/Static/Core (4.5.2)
+  - YandexMobileMetrica/Static/Crashes (4.5.2):
+    - YandexMobileMetrica/Static/Core
 
 DEPENDENCIES:
   - Google-Mobile-Ads-SDK
+  - YandexMobileAds (= 6.1.0)
 
 SPEC REPOS:
   trunk:
+    - DivKit
+    - DivKit_LayoutKit
+    - DivKit_LayoutKitInterface
+    - DivKit_Serialization
     - Google-Mobile-Ads-SDK
     - GoogleUserMessagingPlatform
+    - VGSLBase
+    - VGSLBaseTiny
+    - VGSLBaseUI
+    - VGSLCommonCore
+    - VGSLNetworking
+    - YandexMobileAds
+    - YandexMobileMetrica
 
 SPEC CHECKSUMS:
+  DivKit: cc7fe28ea2e948b849d8bacff278f2fbc4133edb
+  DivKit_LayoutKit: b9ef782e57a59064831de8b20ee1a4959d442da0
+  DivKit_LayoutKitInterface: e8b8f7180e60d5a7c9cff7c1a5e2f06bacbc5d51
+  DivKit_Serialization: c95552736911fb80b9a8a4e1798d795029966387
   Google-Mobile-Ads-SDK: 7db2098033ad3bfcd72a11e7503b49700a93029e
   GoogleUserMessagingPlatform: f131fa7978d2ba88d7426702b057c2cc318e6595
+  VGSLBase: 741b6dfbcf6ff252f5989025b575d5e2f61b8227
+  VGSLBaseTiny: f52f00ff854a2fc90699c41b80f1305fa9880455
+  VGSLBaseUI: b24d67d9a5e1c46ec012dafd7a7507a83d9bcaa4
+  VGSLCommonCore: 7642abb6cd6f36dac9da1e7d4284f2449d418985
+  VGSLNetworking: 720cfb23230a4dda5234aaf441dfcf48d0e45a31
+  YandexMobileAds: b4bc0e57cf0eced2b18470415544750176397968
+  YandexMobileMetrica: f5368ee93f286c793d73b58da00929babfc897c1
 
-PODFILE CHECKSUM: afa1c2bfc8fee2d1c43487a83bb8401152bdcb17
+PODFILE CHECKSUM: 0cb41b2e43d898a3201e81fd93ee5414d391d33f
 
 COCOAPODS: 1.14.3

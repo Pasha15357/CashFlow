@@ -28,11 +28,11 @@ struct AddLent: View {
             Form {
                 Section(header: Text("Сколько взял")) {
                     TextField("100", value: $amountLent, formatter: NumberFormatter())
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                 }
                 Section(header: Text("Сколько вернёт")) {
                     TextField("105", value: $amountOwed, formatter: NumberFormatter())
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                 }
                 Section(header: Text("Даты")) {
                     DatePicker("Когда взял", selection: $dateTaken, displayedComponents: .date)

@@ -79,7 +79,7 @@ struct AddExpenseView: View {
                                 }
                             }
 
-//                            dismiss()
+                            dismiss()
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .center) // Центрируем кнопку

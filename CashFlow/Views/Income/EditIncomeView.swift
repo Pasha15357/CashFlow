@@ -47,8 +47,8 @@ struct EditIncomeView: View {
                 }
                 
                 Section(header: Text("Сумма дохода (\(settings.selectedCurrency.sign))")) {
-                    TextField("Стоимость", value: $amount, formatter: NumberFormatter())
-                        .keyboardType(.numberPad)
+                    TextField("Стоимость", value: $amount, formatter: AddIncomeView().formatter)
+                        .keyboardType(.decimalPad)
                 }
                 
                 Section(header: Text("Дата расхода")) {

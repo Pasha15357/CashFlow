@@ -15,15 +15,30 @@ struct ListOfExpensesCategories: View {
 
     // Новая переменная состояния для строки поиска
     @State private var searchText = ""
+    @State private var sortOption: String = "date_desc"
 
     var body: some View {
         VStack(alignment: .leading) {
             period()
                 .foregroundColor(.gray)
                 .padding(.horizontal)
-            Text("Категория - \(category.name ?? "")")
-                .foregroundColor(.gray)
-                .padding(.horizontal)
+            HStack {
+                Text("Категория - \(category.name ?? "")")
+                    .foregroundColor(.gray)
+
+                Spacer()
+
+                Picker("", selection: $sortOption) {
+                    Text("По дате ↓").tag("date_desc")
+                    Text("По дате ↑").tag("date_asc")
+                    Text("По сумме ↓").tag("amount_desc")
+                    Text("По сумме ↑").tag("amount_asc")
+                    Text("По названию A→Я").tag("name_asc")
+                    Text("По названию Я→A").tag("name_desc")
+                }
+                .pickerStyle(MenuPickerStyle())
+            }
+            .padding(.horizontal)
             
             // Добавление строки поиска
             List {
@@ -73,6 +88,9 @@ struct ListOfExpensesCategories: View {
         .onChange(of: searchText) { _ in
             updateFilteredExpenses()
         }
+        .onChange(of: sortOption) { _ in
+            updateFilteredExpenses()
+        }
     }
 
     private func deleteExpense(offsets: IndexSet) {
@@ -106,6 +124,21 @@ struct ListOfExpensesCategories: View {
             filteredExpenses = expensesToFilter.filter { ($0.date ?? Date()).isBetween(startOfMonth, and: endOfMonth1) }
         case .custom:
             filteredExpenses = expensesToFilter.filter { ($0.date ?? Date()).isBetween(adjustedStartDate, and: adjustedEndDate) }
+        }
+        
+        switch sortOption {
+        case "date_asc":
+            filteredExpenses.sort { ($0.date ?? Date()) < ($1.date ?? Date()) }
+        case "amount_desc":
+            filteredExpenses.sort { $0.amount > $1.amount }
+        case "amount_asc":
+            filteredExpenses.sort { $0.amount < $1.amount }
+        case "name_asc":
+            filteredExpenses.sort { ($0.name ?? "") < ($1.name ?? "") }
+        case "name_desc":
+            filteredExpenses.sort { ($0.name ?? "") > ($1.name ?? "") }
+        default:
+            filteredExpenses.sort { ($0.date ?? Date()) > ($1.date ?? Date()) }
         }
     }
 

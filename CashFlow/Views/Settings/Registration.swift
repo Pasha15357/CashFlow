@@ -111,7 +111,8 @@ struct Home: View {
                 }
 
                 Section {
-                    HStack(alignment: .center) {
+                    HStack {
+                        Text("                         ")
                         Button(action: {
                             saveProfile()
                             dismiss()
@@ -122,6 +123,7 @@ struct Home: View {
                                 Text("Сохранить")
                             }
                         }
+                        
                     }
                     HStack(alignment: .center) {
                         Button(action: {
@@ -131,6 +133,7 @@ struct Home: View {
                             Text("Выйти")
                                 .foregroundColor(.red)
                         }
+                        .frame(maxWidth: .infinity, alignment: .center) // Центрируем кнопку
                     }
                 }
             }

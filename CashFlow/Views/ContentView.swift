@@ -8,6 +8,7 @@
 import SwiftUI
 import LocalAuthentication
 import GoogleMobileAds
+import YandexMobileAds
 
 
 struct ContentView: View {
@@ -17,43 +18,48 @@ struct ContentView: View {
     @State private var isAuthenticated = false
 
     var body: some View {
-//        BannerAdView()
-//                        .frame(width: UIScreen.main.bounds.width, height: GADAdSizeBanner.size.height)
-//                    Spacer()
         Group {
             if isAuthenticated || !isFaceIDOn {
-                TabView(selection: $selectedView) {
-                    Main(selectedView: $selectedView)
-                        .tabItem {
-                            Image(systemName: (self.selectedView == 1 ? "house" : "house.fill"))
-                            Text("Главная")
-                        }
-                        .tag(1)
-                    ListOfExpenses()
-                        .tabItem {
-                            Image(systemName: (self.selectedView == 2 ? "minus.rectangle" : "minus.rectangle"))
-                            Text("Расходы")
-                        }
-                        .tag(2)
-                    ListOfIncomes()
-                        .tabItem {
-                            Image(systemName: (self.selectedView == 3 ? "plus.rectangle" : "plus.rectangle"))
-                            Text("Доходы")
-                        }
-                        .tag(3)
-                    Diagram()
-                        .tabItem {
-                            Image(systemName: (self.selectedView == 4 ? "chart.bar.xaxis.ascending" : "chart.bar.xaxis.ascending"))
-                            Text("Статистика")
-                        }
-                        .tag(4)
-                    Settings()
-                        .tabItem {
-                            Image(systemName: (self.selectedView == 5 ? "gearshape" : "gearshape.fill"))
-                            Text("Настройки")
-                        }
-                        .tag(5)
+                VStack(spacing: 0) {
+                    TabView(selection: $selectedView) {
+                        Main(selectedView: $selectedView)
+                            .tabItem {
+                                Image(systemName: (self.selectedView == 1 ? "house" : "house.fill"))
+                                Text("Главная")
+                            }
+                            .tag(1)
+                        ListOfExpenses()
+                            .tabItem {
+                                Image(systemName: (self.selectedView == 2 ? "minus.rectangle" : "minus.rectangle"))
+                                Text("Расходы")
+                            }
+                            .tag(2)
+                        ListOfIncomes()
+                            .tabItem {
+                                Image(systemName: (self.selectedView == 3 ? "plus.rectangle" : "plus.rectangle"))
+                                Text("Доходы")
+                            }
+                            .tag(3)
+                        Diagram()
+                            .tabItem {
+                                Image(systemName: (self.selectedView == 4 ? "chart.bar.xaxis.ascending" : "chart.bar.xaxis.ascending"))
+                                Text("Статистика")
+                            }
+                            .tag(4)
+                        Settings()
+                            .tabItem {
+                                Image(systemName: (self.selectedView == 5 ? "gearshape" : "gearshape.fill"))
+                                Text("Настройки")
+                            }
+                            .tag(5)
+                    }
+                    BannerAdView()
+                        .frame(width: UIScreen.main.bounds.width,
+                               height: GADAdSizeBanner.size.height)
+                        .background(Color(.systemBackground))
                 }
+            
+                
             } else {
                 ZStack {
                     if isDarkModeOn {
@@ -100,6 +106,7 @@ struct ContentView: View {
                             print("Face ID authentication failed on app start")
                         }
                     }
+                    AppOpenAdManager.shared.showAdIfAvailable()
                 }
             }
         }
@@ -127,23 +134,21 @@ struct ContentView: View {
             completion(false)
         }
     }
-}
+    
+    struct BannerAdView: UIViewRepresentable {
+        func makeUIView(context: Context) -> GADBannerView {
+            let banner = GADBannerView(adSize: GADAdSizeBanner)
+            banner.adUnitID = "ca-app-pub-3940256099942544/2934735716" // тестовый ID от Google
+            banner.rootViewController = UIApplication.shared.connectedScenes
+                .compactMap { ($0 as? UIWindowScene)?.windows.first?.rootViewController }
+                .first
+            banner.load(GADRequest())
+            return banner
+        }
 
-
-struct BannerAdView: UIViewRepresentable {
-    func makeUIView(context: Context) -> GADBannerView {
-        let banner = GADBannerView(adSize: GADAdSizeBanner)
-        banner.adUnitID = "ca-app-pub-6439374118527054/1521147724" // замените на ваш идентификатор рекламного блока
-        banner.rootViewController = UIApplication.shared.windows.first?.rootViewController
-        banner.load(GADRequest())
-        return banner
+        func updateUIView(_ uiView: GADBannerView, context: Context) { }
     }
-
-    func updateUIView(_ uiView: GADBannerView, context: Context) {
-        // Обновите представление при необходимости
-    }
 }
-
 
 
 
